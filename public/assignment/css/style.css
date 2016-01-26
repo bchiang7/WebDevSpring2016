@@ -1,0 +1,83 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,900italic,900,700italic,700);
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.navbar-brand {
+    padding: 15px 30px;
+    font-size: 28px;
+}
+.navbar-inverse .navbar-brand {
+    color: #ddd;
+    text-transform: uppercase;
+}
+.navbar-right {
+    margin-right: 5px;
+}
+.nav-sidebar > li > a {
+    padding: 20px 30px;
+}
+.sidebar {
+    top: 50px;
+}
+.main {
+    padding: 40px 30px;
+}
+h1 {
+    margin: 20px 0 40px;
+}
+
+
+.form-horizontal {
+    margin-left: 3px;
+}
+.form-horizontal .control-label {
+    text-align: left;
+}
+.form-group {
+    margin-bottom: 30px;
+}
+
+.table {
+    /*width: 80%;*/
+}
+
+
+.glyphicon {
+    font-size: 20px;
+    top: 5px;
+    margin-right: 20px;
+}
+.glyphicon-triangle-bottom {
+    top: 3px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+
+
+.form-fields {
+    margin-top: 30px;
+}
+.form-fields .fields-group {
+    display: block;
+}
+.form-fields .form-group {
+    display: inline-block;
+    width: 75%;
+    margin-right: 10px;
+}
+.action-links {
+    display: inline-block;
+}
+.action-links .glyphicon {
+    margin: 0 5px 0 10px;
+}
+
+.marginTop20 {
+    margin-top: 20px;
+}

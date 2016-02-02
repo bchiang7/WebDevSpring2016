@@ -1,6 +1,50 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
-body {
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,300,700);
+html, body {
     font-family: 'Open Sans', sans-serif;
+}
+.intro-bg {
+    background: url(../../images/hbp.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#intro .intro-panel {
+    background: rgba(255, 255, 255, 0.7);
+    height: 450px;
+    top: 50px;
+    padding: 40px 30px;
+}
+#intro .intro-panel h1, #intro .intro-panel h2 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin: 0 auto 10px;
+}
+#intro .intro-panel h2 {
+    font-size: 16px;
+    color: #555;
+}
+#intro .intro-panel ul {
+    margin: 50px auto;
+    padding: 0 20px;
+}
+#intro .intro-panel ul li {
+    display: inline-block;
+    vertical-align: middle;
+}
+#intro .intro-panel ul li .fa {
+    font-size: 45px;
+    padding: 0 20px;
+}
+#intro .intro-panel ul li .fa-file-text-o {
+    /*font-size: 42px;*/
+}
+#intro .intro-panel ul li > span {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
 }
 a {
     color: #222;
@@ -9,12 +53,24 @@ a {
 a:hover {
     color: #ef283f;
 }
+p {
+    margin: 0 0 10px;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 300;
+}
 .btn, .nav-tabs>li>a, .navbar-toggle {
     border-radius: 0;
 }
 .navbar {
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-right: 20px;
+}
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding-right: 0;
+    }
 }
 .navbar-brand {
     padding: 15px 30px;
@@ -29,7 +85,7 @@ a:hover {
     background: #ef283f;
 }
 .navbar-right {
-    margin-right: 5px;
+    /*margin-right: 5px;*/
 }
 .nav-sidebar > li > a {
     padding: 20px 30px;

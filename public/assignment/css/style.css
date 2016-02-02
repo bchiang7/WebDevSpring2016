@@ -12,8 +12,11 @@ html, body {
 }
 #intro .intro-panel {
     background: rgba(255, 255, 255, 0.7);
+    width: 450px;
     height: 450px;
+    position: absolute;
     top: 50px;
+    right: 50px;
     padding: 40px 30px;
 }
 #intro .intro-panel h1, #intro .intro-panel h2 {
@@ -22,9 +25,15 @@ html, body {
     text-transform: uppercase;
     margin: 0 auto 10px;
 }
+#intro .intro-panel h1 {
+    letter-spacing: 1px;
+}
 #intro .intro-panel h2 {
     font-size: 16px;
     color: #555;
+}
+#intro .intro-links {
+    margin: 0 auto;
 }
 #intro .intro-panel ul {
     margin: 50px auto;
@@ -38,14 +47,60 @@ html, body {
     font-size: 45px;
     padding: 0 20px;
 }
-#intro .intro-panel ul li .fa-file-text-o {
-    /*font-size: 42px;*/
-}
 #intro .intro-panel ul li > span {
     display: block;
     text-align: center;
     margin-top: 10px;
 }
+
+@media screen and (max-width: 550px) {
+    #intro .intro-panel {
+        width: 85%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+    #intro .intro-panel h1 {
+        font-size: 36px;
+    }
+    #intro .intro-panel ul li .fa {
+        font-size: 36px;
+        padding: 0 20px;
+    }
+}
+@media screen and (max-width: 480px) {
+    #intro .intro-panel h1 {
+        font-size: 28px;
+    }
+    #intro .intro-panel p {
+        font-size: 16px;
+    }
+    #intro .intro-panel ul {
+        padding: 0;
+    }
+    #intro .intro-panel ul li .fa {
+        padding: 0 15px;
+    }
+}
+@media screen and (max-width: 400px) {
+    #intro .intro-panel ul {
+        margin: 15px auto;
+    }
+    #intro .intro-panel ul li .fa {
+        font-size: 30px;
+    }
+    #intro .intro-panel ul li span {
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 360px) {
+    #intro .intro-panel ul li .fa {
+        padding: 0 10px;
+    }
+}
+
+
+
 a {
     color: #222;
     text-decoration: none;
@@ -131,6 +186,16 @@ h1 {
     font-size: 20px;
     top: 5px;
     margin: 0 10px;
+}
+@media screen and (max-width: 768px) {
+    .glyphicon {
+        margin: 0 3px;
+    }
+}
+@media screen and (max-width: 550px) {
+    .glyphicon {
+        font-size: 16px;
+    }
 }
 .glyphicon-triangle-bottom {
     top: 1px;

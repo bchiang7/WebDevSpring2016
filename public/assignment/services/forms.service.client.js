@@ -3,8 +3,7 @@
         .module("FormBuilderApp")
         .factory("FormService", FormService);
 
-    function FormService() {
-
+    function FormService($rootScope) {
 
         var model = {
             forms: [{
@@ -20,6 +19,8 @@
                 "title": "CDs",
                 "userId": 234
             }, ],
+
+            findAllForms: findAllForms,
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
             createUser: createUser,
@@ -28,71 +29,59 @@
         }
         return model;
 
+        function findAllForms() {
+            return model.forms;
+        }
+
 
         function createFormForUser(userId, form, callback) {
             // Adds property called _id with unique id. You can use (new Date).getTime() to create a unique number
             // Adds property called userId equal to user id parameter
+            var form = {
+                _id: "id:"+(new Date()).getTime(),
+                title: form.title,
+                userId: userId
+            };
             // Adds new form to local array of forms
+            model.forms.push(form);
             // Calls back with new form
-
+            callback(form);
         }
 
         function findAllFormsForUser(userId, callback) {
             // Iterates over the array of current forms looking for forms whose user id is parameter user id
-            // Calls back with found forms for user id parameter, empty array otherwise
-
-            var resultArray[];
-
-            for (var i in model.forms) {
-                if (model.forms[i].userId === userId) {
-                    resultArray.push(model.forms[i]);
-                }
-            }
-            return resultArray;
-
-        }
-
-        function createUser(user, callback) {
-            // Adds property called _id with unique value to the user object parameter. You can use (new Date).getTime() to get a unique time stamp
-            // Adds the new user to local array of users
-            // Calls back with new user
-
-            var user = {
-                username: user.username,
-                password: user.password
-            };
-            model.forms.push(user);
-            return user;
+            // var resultArray[];
+            // for (var i in model.forms) {
+            //     if (model.forms[i].userId === userId) {
+            //         resultArray.push(model.forms[i]);
+            //     }
+            // }
+            // // Calls back with found forms for user id parameter, empty array otherwise
+            // return resultArray;
         }
 
         function deleteFormById(formId, callback) {
             // Iterates over array of forms looking for form whose id is form id parameter
-            // If found, removes form from current array of forms
-            // Calls back with remaining array of forms
-
             for (var i in model.forms) {
+                // If found, removes form from current array of forms
                 if (model.forms[i].formId === formId) {
                     model.forms.splice(i, 1);
-                    // delete users[i]  <--  this doesn't change the indeces of the other elements
                 }
             }
-            return model.forms;
-
+            // Calls back with remaining array of forms
+            callback(model.forms);
         }
 
         function updateFormById(formId, newForm, callback) {
             // Iterates over array of forms looking for form whose id is form id parameter
-            // If found, updates form object with new form values
-            // Calls back with update form
-
             for (var i in model.forms) {
+                // If found, updates form object with new form values
                 if (model.forms[i]._id === formId) {
                     model.forms.splice(i, 1);
                     // delete users[i]  <--  this doesn't change the indeces of the other elements
                 }
             }
-            return model.forms;
+            callback(model.forms);
         }
-
     }
 })();

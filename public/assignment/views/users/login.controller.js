@@ -3,14 +3,19 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController() {
+    function LoginController($scope, UserService, $rootScope, $location) {
 
         // LoginController() should inject the UserService service you implemented elsewhere
+        $scope.login = login;
 
-        function login() {
-            // Use the UserService to lookup the user
-            // If the user exists, Store the user object in the $rootScope
-            // Use the $location service to navigate to the profile view
+        function login(user) {
+            UserService.findUserByCredentials($scope.user.username, $scope.user.password, function(user){
+                if(user != null) {
+                    $rootScope.currentUser = user;
+                    UserService.setCurrentUser(user);
+                    $location.url("/profile");
+                }
+            })
         }
 
     }

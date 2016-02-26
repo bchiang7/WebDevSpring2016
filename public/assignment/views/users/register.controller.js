@@ -3,15 +3,18 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController(UserService) {
+    function RegisterController($scope, $rootScope, $location, UserService) {
+        $scope.message = null;
+        $scope.register = register;
 
-        // RegisterController() should inject the UserService service you implemented elsewhere in this assignment
-
-        // Use the UserService to create the new user
         // Store the new user object in the $rootScope
-        // Use the $location service to navigate to the profile view
+
         function register(user) {
+
+            console.log("register");
+
             $scope.message = null;
+
             if (user == null) {
                 $scope.message = "Please fill in the required fields";
                 return;
@@ -28,13 +31,20 @@
                 $scope.message = "Passwords must match";
                 return;
             }
+            
             var user = UserService.findUserByUsername(user.username);
+
             if (user != null) {
                 $scope.message = "User already exists";
                 return;
             }
+
+            // Use the UserService to create the new user
             var newUser = UserService.createUser($scope.user);
+
             UserService.setCurrentUser(newUser);
+
+            // Use the $location service to navigate to the profile view
             $location.url("/profile");
         }
 

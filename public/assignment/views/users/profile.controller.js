@@ -14,7 +14,7 @@
         $scope.error = null;
         $scope.message = null;
 
-        $scope.currentUser = UserService.getCurrentUser();
+//        $scope.currentUser = UserService.getCurrentUser();
         if (!$scope.currentUser) {
             $location.url("/home");
         }

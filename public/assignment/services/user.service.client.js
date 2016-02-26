@@ -3,8 +3,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService() {
-
+    function UserService($rootScope) {
         var model = {
             users: [{
                 "_id": 123,
@@ -42,9 +41,11 @@
                 "password": "ed",
                 "roles": ["student"]
             }],
-
+            findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
+            setCurrentUser: setCurrentUser,
+            getCurrentUser: getCurrentUser,
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser
@@ -52,55 +53,69 @@
         };
         return model;
 
-
-        function findUserByCredentials(username, password, callback) {
-            // Iterates over the array of current users looking for user object whose username and password match the parameters
-            // Calls back with user found or null otherwise
+        function findUserByUsername(username) {
             for (var i in model.users) {
-                if ((model.users[i].username === username) &&
-                    (model.users[i].password === password)) {
-                    return users[i];
+                if (model.users[i].username === username) {
+                    return model.users[i];
                 }
             }
             return null;
         }
 
+        function findUserByCredentials(username, password, callback) {
+            // Iterates over the array of current users looking for user object whose username and password match the parameters
+            for (var i in model.users) {
+                if ((model.users[i].username === username) &&
+                    (model.users[i].password === password)) {
+                    // Calls back with user found
+                    callback(model.users[i]);
+                }
+            }
+            // otherwise null
+            return null;
+        }
+
         function findAllUsers(callback) {
             // Calls back with array of all users
-            return model.users;
+            callback(model.users);
+        }
+
+        function setCurrentUser(user) {
+            $rootScope.currentUser = user;
+        }
+
+        function getCurrentUser() {
+            return $rootScope.currentUser;
         }
 
         function createUser(user, callback) {
             // Adds property called _id with unique value to the user object parameter. You can use (new Date).getTime() to get a unique time stamp
-            // Adds the new user to local array of users
-            // Calls back with new user
-
-            var user = {
+            user = {
+                _id: "id:" + (new Date()).getTime(),
                 username: user.username,
                 password: user.password
             };
+            // Adds the new user to local array of users
             model.users.push(user);
+            // Calls back with new user
+            // callback(user);
             return user;
         }
 
         function deleteUserById(userId, callback) {
             // Iterates over the array of current users looking for a user object whose user id is equal to parameter user id
-            // If found, removes user from the array of current users
-            // Calls back with remaining array of all users
-
             for (var i in model.users) {
+                // If found, removes user from the array of current users
                 if (model.users[i].userId === userId) {
                     model.users.splice(i, 1);
-                    // delete users[i]  <--  this doesn't change the indeces of the other elements
                 }
             }
-            return model.users;
+            // Calls back with remaining array of all users
+            callback(model.users);
         }
 
         function updateUser(userId, user, callback) {
             // Iterates over the array of current users looking for a user object whose user id is equal to parameter user id
-            // Calls back with updated user
-
             for (var i in model.users) {
                 // If found, updates user with new user properties
                 if (model.users[i].userId === userId) {
@@ -109,7 +124,8 @@
                     model.users[i].password = user.password;
                 }
             }
-            return model.user[i];
+            // Calls back with updated user
+            callback(model.user[i]);
         }
 
     }

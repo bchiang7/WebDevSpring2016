@@ -38,15 +38,14 @@
 </head>
 
 <body ng-controller="MainController">
-    <div class="container">
-        <div class="row">
-            <ng-include src="views/header/header.view.html"></ng-include>
-        </div>
-        <div class="row">
-            <ng-include src="views/sidebar/sidebar.view.html"></ng-include>
-        </div>
+    <div ng-include="'views/header/header.view.html'"></div>
 
-        <div ng-view></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div ng-include="'views/sidebar/sidebar.view.html'"></div>
+
+            <div ng-view></div>
+        </div>
     </div>
 
 

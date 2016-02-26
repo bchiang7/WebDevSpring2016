@@ -3,7 +3,7 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, $location, UserService) {
+    function ProfileController($scope, UserService, $location) {
 
         // ProfileController() should inject the UserService service you implemented elsewhere
         // Inject the UserService service into the ProfileController constructor
@@ -22,7 +22,6 @@
         $scope.update = update;
 
         // Use the UserService to update the current user
-
         function update(user) {
             // same validation as register
             $scope.error = null;

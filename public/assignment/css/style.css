@@ -118,8 +118,8 @@ p {
     border-radius: 0;
 }
 .navbar {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     padding-right: 20px;
 }
 @media screen and (max-width: 768px) {
@@ -143,13 +143,13 @@ p {
     /*margin-right: 5px;*/
 }
 .nav-sidebar > li > a {
-    padding: 20px 30px;
+    padding: 15px 30px;
 }
 .nav>li {
     letter-spacing: 0.5px;
 }
 .sidebar {
-    top: 50px;
+    top: 40px;
 }
 .nav-tabs>li>a {
     color: #555;

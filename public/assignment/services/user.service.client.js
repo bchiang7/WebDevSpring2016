@@ -8,7 +8,8 @@
         // Declare a local empty array of current users
         var users = [];
 
-        var users = [{
+        // Initialize the array of users with the JSON data
+        users = [{
             "_id": 123,
             "firstName": "Alice",
             "lastName": "Wonderland",
@@ -46,15 +47,16 @@
         }]
 
 
-        function findUserByCredentials(username, password, callback)() {
+        function findUserByCredentials(username, password, callback) {
             // Iterates over the array of current users looking for user object whose username and password match the parameters
-
             // Calls back with user found or null otherwise
 
             for (var i = 0; i < users.length; i++) {
-
+                if ((users[i].username === username) && (users[i].password === password)) {
+                    return users[i];
+                }
             }
-            return ;
+            return null;
 
         }
 
@@ -67,8 +69,14 @@
             // Adds property called _id with unique value to the user object parameter. You can use (new Date).getTime() to get a unique time stamp
 
             // Adds the new user to local array of users
-
             // Calls back with new user
+
+            var user = {
+                username: user.username,
+                password: user.password
+            };
+            users.push(user);
+            return user;
         }
 
         function deleteUserById(userId, callback) {
@@ -85,6 +93,8 @@
             // If found, updates user with new user properties
 
             // Calls back with updated user
+
+
         }
 
     }

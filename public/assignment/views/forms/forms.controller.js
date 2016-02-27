@@ -4,14 +4,13 @@
         .controller("FormController", FormController);
 
     function FormController($scope, $location, FormService) {
-        // FormController() should inject the FormService service you implemented elsewhere
-        // Using the FormService, get the current array of forms for the currently logged in user and make them available for the view to render
 
         $scope.addForm = addForm;
         $scope.updateForm = updateForm;
         $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
 
+        // Using the FormService, get the current array of forms for the currently logged in user and make them available for the view to render
         $scope.forms = FormService.findAllForms();
 
         function addForm(form) {
@@ -21,6 +20,8 @@
             };
             // Adds the new form to the array of forms
             $scope.forms.push(form);
+
+            // should we implement this function with createFormForUser????????
         }
 
         function updateForm(form) {
@@ -36,13 +37,13 @@
         }
 
         function selectForm(index) {
+            console.log("selected");
             // Uses the index to mark the currently selected form
             $scope.selectedFormIndex = index;
             // Updates the form with the currently selected form
             $scope.form = {
                 title: $scope.forms[index].title
             }
-
         }
     }
 })();

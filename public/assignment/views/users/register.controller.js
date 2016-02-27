@@ -11,8 +11,6 @@
 
         function register(user) {
 
-            console.log("register");
-
             $scope.message = null;
 
             if (user == null) {
@@ -31,7 +29,7 @@
                 $scope.message = "Passwords must match";
                 return;
             }
-            
+
             var user = UserService.findUserByUsername(user.username);
 
             if (user != null) {
@@ -40,7 +38,7 @@
             }
 
             // Use the UserService to create the new user
-            var newUser = UserService.createUser($scope.user);
+            var newUser = UserService.createUser($scope.user, function(user){});
 
             UserService.setCurrentUser(newUser);
 

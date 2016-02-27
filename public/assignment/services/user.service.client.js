@@ -118,14 +118,16 @@
             // Iterates over the array of current users looking for a user object whose user id is equal to parameter user id
             for (var i in model.users) {
                 // If found, updates user with new user properties
-                if (model.users[i].userId === userId) {
+                if (model.users[i]._id === userId) {
                     model.users[i].firstName = user.firstName;
                     model.users[i].lastName = user.lastName;
                     model.users[i].password = user.password;
+
+                    callback(model.users[i]);
                 }
             }
             // Calls back with updated user
-            callback(model.user[i]);
+            return model.users[i];
         }
 
     }

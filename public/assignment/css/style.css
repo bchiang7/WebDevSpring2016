@@ -142,6 +142,9 @@ p {
 .navbar-right {
     /*margin-right: 5px;*/
 }
+.navbar-nav > li > a {
+    cursor: pointer;
+}
 .nav-sidebar > li > a {
     padding: 15px 30px;
 }
@@ -186,6 +189,7 @@ h1 {
     font-size: 20px;
     top: 5px;
     margin: 0 10px;
+    cursor: pointer;
 }
 @media screen and (max-width: 768px) {
     .glyphicon {
@@ -210,14 +214,32 @@ h1 {
 }
 .form-fields .form-group {
     display: inline-block;
-    width: 75%;
+    width: 65%;
     margin-right: 10px;
+}
+@media screen and (max-width: 480px) {
+    .container-fluid {
+        padding: 0 5px;
+    }
+    .form-fields .form-group {
+        margin-right: 3px;
+    }
 }
 .action-links {
     display: inline-block;
 }
 .action-links .glyphicon {
     margin: 0 5px 0 10px;
+}
+@media screen and (max-width: 600px) {
+    .action-links .glyphicon {
+        margin: 0 5px 0 5px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .action-links .glyphicon {
+        margin: 0 2px 0 2px;
+    }
 }
 .marginTop20 {
     margin-top: 20px;

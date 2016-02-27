@@ -23,7 +23,6 @@
             findAllForms: findAllForms,
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
-            createUser: createUser,
             deleteFormById: deleteFormById,
             updateFormById: updateFormById
         }
@@ -33,12 +32,11 @@
             return model.forms;
         }
 
-
         function createFormForUser(userId, form, callback) {
             // Adds property called _id with unique id. You can use (new Date).getTime() to create a unique number
-            // Adds property called userId equal to user id parameter
             var form = {
-                _id: "id:"+(new Date()).getTime(),
+                // Adds property called userId equal to user id parameter
+                _id: "id:" + (new Date()).getTime(),
                 title: form.title,
                 userId: userId
             };
@@ -50,14 +48,14 @@
 
         function findAllFormsForUser(userId, callback) {
             // Iterates over the array of current forms looking for forms whose user id is parameter user id
-            // var resultArray[];
-            // for (var i in model.forms) {
-            //     if (model.forms[i].userId === userId) {
-            //         resultArray.push(model.forms[i]);
-            //     }
-            // }
-            // // Calls back with found forms for user id parameter, empty array otherwise
-            // return resultArray;
+            var resultArray = [];
+            for (var i in model.forms) {
+                if (model.forms[i]._id === userId) {
+                    resultArray.push(model.forms[i]);
+                }
+            }
+            // Calls back with found forms for user id parameter, empty array otherwise
+            callback(resultArray);
         }
 
         function deleteFormById(formId, callback) {
@@ -77,11 +75,16 @@
             for (var i in model.forms) {
                 // If found, updates form object with new form values
                 if (model.forms[i]._id === formId) {
-                    model.forms.splice(i, 1);
-                    // delete users[i]  <--  this doesn't change the indeces of the other elements
+                    model.forms[i]._id = newForm._id;
+                    model.forms[i].title = newForm.title;
+                    model.forms[i].userId = newForm.userId;
+
+                    callback(model.forms[i]);
                 }
             }
-            callback(model.forms);
+            // Calls back with updated form
+            return model.forms[i];
+
         }
     }
 })();

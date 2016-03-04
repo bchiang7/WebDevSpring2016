@@ -7,6 +7,12 @@ html, body {
 a {
     color: #222;
     text-decoration: none;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 a:hover {
     color: #CC0000;
@@ -60,6 +66,14 @@ input {
 .navbar-right {
     height: 60px;
 }
+.navbar-nav .navbar-right a {
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
 .navbar-right .fa {
     font-size: 20px;
     padding-left: 10px;
@@ -70,23 +84,31 @@ input {
     right: 0;
     top: 16px;*/
 }
-.navbar-right > .active > a,
-.navbar-right > .active > a:hover,
-.navbar-right > .active > a:focus {
+.navbar-right > .active > a, .navbar-right > .active > a:hover, .navbar-right > .active > a:focus {
     color: #777;
     background-color: #aaa;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover
-.navbar-nav > li > a {
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover .navbar-nav > li > a {
     color: #333;
     background-color: #ccc;
 }
 .nav-sidebar > li > a {
     padding: 15px 20px;
     border-left: 5px solid #3f3b36;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
-.nav-sidebar > li > a:hover,
-.nav-sidebar > li > a:focus {
+.nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus {
     background: #615445;
     border-left: 5px solid #615445;
     color: #fff;
@@ -204,19 +226,15 @@ select.form-control {
     outline: 1px solid #CCC;
     background-color: white;
 }
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
     color: #fff;
     background-color: #615445;
     border-left: 5px solid #CC0000;
 }
-
 i.fa.fa-question-circle, i.fa.fa-cog {
     font-size: 24px;
     padding: 0 5px;
 }
-
 .dashboard h1, .dashboard p {
     /*text-align: center;*/
 }
@@ -254,5 +272,5 @@ i.fa.fa-question-circle, i.fa.fa-cog {
     height: 34px;
 }
 .search .input-group .input-group-btn {
-    left: -45px;
+    left: -38px;
 }

@@ -22,6 +22,9 @@
             $scope.forms.push(form);
 
             // should we implement this function with createFormForUser????????
+            // FormService.createFormForUser(userId, course, function(form) {
+            //     $scope.courses = courses;
+            // });
         }
 
         function updateForm(form) {

@@ -1,0 +1,33 @@
+<div ng-controller="SidebarController" class="col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+        <li ng-show="currentUser" class="user">
+            <a href="#/profile"><img src="https://pbs.twimg.com/profile_images/497043545505947648/ESngUXG0.jpeg" />{{currentUser.firstName}} {{currentUser.lastName}}</a>
+        </li>
+        <li ng-show="currentUser" class="sidebar-label"><span class="portal-label">YourNEU Student Portal</span></li>
+        <li ng-class="{'active': $location.url()=='/dashboard'}" ng-show="currentUser">
+            <a href="#/dashboard"><i class="fa fa-th-large"></i>Dashboard</a>
+        </li>
+        </li>
+        <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
+            <a href="#/profile"><i class="fa fa-user"></i>Personal Info</a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/admin'}" ng-show="currentUser.roles.indexOf('admin') >= 0">
+            <a href="#/admin"><i class="fa fa-university"></i>Admin</a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/studentServices'}" ng-show="currentUser">
+            <a href="#/studentServices"><i class="fa fa-users"></i>Student Services</a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/registration'}" ng-show="currentUser">
+            <a href="#/registration"><i class="fa fa-pencil-square-o"></i>Course Registration</a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/schedule'}" ng-show="currentUser">
+            <a href="#/schedule"><i class="fa fa-list-alt"></i>My Class Schedule</a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/degree'}" ng-show="currentUser">
+            <a href="#/degree"><i class="fa fa-graduation-cap"></i>Degree Tracking</a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/courses'}" ng-show="currentUser">
+            <a href="#/courses"><i class="fa fa-th-list"></i>Course List</a>
+        </li>
+    </ul>
+</div>

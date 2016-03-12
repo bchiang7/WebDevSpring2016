@@ -1,4 +1,189 @@
-<div ng-controller="DashboardController" class="dashboard col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1>Welcome to YourNEU!</h1>
-    <p>A better, more user friendly myNEU, made just for you.</p>
+<div ng-controller="DashboardController" class="dashboard col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main dashboard">
+    <h1>Dashboard<br><p class="dashboard-welcome">Welcome back, <strong>{{currentUser.firstName}}</strong>!</p></h1>
+
+
+    <div ng-show="currentUser" class="pull-right search">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search...">
+            <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+            <div class="panel panel-default schedule-panel">
+                <div class="panel-heading">
+                    Schedule <span class="text-muted">| Spring 2016 Semester</span>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li><a href="#">Action</a>
+                                </li>
+                                <li><a href="#">Another action</a>
+                                </li>
+                                <li><a href="#">Something else here</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div id="morris-area-chart"></div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="panel panel-default dates-panel">
+                <div class="panel-heading">
+                    Dates
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-calendar"></i> New Comment
+                            <span class="pull-right text-muted small"><em>4 minutes ago</em>
+                                    </span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-calendar"></i> 3 New Followers
+                            <span class="pull-right text-muted small"><em>12 minutes ago</em>
+                                    </span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-calendar"></i> Message Sent
+                            <span class="pull-right text-muted small"><em>27 minutes ago</em>
+                                    </span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-calendar"></i> New Task
+                            <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                                    </span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-calendar"></i> Server Rebooted
+                            <span class="pull-right text-muted small"><em>11:32 AM</em>
+                                    </span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-bolt fa-fw"></i> Server Crashed!
+                            <span class="pull-right text-muted small"><em>11:13 AM</em>
+                                    </span>
+                        </a>
+                    </div>
+                    <!-- /.list-group -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+    <!-- / row -->
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="panel panel-default exam-panel">
+                <div class="panel-heading">
+                    Exam Schedule
+                </div>
+                <table class="table table-hover table-striped table-condensed table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Class</td>
+                            <td>Course</td>
+                            <td>Instructor</td>
+                            <td>Campus 123</td>
+                        </tr>
+                        <!-- <tr ng-repeat="course in courses"> -->
+                        <tr>
+                            <!-- <td>
+                                <a href="#/fields">{{course.number}}</a>
+                            </td>
+                            <td>
+                                <a href="#/fields">{{course.title}}</a>
+                            </td>
+                            <td>
+                                <a href="#/fields">{{course.instructor}}</a>
+                            </td>
+                            <td>
+                                <a ng-click="deleteCourse($index)">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                <a ng-click="selectCourse($index)">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </a>
+                            </td> -->
+                            <td>Class</td>
+                            <td>Course</td>
+                            <td>Instructor</td>
+                            <td>Campus 123</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="panel panel-default grades-panel">
+                <div class="panel-heading">
+                    Grades
+                </div>
+                <div class="panel-body">
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="panel panel-default advisors-panel">
+                <div class="panel-heading">
+                    Advisors
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            Aileen Yates
+                            <span class="pull-right text-muted small"><em>4 minutes ago</em>
+                                    </span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            Prajna Kulkarni
+                            <span class="pull-right text-muted small"><em>12 minutes ago</em>
+                                    </span>
+                        </a>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+
+
+    </div>
+
+
 </div>

@@ -43,14 +43,14 @@
             // Adds new form to local array of forms
             model.forms.push(form);
             // Calls back with new form
-            callback(form);
+            callback(model.forms);
         }
 
         function findAllFormsForUser(userId, callback) {
             // Iterates over the array of current forms looking for forms whose user id is parameter user id
             var resultArray = [];
             for (var i in model.forms) {
-                if (model.forms[i]._id === userId) {
+                if (model.forms[i].userId === userId) {
                     resultArray.push(model.forms[i]);
                 }
             }
@@ -62,7 +62,7 @@
             // Iterates over array of forms looking for form whose id is form id parameter
             for (var i in model.forms) {
                 // If found, removes form from current array of forms
-                if (model.forms[i].formId === formId) {
+                if (model.forms[i]._id === formId) {
                     model.forms.splice(i, 1);
                 }
             }

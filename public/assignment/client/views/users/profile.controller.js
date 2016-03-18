@@ -3,39 +3,32 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, UserService, $location) {
-
-        // ProfileController() should inject the UserService service you implemented elsewhere
-        // Inject the UserService service into the ProfileController constructor
-        // Retrieve the currently logged in user from the $rootScope
-        // Update the view form with the current user
+    function ProfileController(UserService, $scope, $rootScope, $location) {
 
         $scope.error = null;
         $scope.message = null;
+        $scope.update = update;
 
         $scope.currentUser = UserService.getCurrentUser();
-        
+
         if (!$scope.currentUser) {
             $location.url("/home");
         }
 
-        $scope.update = update;
-
-        // Use the UserService to update the current user
         function update(user) {
-            // same validation as register
-            $scope.error = null;
-            $scope.message = null;
 
-            $scope.currentUser = UserService.updateUser(user, function(user) {});
+            UserService
+                .updateUser(user._id, user)
+                .then(function() {
+                    return UserService.findUserByCredentials(user.username, user.password);
+                })
+                .then(function(response){
+                    if (response.data){
+                        $rootScope.currentUser = response.data;
+                        console.log("hooray!");
+                    }
+                });
 
-            if (user) {
-                $scope.message = "User updated successfully";
-                UserService.setCurrentUser($scope.currentUser);
-                // console.log($scope.message);
-            } else {
-                $scope.message = "Unable to update the user";
-            }
         }
 
     }

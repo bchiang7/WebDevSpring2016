@@ -5,21 +5,25 @@
 
     function UserService($rootScope, $http) {
 
-        findUserByUsername: findUserByUsername,
-        findUserByCredentials: findUserByCredentials,
-        findAllUsers: findAllUsers,
-        setCurrentUser: setCurrentUser,
-        getCurrentUser: getCurrentUser,
-        createUser: createUser,
-        deleteUserById: deleteUserById,
-        updateUser: updateUser
+        var api = {
+            findUserByUsername: findUserByUsername,
+            findUserByCredentials: findUserByCredentials,
+            findAllUsers: findAllUsers,
+            setCurrentUser: setCurrentUser,
+            getCurrentUser: getCurrentUser,
+            createUser: createUser,
+            deleteUserById: deleteUserById,
+            updateUser: updateUser
+        }
+        return api;
 
         function findUserByUsername(username) {
             return $http.get("/api/assignment/user?username=" + username);
         }
 
         function findUserByCredentials(username, password) {
-            return $http.get("/api/assignment/user?username=alice&password=wonderland" + username, password);
+            return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
+        }
 
         function findAllUsers() {
             return $http.get("/api/assignment/user");
@@ -34,7 +38,8 @@
         }
 
         function createUser(user) {
-            return $http.post("/api/assignment/user" + user);
+            user._id = (new Date).getTime();
+            return $http.post("/api/assignment/user", user);
         }
 
         function deleteUserById(userId) {
@@ -46,4 +51,5 @@
         }
 
     }
+
 })();

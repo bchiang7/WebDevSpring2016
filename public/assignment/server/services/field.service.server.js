@@ -1,10 +1,10 @@
 module.exports = function(app, model, db) {
 
-    app.get("/api/assignment/field/:fieldId/field", getAllFields);
-    app.get("/api/assignment/field/:fieldId/field:fieldId", getFieldById);
-    app.delete("/api/assignment/field/:fieldId/field:fieldId", deleteFieldById);
-    app.post("/api/assignment/field/:fieldId/field", createField);
-    app.put("/api/assignment/field/:fieldId/field/:fieldId", updateFieldById);
+    app.get("/api/assignment/form/:formId/field", getAllFields);
+    app.get("/api/assignment/form/:formId/field/:fieldId", getFieldById);
+    app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldById);
+    app.post("/api/assignment/form/:formId/field", createField);
+    app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldById);
 
 
     function getAllFields (req, res) {

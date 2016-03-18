@@ -3,13 +3,14 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, $rootScope, $location, UserService) {
+    function RegisterController(UserService, $scope, $rootScope, $location) {
         $scope.message = null;
         $scope.register = register;
+        $scope.user = {};
 
-        // Store the new user object in the $rootScope
 
-        function register(user) {
+        function register(newUser) {
+
 
             $scope.message = null;
 
@@ -30,20 +31,38 @@
                 return;
             }
 
-            var user = UserService.findUserByUsername(user.username);
-
             if (user != null) {
                 $scope.message = "User already exists";
                 return;
             }
 
-            // Use the UserService to create the new user
-            var newUser = UserService.createUser($scope.user, function(user){});
+            // Checks if the username entered is present in the system
+            UserService
+                .findUserByUsername(user.username)
+                .then(function(response) {
+                    vm.message = null;
+                    if (response.data !== "null") {
+                        vm.message = "User already exists";
+                        return;
+                    } else {
+                        var newUser = {
+                            "firstName": "",
+                            "lastName": "",
+                            "username": user.username,
+                            "password": user.password,
+                            "email": user.email
+                        };
 
-            UserService.setCurrentUser(newUser);
+                        UserService.createUser(newUser)
+                            .then(function(response) {
+                                $rootScope.data = response;
+                                var createdUser = response.data;
+                                UserService.setCurrentUser(createdUser[createdUser.length - 1]);
+                                $location.url("/profile/" + createdUser[createdUser.length - 1].username);
+                            });
+                    }
+                });
 
-            // Use the $location service to navigate to the profile view
-            $location.url("/profile");
         }
 
     }

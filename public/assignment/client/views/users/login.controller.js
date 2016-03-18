@@ -3,19 +3,20 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController($scope, UserService, $rootScope, $location) {
+    function LoginController(UserService, $scope, $rootScope, $location) {
 
-        // LoginController() should inject the UserService service you implemented elsewhere
         $scope.login = login;
+        $scope.user = {};
 
         function login(user) {
-            UserService.findUserByCredentials($scope.user.username, $scope.user.password, function(user){
-                if(user != null) {
-                    $rootScope.currentUser = user;
-                    UserService.setCurrentUser(user);
-                    $location.url("/profile");
-                }
-            })
+            UserService
+                .findUserByCredentials(user.username, user.password)
+                .then(function(response) {
+                    if (response.data) {
+                        $rootScope.currentUser = response.data;
+                        $location.url("/profile");
+                    }
+                });
         }
 
     }

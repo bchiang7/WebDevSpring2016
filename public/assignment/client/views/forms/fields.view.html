@@ -98,12 +98,12 @@
                     <div class="form-group">
                         <label for="newForm" class="marginTop20">Add New Field:</label>
                         <select class="form-control">
-                            <option>Text</option>
-                            <option>Textarea</option>
-                            <option>Date</option>
-                            <option>Options</option>
-                            <option>Checkboxes</option>
-                            <option>Radios</option>
+                            <option>Single Line Text Field</option>
+                            <option>Date Field</option>
+                            <option>Dropdown Field</option>
+                            <option>Checkboxes Field</option>
+                            <option>Radio Buttons Field</option>
+                            <option>Multi Line Text Field</option>
                         </select>
                     </div>
                     <div class="action-links">
@@ -111,10 +111,11 @@
                     </div>
                 </div>
                 <!--<button type="submit" class="btn btn-default">Submit</button>-->
+
             </form>
 
 
-            <!-- I can't see the actual page because of errors so hopefully this is okay -->
+            <!-- I can't see the actual page right now because of errors so hopefully this is okay until I resolve the errors -->
 
             <table class="table table-responsive">
                 <tbody ng-model="model.fields" ui-sortable="model.fields">
@@ -178,24 +179,6 @@
                     </tr>
                 </tbody>
             </table>
-
-            <hr>
-            <label for="input5">Add New Field:</label>
-            <div class="input-group">
-                <select ng-model="fieldType" class="form-control" id="input5">
-                    <option>Single Line Text Field</option>
-                    <option>Date Field</option>
-                    <option>Dropdown Field</option>
-                    <option>Checkboxes Field</option>
-                    <option>Radio Buttons Field</option>
-                    <option>Multi Line Text Field</option>
-                </select>
-                <div class="input-group-btn">
-                    <button ng-click="model.addField(fieldType)" type="button" class="btn btn-success">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </div>
-            </div>
 
 
             <div id="editField" class="modal fade" role="dialog">

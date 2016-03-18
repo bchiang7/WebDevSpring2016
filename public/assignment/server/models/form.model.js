@@ -3,18 +3,11 @@ var courses = require('./form.mock.json');
 module.exports = function(app, db) {
 
     var api = {
-        // create
         createForm: createForm,
-        // findAll
         findAllForms: findAllForms,
-        // findById
         findFormById: findFormById,
-        // update
         updateForm: updateForm,
-        // delete
-        deleteForm: deleteForm
-
-        // findFormByTitle(title)
+        deleteForm: deleteForm,
         findFormByTitle: findFormByTitle
     }
     return api;

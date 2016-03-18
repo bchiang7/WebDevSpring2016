@@ -12,7 +12,7 @@
 
         // Using the FormService, get the current array of forms for the currently logged in user and make them available for the view to render
         function init() {
-            if($rootScope.currentUser) {
+            if ($rootScope.currentUser) {
                 FormService.findAllFormsForUser($rootScope.currentUser._id, function(forms) {
                     $scope.forms = forms;
                 });
@@ -41,9 +41,9 @@
             // $scope.forms[$scope.selectedFormId] = {
             //     title: $scope.forms.title
             // }
-            FormService.updateFormById(formId, form, function() {
+            FormService.updateFormById(formId, $scope.form, function(forms) {
                 FormService.findAllFormsForUser($rootScope.currentUser._id, function(forms) {
-                    $scope.forms[$scope.selectedFormId] = {
+                    $scope.forms[$scope.selectedFormIndex] = {
                         title: $scope.forms.title
                     }
                 });
@@ -61,16 +61,16 @@
             });
         }
 
-        function selectForm(formId) {
+        function selectForm(index) {
             console.log("selected");
-            console.log($scope.forms);
             // Uses the index to mark the currently selected form
-            $scope.selectedFormId = formId;
-            // Updates the form with the currently selected form
-            // $scope.form = {
-            //     title: $scope.forms[formId].title
-            // }
+            $scope.selectedFormIndex = index;
 
+            // Updates the form with the currently selected form
+            $scope.form = {
+                title: $scope.forms[index].title,
+                _id: $scope.forms[index]._id
+            }
         }
     }
 })();

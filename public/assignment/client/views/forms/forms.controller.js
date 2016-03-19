@@ -5,72 +5,66 @@
 
     function FormController($scope, $location, FormService, $rootScope) {
 
-        $scope.addForm = addForm;
-        $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
+        $scope.addField = addField;
+        $scope.updateUser = updateForm;
+        $scope.deleeUser = deleteForm;
         $scope.selectForm = selectForm;
 
-        // Using the FormService, get the current array of forms for the currently logged in user and make them available for the view to render
-        function init() {
-            if ($rootScope.currentUser) {
-                FormService.findAllFormsForUser($rootScope.currentUser._id, function(forms) {
-                    $scope.forms = forms;
-                });
-            }
-        }
-        init();
+        $scope.form = {};
 
-        function addForm(form) {
-            // Uses form model and FormService to create a new form
-            // form = {
-            //     title: $scope.forms.title
-            // };
-            // Adds the new form to the array of forms
-            // $scope.forms.push(form);
-
-            FormService.createFormForUser($rootScope.currentUser._id, form, function(forms) {
-                //$scope.forms = forms;
-                FormService.findAllFormsForUser($rootScope.currentUser._id, function(forms) {
-                    $scope.forms = forms;
-                });
-            });
-        }
-
-        function updateForm(formId) {
-            // Uses form model and FormService to update the currently selected form
-            // $scope.forms[$scope.selectedFormId] = {
-            //     title: $scope.forms.title
-            // }
-            FormService.updateFormById(formId, $scope.form, function(forms) {
-                FormService.findAllFormsForUser($rootScope.currentUser._id, function(forms) {
-                    $scope.forms[$scope.selectedFormIndex] = {
-                        title: $scope.forms.title
+        // Get forms from FormService
+        function getForms() {
+            FormService
+                .findAllFormsForUser($rootScope.currentUser._id)
+                .then(function(response) {
+                    if (response.data) {
+                        $scope.forms = response.data;
                     }
                 });
-            });
         }
+        getForms();
 
-        function deleteForm(formId) {
-            // Uses the FormService to remove the form by index
-            // $scope.forms.splice(index, 1);
-
-            FormService.deleteFormById(formId, function() {
-                FormService.findAllFormsForUser($rootScope.currentUser._id, function(forms) {
-                    $scope.forms = forms;
+        function addField(userId, form) {
+            FormService
+                .createFormForUser(userId, form)
+                .then(function(response) {
+                    if (response.data) {
+                        $scope.form = {};
+                        retrieveForms();
+                    }
                 });
-            });
         }
 
         function selectForm(index) {
-            console.log("selected");
-            // Uses the index to mark the currently selected form
-            $scope.selectedFormIndex = index;
-
-            // Updates the form with the currently selected form
             $scope.form = {
                 title: $scope.forms[index].title,
+                userId: $scope.forms[index].userId,
                 _id: $scope.forms[index]._id
             }
+        }
+
+        function updateForm(form) {
+            FormService
+                .updateFormById(form._id, form)
+                .then(function(response) {
+                    if (response.data) {
+                        $scope.form = {};
+                        $scope.forms = retrieveForms();
+                    }
+                });
+        }
+
+        function deleteForm(index) {
+            var form = $scope.forms[index];
+
+            FormService
+                .deleteFormById(form._id)
+                .then(function(response) {
+                    if (response.data) {
+                        retrieveForms();
+                        $scope.form = {};
+                    }
+                });
         }
     }
 })();

@@ -7,7 +7,7 @@ module.exports = function(app, db) {
         findAllUsers: findAllUsers,
         findUserById: findUserById,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials
     }

@@ -1,44 +1,56 @@
 <nav ng-controller="HeaderController" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
+
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#/login"><img src="img/northeastern-white.png"/></a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
+            <a class="navbar-brand" href="#/login">
+                <img id="northeastern-logo" src="img/northeastern-white.png" />
+                <img id="northeastern-seal" src="img/white-seal.png" />
+            </a>
+
 
             <ul class="nav navbar-nav navbar-right">
-                <li ng-show="currentUser" ng-class="{'active': $location.url().indexOf('help') != -1}">
+                <li ng-class="{'active': $location.url().indexOf('help') != -1}">
                     <a href="#/help">
                         <i class="fa fa-question-circle"></i>
                     </a>
                 </li>
-                <li ng-show="currentUser" ng-class="{'active': $location.url().indexOf('settings') != -1}">
-                    <a href="#/settings">
-                        <i class="fa fa-cog"></i>
-                    </a>
-                </li>
-                <!-- <li ng-hide="currentUser" ng-class="{'active': $location.url().indexOf('register') != -1}">
-                    <a href="#/register">Register
-                        <i class="fa fa-user-plus"></i>
-                    </a>
-                </li> -->
                 <li ng-hide="currentUser" ng-class="{'active': $location.url().indexOf('login') != -1}">
                     <a href="#/login">Login<i class="fa fa-sign-in"></i>
                     </a>
                 </li>
-                <!-- <li ng-show="currentUser" ng-class="{'active': $location.url().indexOf('username') != -1}">
-                    <a href="#/profile">{{currentUser.username}}</a>
-                </li> -->
                 <li ng-show="currentUser">
                     <a ng-click="logout()">Logout<i class="fa fa-sign-out"></i>
                     </a>
                 </li>
             </ul>
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav mobile-nav">
+                <li ng-class="{'active': $location.url()=='/dashboard'}" ng-show="currentUser">
+                    <a id="dash" href="#/dashboard"><i class="fa fa-th-large"></i>Dashboard</a>
+                </li>
+                <li ng-class="{'active': $location.url()=='/admin'}" ng-show="currentUser.roles.indexOf('admin') >= 0">
+                    <a href="#/admin"><i class="fa fa-university"></i>Admin</a>
+                </li>
+                <li ng-class="{'active': $location.url()=='/courses'}" ng-show="currentUser">
+                    <a href="#/courses"><i class="fa fa-th-list"></i>Courses</a>
+                </li>
+                <li ng-class="{'active': $location.url()=='/degree'}" ng-show="currentUser">
+                    <a href="#/degree"><i class="fa fa-graduation-cap"></i>Degree Tracking</a>
+                </li>
+                <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
+                    <a href="#/profile"><i class="fa fa-user"></i>Profile</a>
+                </li>
+            </ul>
+        </div>
+
     </div>
 </nav>

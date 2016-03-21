@@ -4,6 +4,9 @@
 html, body {
     font-family: 'Source Sans Pro', sans-serif;
 }
+.table-nowrap {
+    white-space: nowrap !important;
+}
 a {
     color: #222;
     text-decoration: none;
@@ -53,6 +56,9 @@ h1 {
     font-size: 15px;
     cursor: pointer;
 }
+.navbar-toggle {
+    margin-top: -47px;
+}
 .navbar-default .navbar-brand {
     font-size: 22px;
     text-align: center;
@@ -64,23 +70,59 @@ h1 {
     padding-top: 20px;
     /*border-bottom: 1px solid #3f3b36;*/
 }
+
 .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
     color: #fff;
     background: #CC0000;
 }
-.navbar-default .navbar-brand img {
+.navbar-default .navbar-brand img#northeastern-logo {
     width: 150px;
     margin-top: -7px;
     margin-left: 15px;
+    display: block;
+}
+.navbar-default .navbar-brand img#northeastern-seal {
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .navbar-default .navbar-brand {
+        width: 70px;
+        padding: 5px 10px;
+    }
+    .navbar-default .navbar-brand img#northeastern-logo {
+        display: none;
+    }
+    .navbar-default .navbar-brand img#northeastern-seal {
+        display: block;
+        width: 48px;
+    }
+}
+.navbar-header {
+    width: 100%;
 }
 .navbar-right {
     height: 60px;
+    margin: 0;
 }
-.navbar-right >li {
+.navbar-right > li {
     letter-spacing: 0.5px;
     border-left: 1px solid #bbb;
     height: 60px;
-    /*width: 65px;*/
+    white-space: nowrap;
+}
+@media screen and (max-width: 768px) {
+    .navbar-header {
+        width: 105%;
+    }
+    .navbar-right {
+        margin: 0;
+    }
+    .navbar-right >li {
+        display: inline-block;
+        vertical-align: top;
+        border-left: none;
+        border-right: 1px solid #bbb;
+    }
 }
 .navbar-right >li:hover {
     background: #ccc;
@@ -113,6 +155,9 @@ h1 {
 i.fa.fa-question-circle, i.fa.fa-cog {
     font-size: 24px;
     padding: 0 5px;
+}
+.right-menu {
+    margin: 0 !important;
 }
 
 /******************* SIDEBAR *********************/
@@ -171,6 +216,36 @@ i.fa.fa-question-circle, i.fa.fa-cog {
     bottom: 3px;
     padding: 0 10px;
 }
+
+/****************** MOBILE NAV ********************/
+.mobile-nav {
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .mobile-nav {
+        background: #3f3b36 !important;
+        margin-top: 0;
+        display: block;
+    }
+    .mobile-nav a {
+        color: #aaa;
+    }
+    .mobile-nav .fa {
+        margin-right: 10px;
+        width: 20px;
+    }
+    .mobile-nav > li > a:hover, .mobile-nav > li > a:focus {
+        background: #615445;
+        border-left: 5px solid #615445;
+        color: #fff !important;
+    }
+    .mobile-nav > .active > a, .mobile-nav > .active > a:hover, .mobile-nav > .active > a:focus {
+        color: #fff !important;
+        background-color: #615445 !important;
+        border-left: 5px solid #CC0000;
+    }
+}
+
 
 /******************** FORMS ********************/
 

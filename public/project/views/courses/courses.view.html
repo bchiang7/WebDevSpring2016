@@ -2,14 +2,6 @@
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main courses">
             <h1>Courses</h1>
-            <ul class="nav nav-tabs">
-                <li role="presentation" class="active">
-                    <a href="#/courses">Courses</a>
-                </li>
-                <li role="presentation">
-                    <a href="#/fields">Fields</a>
-                </li>
-            </ul>
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
@@ -47,7 +39,7 @@
                         <td>
                             <a href="#/fields">{{course.instructor}}</a>
                         </td>
-                        <td>
+                        <td class="table-nowrap">
                             <a ng-click="deleteCourse($index)">
                                 <i class="fa fa-trash-o"></i>
                             </a>

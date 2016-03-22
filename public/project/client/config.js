@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module("YourNeuApp")
+        .module("CourseApp")
         .config(Configuration);
 
     function Configuration($routeProvider) {
@@ -24,17 +24,9 @@
                 templateUrl: "views/users/profile.view.html",
                 controller: "ProfileController"
             })
-            .when("/studentServices", {
-                templateUrl: "views/studentServices/studentServices.view.html",
-                controller: "StudentServicesController"
-            })
-            .when("/registration", {
-                templateUrl: "views/registration/registration.view.html",
-                controller: "RegisterController"
-            })
-            .when("/schedule", {
-                templateUrl: "views/schedule/schedule.view.html",
-                controller: "ScheduleController"
+            .when("/saved", {
+                templateUrl: "views/saved/saved.view.html",
+                controller: "SavedController"
             })
             .when("/degree", {
                 templateUrl: "views/degree/degree.view.html",
@@ -43,10 +35,6 @@
             .when("/courses", {
                 templateUrl: "views/courses/courses.view.html",
                 controller: "CoursesController"
-            })
-            .when("/fields", {
-                templateUrl: "views/courses/fields.view.html",
-                controller: "FieldsController"
             })
             .otherwise({
                 redirectTo: "/login"

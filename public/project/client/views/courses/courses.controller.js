@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module("YourNeuApp")
+        .module("CourseApp")
         .controller("CoursesController", CoursesController);
 
     function CoursesController($scope, $location, CourseService) {

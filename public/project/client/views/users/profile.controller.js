@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module("YourNeuApp")
+        .module("CourseApp")
         .controller("ProfileController", ProfileController);
 
     function ProfileController($scope, UserService, $location) {

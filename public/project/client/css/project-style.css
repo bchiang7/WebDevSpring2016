@@ -34,6 +34,14 @@ h1 {
 .btn, .panel {
     border-radius: 0 !important;
 }
+
+/******************* HEADER ********************/
+
+
+.header-container {
+    padding-right: 0;
+}
+
 .nav-tabs>li>a, .navbar-toggle {
     border: none;
 }
@@ -80,7 +88,6 @@ h1 {
     height: 60px;
     font-family: 'Libre Baskerville', serif;
     padding-top: 20px;
-    /*border-bottom: 1px solid #3f3b36;*/
 }
 .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
     color: #fff;
@@ -135,9 +142,13 @@ h1 {
         /*border-right: 1px solid #bbb;*/
     }
 }
-.navbar-right >li:hover {
+.navbar-default .navbar-right>li>a:focus, .navbar-default .navbar-right>li>a:hover, .navbar-default .navbar-right>.active>a, .navbar-default .navbar-right>.active>a:focus, .navbar-default .navbar-right>.active>a:hover {
     background: #ccc;
     color: #555;
+}
+.navbar-default .mobile-nav>li>a:focus, .navbar-default .mobile-nav>li>a:hover, .navbar-default .mobile-nav>.active>a, .navbar-default .mobile-nav>.active>a:focus, .navbar-default .mobile-nav>.active>a:hover {
+    background: #615445;
+    color: #fff;
 }
 .navbar-right li a {
     -webkit-transition: all 0.3s ease;

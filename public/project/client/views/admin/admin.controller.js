@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module("YourNeuApp")
+        .module("CourseApp")
         .controller("AdminController", AdminController);
 
     function AdminController($scope, UserService) {

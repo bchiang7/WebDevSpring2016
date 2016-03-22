@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module("YourNeuApp")
+        .module("CourseApp")
         .factory("UserService", UserService);
 
     function UserService($rootScope) {

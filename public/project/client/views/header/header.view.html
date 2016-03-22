@@ -1,5 +1,5 @@
 <nav ng-controller="HeaderController" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container-fluid header-container">
 
         <div class="navbar-header">
             <a class="navbar-brand" href="#/login">
@@ -10,7 +10,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li ng-class="{'active': $location.url().indexOf('help') != -1}">
-                    <a href="#/help">
+                    <a href="#/help" style="padding: 17px 13px;">
                         <i class="fa fa-question-circle"></i>
                     </a>
                 </li>

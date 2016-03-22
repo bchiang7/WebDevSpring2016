@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module("YourNeuApp")
+        .module("CourseApp")
         .controller("LoginController", LoginController);
 
     function LoginController($scope, UserService, $rootScope, $location) {

@@ -1,16 +1,7 @@
-<div ng-controller="CoursesController" class="container-fluid">
+<div ng-controller="SavedController" class="container-fluid">
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main courses">
-            <h1>Courses</h1>
-
-            <div ng-show="currentUser" class="pull-right search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                    </span>
-                </div>
-            </div>
+            <h1>Saved Courses</h1>
 
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
@@ -22,25 +13,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td ng-show="currentUser.roles.indexOf('admin') >= 0">
-                            <input ng-model="course.subject" type="text" class="course-control" placeholder="Subject">
-                        </td>
-                        <td ng-show="currentUser.roles.indexOf('admin') >= 0">
-                            <input ng-model="course.number" type="text" class="course-control" placeholder="0000">
-                        </td>
-                        <td ng-show="currentUser.roles.indexOf('admin') >= 0">
-                            <input ng-model="course.title" type="text" class="course-control" placeholder="Name">
-                        </td>
-                        <td ng-show="currentUser.roles.indexOf('admin') >= 0">
-                            <a ng-click="addCourse(course)">
-                                <i class="fa fa-plus-circle"></i>
-                            </a>
-                            <a ng-click="updateCourse()">
-                                <i class="fa fa-check-circle"></i>
-                            </a>
-                        </td>
-                    </tr>
                     <tr ng-repeat="course in courses">
                         <td>
                             <a href="#">{{course.subject}}</a>
@@ -56,7 +28,7 @@
                                 <i class="fa fa-calendar-plus-o"></i>
                             </a>
                             <a ng-click="saveCourse(course)">
-                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star"></i>
                             </a>
                             <a ng-click="selectCourse($index)" ng-show="currentUser.roles.indexOf('admin') >= 0">
                                 <i class="fa fa-pencil-square-o"></i>

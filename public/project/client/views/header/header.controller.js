@@ -9,7 +9,7 @@
 
         function logout() {
             UserService.setCurrentUser(null);
-            $location.url("/dashboard");
+            $location.url("/login");
         }
     }
 })();

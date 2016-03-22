@@ -8,47 +8,56 @@
         var model = {
             courses: [{
                 "_id": "000",
-                "number": "CS 1100",
+                "subject": "CS",
+                "number": "1100",
                 "title": "Computer Science and Its Applications",
                 "instructor": "Martin J. Schedlbauer"
             }, {
                 "_id": "000",
-                "number": "CS 1200",
+                "subject": "CS",
+                "number": "1200",
                 "title": "Computer Science/Information Science Overview 1",
                 "instructor": "Jessica F. Biron"
             }, {
                 "_id": "000",
-                "number": "CS 1210",
+                "subject": "CS",
+                "number": "1210",
                 "title": "Computer Science/Information Science Overview 2: Co-op Preparation",
                 "instructor": "Kaitlyn S. Hughes"
             }, {
                 "_id": "000",
-                "number": "CS 1800",
+                "subject": "CS",
+                "number": "1800",
                 "title": "Discrete Structures",
                 "instructor": "Ghita Amor-Tijani"
             }, {
                 "_id": "000",
-                "number": "CS 2500",
+                "subject": "CS",
+                "number": "2500",
                 "title": "Fundamentals of Computer Science 1",
                 "instructor": "Leena Razzaq"
             }, {
                 "_id": "000",
-                "number": "CS 2510",
+                "subject": "CS",
+                "number": "2510",
                 "title": "Fundamentals of Computer Science 2",
                 "instructor": "Leena Razzaq"
             }, {
                 "_id": "000",
-                "number": "CS 2800",
+                "subject": "CS",
+                "number": "2800",
                 "title": "Logic and Computation",
                 "instructor": "Pete Manolios"
             }, {
                 "_id": "000",
-                "number": "CS 3200",
+                "subject": "CS",
+                "number": "3200",
                 "title": "Database Design",
                 "instructor": "Kathleen Durant"
             }, {
                 "_id": "000",
-                "number": "CS 3500",
+                "subject": "CS",
+                "number": "3500",
                 "title": "Object Oriented Design",
                 "instructor": "Benjamin S. Lerner"
             }, ],

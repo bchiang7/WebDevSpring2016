@@ -17,10 +17,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input ng-model="course.number" type="text" class="course-control" placeholder="Number"></td>
-                        <td><input ng-model="course.title" type="text" class="course-control" placeholder="Name"></td>
-                        <td><input ng-model="course.instructor" type="text" class="course-control" placeholder="Instructor"></td>
-                        <td>
+                        <td ng-show="currentUser.roles.indexOf('admin') >= 0">
+                            <input ng-model="course.number" type="text" class="course-control" placeholder="Number">
+                        </td>
+                        <td ng-show="currentUser.roles.indexOf('admin') >= 0">
+                            <input ng-model="course.title" type="text" class="course-control" placeholder="Name">
+                        </td>
+                        <td ng-show="currentUser.roles.indexOf('admin') >= 0">
+                            <input ng-model="course.instructor" type="text" class="course-control" placeholder="Instructor">
+                        </td>
+                        <td ng-show="currentUser.roles.indexOf('admin') >= 0">
                             <a ng-click="addCourse(course)">
                                 <i class="fa fa-plus-circle"></i>
                             </a>

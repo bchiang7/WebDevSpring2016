@@ -31,8 +31,20 @@ input {
 h1 {
     margin: 0px 0 20px;
 }
-.btn, .nav-tabs>li>a, .navbar-toggle, .panel {
+.btn, .panel {
     border-radius: 0 !important;
+}
+.nav-tabs>li>a, .navbar-toggle {
+    border: none;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background: transparent;
+}
+.navbar-toggle .icon-bar {
+    width: 30px;
+}
+.navbar-toggle .icon-bar+.icon-bar {
+    margin-top: 5px;
 }
 .main {
     padding: 40px 30px;
@@ -311,9 +323,6 @@ select.form-control {
     margin-right: 10px;
 }
 @media screen and (max-width: 480px) {
-    .container-fluid {
-        padding: 0 5px;
-    }
     .form-fields .form-group {
         margin-right: 3px;
     }

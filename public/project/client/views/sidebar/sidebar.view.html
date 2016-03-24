@@ -1,7 +1,7 @@
 <div ng-controller="SidebarController" class="col-md-2 sidebar">
     <ul class="nav nav-sidebar">
         <li ng-show="currentUser" class="user">
-            <a href="#/profile"><img src="https://pbs.twimg.com/profile_images/497043545505947648/ESngUXG0.jpeg" />{{currentUser.firstName}} {{currentUser.lastName}}</a>
+            <a href="#/profile"><img src="https://pbs.twimg.com/profile_images/497043545505947648/ESngUXG0.jpeg" /><span ng-if="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</span></a>
         </li>
         <li ng-show="currentUser" class="sidebar-label"><span class="portal-label">CourseSource</span></li>
         <li ng-class="{'active': $location.url()=='/dashboard'}" ng-show="currentUser">

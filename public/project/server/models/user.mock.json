@@ -1,0 +1,56 @@
+[{
+    "_id": 123,
+    "firstName": "Alice",
+    "lastName": "Wonderland",
+    "username": "alice",
+    "password": "alice",
+    "roles": ["student"],
+    "email": "alice@alice.com",
+    "nuid": "000000000",
+    "gradYear": "2016",
+    "cycle": "AA"
+}, {
+    "_id": 234,
+    "firstName": "Bob",
+    "lastName": "Hope",
+    "username": "bob",
+    "password": "bob",
+    "roles": ["admin"],
+    "email": "bob@bob.com",
+    "nuid": "111111111",
+    "gradYear": "2017",
+    "cycle": "AB"
+}, {
+    "_id": 345,
+    "firstName": "Charlie",
+    "lastName": "Brown",
+    "username": "charlie",
+    "password": "charlie",
+    "roles": ["admin"],
+    "email": "charlie@charlie.com",
+    "nuid": "222222222",
+    "gradYear": "2018",
+    "cycle": "ZA"
+}, {
+    "_id": 456,
+    "firstName": "Dan",
+    "lastName": "Craig",
+    "username": "dan",
+    "password": "dan",
+    "roles": ["admin"],
+    "email": "dan@dan.com",
+    "nuid": "333333333",
+    "gradYear": "2019",
+    "cycle": "BB"
+}, {
+    "_id": 567,
+    "firstName": "Edward",
+    "lastName": "Norton",
+    "username": "ed",
+    "password": "ed",
+    "roles": ["student"],
+    "email": "ed@ed.com",
+    "nuid": "444444444",
+    "gradYear": "2020",
+    "cycle": "ZB"
+}]

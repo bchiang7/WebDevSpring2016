@@ -16,7 +16,7 @@
                 <thead>
                     <tr>
                         <th>Subject<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></th>
-                        <th>Course #<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></th>
+                        <th>#<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></th>
                         <th>Title<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></th>
                         <th>Action</th>
                     </tr>
@@ -55,7 +55,7 @@
                             <a ng-click="addCourseToSchedule(course)">
                                 <i class="fa fa-calendar-plus-o"></i>
                             </a>
-                            <a ng-click="saveCourse(course)">
+                            <a ng-click="model.saveCourse(course)">
                                 <i class="fa fa-star-o"></i>
                             </a>
                             <a ng-click="selectCourse($index)" ng-show="currentUser.roles.indexOf('admin') >= 0">

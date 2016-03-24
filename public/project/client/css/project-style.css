@@ -37,11 +37,9 @@ h1 {
 
 /******************* HEADER ********************/
 
-
 .header-container {
     padding-right: 0;
 }
-
 .nav-tabs>li>a, .navbar-toggle {
     border: none;
 }
@@ -61,6 +59,16 @@ h1 {
     padding-top: 0px;
     padding-bottom: 0px;
     padding-right: 0px;
+}
+@media screen and (max-width: 330px) {
+    .navbar-toggle {
+        margin-right: 30px;
+    }
+}
+@media screen and (min-width: 500px) {
+    .navbar-toggle {
+        margin-right: 25px;
+    }
 }
 @media screen and (max-width: 768px) {
     .navbar {
@@ -317,10 +325,14 @@ select.form-control {
         font-size: 16px;
     }
 }
+.courses th {
+    white-space: nowrap;
+}
 .glyphicon-triangle-bottom {
     top: 1px;
     font-size: 12px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 0;
 }
 .form-fields {
     margin-top: 30px;
@@ -424,7 +436,7 @@ a.forgot-password {
 }
 .courses .fa {
     font-size: 18px;
-    margin-right: 10px;
+    margin: 0 3px;
     vertical-align: middle;
 }
 

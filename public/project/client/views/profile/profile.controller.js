@@ -3,18 +3,31 @@
         .module("CourseApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, UserService, $location) {
+    function ProfileController(UserService, $scope, $location, $routeParams) {
 
-        // ProfileController() should inject the UserService service you implemented elsewhere
-        // Inject the UserService service into the ProfileController constructor
-        // Retrieve the currently logged in user from the $rootScope
-        // Update the view form with the current user
+        var vm = this;
+
+        var username = $routeParams.username;
+        // console.log(username);
+
+        function init() {
+            UserService
+                .getProfile()
+                .then(function (response) {
+                    vm.profile = response.data;
+                    console.log(vm.profile);
+                });
+        }
+        return init();
+
+
+
 
         $scope.error = null;
         $scope.message = null;
 
         $scope.currentUser = UserService.getCurrentUser();
-        
+
         if (!$scope.currentUser) {
             $location.url("/dashboard");
         }

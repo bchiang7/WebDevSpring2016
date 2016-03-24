@@ -16,7 +16,7 @@ module.exports = function(app, UserModel, CourseModel) {
             .then(
                 function(doc) {
                     req.session.currentUser = doc;
-                    res.json({message: "hello"});
+                    res.json(doc);
                 },
                 // send error if promise rejected
                 function(err) {

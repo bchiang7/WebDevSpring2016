@@ -3,7 +3,9 @@ var mock = require("./user.mock.json");
 var q = require("q");
 
 // pass db and mongoose reference to model
-module.exports = function(db, mongoose) {
+module.exports = function(db) {
+
+    var mongoose = require("mongoose");
 
     // load user schema
     var UserSchema = require("./user.schema.server.js")(mongoose);
@@ -21,24 +23,44 @@ module.exports = function(db, mongoose) {
     return api;
 
     function findUserByCredentials(credentials) {
+
+        // console.log("findUserByCredentials");
+        // console.log(credentials);
+        // console.log(UserModel.findOne);
+
         var deferred = q.defer();
-        // find one retrieves one document
-        UserModel.findOne(
-            // first argument is predicate
-            {
-                username: credentials.username,
-                password: credentials.password
-            },
-            // doc is unique instance matches predicate
-            function(err, doc) {
-                if (err) {
-                    // reject promise if error
-                    deferred.reject(err);
-                } else {
-                    // resolve promise
-                    deferred.resolve(doc);
-                }
-            });
+
+        //try {
+            // find one retrieves one document
+            UserModel.findOne(
+                // first argument is predicate
+                {
+                    username: credentials.username,
+                    password: credentials.password
+                },
+                // doc is unique instance matches predicate
+                function(err, doc) {
+                    console.log("CALLBACK ****************");
+                    console.log([err, doc]);
+
+                    if (err) {
+                        // reject promise if error
+                        console.log("REJECTING ***************");
+                        console.log(err);
+
+                        deferred.reject(err);
+
+                    } else {
+                        // resolve promise
+                        console.log("RESOLVING ***************");
+                        console.log(doc);
+
+                        deferred.resolve(doc);
+                    }
+                });
+            //} catch(e) {
+            //    console.log(e);
+            //}
         return deferred.promise;
     }
 

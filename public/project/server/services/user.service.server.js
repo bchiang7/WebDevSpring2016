@@ -9,11 +9,14 @@ module.exports = function(app, UserModel, CourseModel) {
 
     function login(req, res) {
         var credentials = req.body;
-        var user = UserModel.findUserByCredentials(credentials)
+
+        //console.log(credentials);
+
+        UserModel.findUserByCredentials(credentials)
             .then(
                 function(doc) {
                     req.session.currentUser = doc;
-                    res.json(doc);
+                    res.json({message: "hello"});
                 },
                 // send error if promise rejected
                 function(err) {
@@ -35,13 +38,13 @@ module.exports = function(app, UserModel, CourseModel) {
     function register(req, res) {
         var user = req.body;
 
-        user = UserModel.createUser(user)
+        UserModel.createUser(user)
             // handle model promise
             .then(
                 // login user if promise resolved
                 function(doc) {
                     req.session.currentUser = doc;
-                    res.json(user);
+                    res.json(doc);
                 },
                 // send error if promise rejected
                 function(err) {

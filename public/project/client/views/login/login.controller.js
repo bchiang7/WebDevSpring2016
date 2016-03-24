@@ -20,12 +20,17 @@
                     username: user.username,
                     password: user.password
                 })
-                .then(function(response) {
-                    if (response.data) {
-                        UserService.setCurrentUser(response.data);
-                        $location.url("/dashboard");
+                .then(
+                    function(response) {
+                        if (response.data) {
+                            UserService.setCurrentUser(response.data);
+                            $location.url("/dashboard");
+                        }
+                    },
+                    function(error) {
+                        console.log(error);
                     }
-                });
+                );
         }
     }
 })();

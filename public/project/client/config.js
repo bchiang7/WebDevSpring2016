@@ -24,7 +24,7 @@
                 controller: "DegreeController"
             })
             .when("/details", {
-                templateUrl: "views/detials/details.view.html",
+                templateUrl: "views/details/details.view.html",
                 controller: "DetailsController",
                 controllerAs: "model",
                 resolve: {
@@ -36,12 +36,12 @@
                 controller: "SavedController"
             })
             .when("/login", {
-                templateUrl: "views/users/login.view.html",
+                templateUrl: "views/login/login.view.html",
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .when("/profile/:username?", {
-                templateUrl: "views/users/profile.view.html",
+                templateUrl: "views/profile/profile.view.html",
                 controller: "ProfileController",
                 controllerAs: "model",
                 resolve: {
@@ -49,7 +49,7 @@
                 }
             })
             .when("/register", {
-                templateUrl: "views/users/register.view.html",
+                templateUrl: "views/register/register.view.html",
                 controller: "RegisterController",
                 controllerAs: "model"
             })

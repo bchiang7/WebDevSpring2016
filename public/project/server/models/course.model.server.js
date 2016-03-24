@@ -4,7 +4,9 @@ var mock = require("./course.mock.json");
 var q = require("q");
 
 // pass db and mongoose reference to model
-module.exports = function(db, mongoose) {
+module.exports = function(db) {
+
+    var mongoose = require("mongoose");
 
     // load course schema from course model
     var CourseSchema = require("./course.schema.server.js")(mongoose);

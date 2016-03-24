@@ -422,6 +422,7 @@ a.forgot-password {
     color: #555;
     /*display: block;*/
     margin-top: 40px;
+    font-size: 16px;
 }
 .register-link a {
     text-decoration: underline;

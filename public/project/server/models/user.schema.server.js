@@ -1,5 +1,7 @@
-module.exports = function(mongoose) {
+module.exports = function() {
 
+    var mongoose = require("mongoose");
+    
     var CourseSchema = require("./course.schema.server.js")(mongoose);
 
     // use mongoose to declare a user schema

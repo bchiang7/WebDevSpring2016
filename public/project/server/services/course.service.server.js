@@ -1,4 +1,4 @@
-module.exports = function(app, courseModel, userModel) {
+module.exports = function(app, UserModel, CourseModel) {
     app.post("/api/project/user/:userId/course/:imdbID", userLikesCourse);
     app.get("/api/project/course/:imdbID/user", findUserLikes);
 

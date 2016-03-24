@@ -41,7 +41,7 @@
         }
 
         function selectCourse(index) {
-            console.log("selected");
+            //console.log("selected");
             // Uses the index to mark the currently selected course
             $scope.selectedCourseIndex = index;
             // Updates the course with the currently selected course

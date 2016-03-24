@@ -1,4 +1,6 @@
-module.exports = function(mongoose) {
+module.exports = function() {
+
+    var mongoose = require("mongoose");
 
     // use mongoose to declare a course schema
     var CourseSchema = mongoose.Schema({

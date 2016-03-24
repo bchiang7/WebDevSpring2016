@@ -14,7 +14,7 @@
         //     deleteUserById: deleteUserById,
         //     updateUser: updateUser
         // };
-        return api;
+        // return api;
 
         var api = {
             login: login,

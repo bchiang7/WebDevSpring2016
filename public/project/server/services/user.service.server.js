@@ -1,16 +1,95 @@
 module.exports = function(app, UserModel, CourseModel) {
 
+    app.get("/api/project/user/", findAllUsers);
+    app.get("/api/project/user/:username", findUserByUsername);
+    // app.get("/api/project/user?username=/" + username + "&password=" + password, findUserByCredentials);
+
+    app.post("/api/project/user", createUser);
+    app.put("/api/project/user/:username", updateUser);
+    app.delete("/api/project/user/:username", deleteUser);
+
     app.post("/api/project/login", login);
-    app.get("/api/project/loggedin", loggedin);
     app.post("/api/project/logout", logout);
     app.post("/api/project/register", register);
+    app.get("/api/project/loggedin", loggedin);
     app.get("/api/project/profile/:userId", profile);
+
+
+    function findAllUsers (req, res) {
+        UserModel
+            .findAllUsers()
+            .then(
+                function(users) {
+                    res.json (users);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findUserByUsername(req, res) {
+        UserModel
+            .findUserByUsername(req.params.username)
+            .then (
+                function(user) {
+                    res.json(user);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+
+    function createUser(req, res) {
+        var user = req.body;
+        UserModel
+            .createUser(user)
+            .then (
+                function(user) {
+                    res.json(user);
+                },
+                function (err) {
+                    res.status (400).send ( err);
+                }
+            );
+    }
+
+    function updateUser(req, res) {
+        console.log("server update");
+        var username = req.params.username;
+        var user = req.body;
+        UserModel
+            .updateUser(username, user)
+            .then (
+                function (stats) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function deleteUser(req, res) {
+        console.log("server delete");
+        var username = req.params.username;
+        UserModel
+            .deleteUser(username)
+            .then (
+                function (stats) {
+                    res.send(200);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
 
 
     function login(req, res) {
         var credentials = req.body;
-
-        //console.log(credentials);
 
         UserModel.findUserByCredentials(credentials)
             .then(
@@ -64,7 +143,7 @@ module.exports = function(app, UserModel, CourseModel) {
                 function(doc) {
                     user = doc;
                     // fetch courses this user likes
-                    return CourseModel.findCoursesByImdbIDs(doc.likes);
+                    return CourseModel.findCoursesByCourseIDs(doc.likes);
                 },
                 // reject promise if error
                 function(err) {

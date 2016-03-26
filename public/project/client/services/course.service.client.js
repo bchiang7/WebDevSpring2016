@@ -4,33 +4,65 @@
         .factory("CourseService", CourseService);
 
     function CourseService($rootScope, $http) {
-        // var api = {
-        //     findAllCourses: findAllCourses,
-        //     createCourseForUser: createCourseForUser,
-        //     findAllCoursesForUser: findAllCoursesForUser,
-        //     deleteCourseById: deleteCourseById,
-        //     updateCourseById: updateCourseById
-        // }
-        // return api;
 
         var api = {
-            userLikesMovie: userLikesMovie,
-            findUserLikes: findUserLikes,
-            searchCourseByTitle: searchCourseByTitle
+
+            findAllCourses: findAllCourses,
+
+            createCourse: createCourse,
+            updateCourse: updateCourse,
+            deleteCourse: deleteCourse,
+
+            // SEARCH
+            searchCourseBySubject: searchCourseBySubject,
+            searchCourseByTitle: searchCourseByTitle,
+
+
+            // SAVED COURSES
+            userLikesCourse: userLikesCourse,
+            findAllCoursesLikedByUser: findAllCoursesLikedByUser
         };
         return api;
 
-        function findUserLikes(imdbID) {
-            return $http.get("/api/project/movie/"+imdbID+"/user");
+        function findAllCourses() {
+            return $http.get("/api/project/course/courses");
         }
 
-        function userLikesCourse(userId, course) {
-            return $http.post("/api/project/user/"+userId+"/movie/"+movie.imdbID, movie);
+        function createCourse(course) {
+            return $http.post("/api/project/course", course);
+        }
+
+        function updateCourse(course) {
+            // console.log("client update");
+            return $http.put("/api/project/course/", course);
+        }
+        function deleteCourse(course) {
+            // console.log("client delete");
+            return $http.delete("/api/project/course/", course);
+        }
+
+        function searchCourseBySubject(subject) {
+            return $http.get("/api/project/course/courseSubject");
+            // return $http.jsonp("http://www.omdbapi.com/?s="+title+"&callback=JSON_CALLBACK");
         }
 
         function searchCourseByTitle(title) {
-            // use JSONP since API does not support CORS
+            return $http.get("/api/project/course/courseTitle");
             // return $http.jsonp("http://www.omdbapi.com/?s="+title+"&callback=JSON_CALLBACK");
         }
+
+        function findUserLikes(courseID) {
+            return $http.get("/api/project/course/" + courseID + "/user");
+        }
+
+        function userLikesCourse(userId, course) {
+            return $http.post("/api/project/user/" + userId + "/course/" + course.courseID, course);
+        }
+
+        function findAllCoursesLikedByUser(user) {
+            return $http.get("/api/project/user/" + userId + "/course/" + course.courseID, course);
+        }
+
+
     }
 })();

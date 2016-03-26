@@ -18,7 +18,7 @@
                     var currentUser = response.data;
                     if (currentUser != null) {
                         UserService.setCurrentUser(currentUser);
-                        $location.url("/profile");
+                        $location.url("/dashboard");
                     }
                 });
         }

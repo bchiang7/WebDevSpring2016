@@ -4,51 +4,71 @@
         .factory("UserService", UserService);
 
     function UserService($rootScope, $http) {
-        // var api = {
-        //     findUserByUsername: findUserByUsername,
-        //     findUserByCredentials: findUserByCredentials,
-        //     findAllUsers: findAllUsers,
-        //     setCurrentUser: setCurrentUser,
-        //     getCurrentUser: getCurrentUser,
-        //     createUser: createUser,
-        //     deleteUserById: deleteUserById,
-        //     updateUser: updateUser
-        // };
-        // return api;
-
         var api = {
+
+            findAllUsers: findAllUsers,
+            findUserByUsername: findUserByUsername,
+            // findUserByCredentials: findUserByCredentials,
+
+            createUser: createUser,
+            updateUser: updateUser,
+            deleteUser: deleteUser,
+
+            getCurrentUser: getCurrentUser,
+            setCurrentUser: setCurrentUser,
+
             login: login,
             logout: logout,
             register: register,
             getProfile: getProfile,
-            getCurrentUser: getCurrentUser,
-            setCurrentUser: setCurrentUser
+
         };
         return api;
 
 
-        function login(credentials) {
-            return $http.post("/api/project/login", credentials);
+        function findAllUsers() {
+            return $http.get("/api/project/user/");
+        }
+        function findUserByUsername(username) {
+            return $http.get("/api/project/user/" + username);
+        }
+        // function findUserByCredentials(username, password) {
+        //     return $http.get("/api/project/user?username=/" + username + "&password=" + password);
+        // }
+
+
+        function createUser(user) {
+            return $http.post("/api/project/user/", user);
+        }
+        function updateUser(user) {
+            console.log("client update");
+            return $http.put("/api/project/user/" + user.username, user);
+        }
+        function deleteUser(user) {
+            console.log("client delete");
+            return $http.delete ("/api/project/user/" + user.username);
         }
 
-        function logout() {
-            return $http.post("/api/project/logout");
-        }
-
-        function register(user) {
-            return $http.post("/api/project/register", user);
-        }
-
-        function getProfile() {
-            return $http.get("/api/project/profile/" + $rootScope.currentUser._id);
-        }
 
         function getCurrentUser() {
-            return $http.get("/api/project/loggedin");
+            return $http.get("/api/project/loggedin/");
         }
-
         function setCurrentUser(user) {
             $rootScope.currentUser = user;
+        }
+
+
+        function login(credentials) {
+            return $http.post("/api/project/login/", credentials);
+        }
+        function logout() {
+            return $http.post("/api/project/logout/");
+        }
+        function register(user) {
+            return $http.post("/api/project/register/", user);
+        }
+        function getProfile() {
+            return $http.get("/api/project/profile/" + $rootScope.currentUser._id);
         }
 
 

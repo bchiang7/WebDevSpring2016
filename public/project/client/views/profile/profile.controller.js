@@ -3,53 +3,58 @@
         .module("CourseApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController(UserService, $scope, $location, $routeParams) {
+    function ProfileController($routeParams, UserService, $location) {
+        var username = $routeParams.username;
 
         var vm = this;
-
-        var username = $routeParams.username;
-        // console.log(username);
+        vm.updateUser = updateUser;
+        vm.deleteUser = deleteUser;
 
         function init() {
             UserService
-                .getProfile()
-                .then(function (response) {
-                    vm.profile = response.data;
-                    console.log(vm.profile);
-                });
+                .findUserByUsername(username)
+                .then(
+                    function(response) {
+                        vm.user = response.data;
+                    },
+                    function(error) {
+                        vm.error = error;
+                    }
+                );
         }
-        return init();
+        init();
 
-
-
-
-        $scope.error = null;
-        $scope.message = null;
-
-        $scope.currentUser = UserService.getCurrentUser();
-
-        if (!$scope.currentUser) {
-            $location.url("/dashboard");
+        function updateUser(user) {
+            console.log("controller update");
+            console.log(user);
+            UserService
+                .updateUser(user)
+                .then(
+                    function(response) {
+                        $location.url("/dashboard");
+                    },
+                    function(err) {
+                        vm.error = err;
+                    }
+                );
         }
 
-        $scope.update = update;
-
-        // Use the UserService to update the current user
-        function update(user) {
-            // same validation as register
-            $scope.error = null;
-            $scope.message = null;
-
-            $scope.currentUser = UserService.updateUser(user, function(user) {});
-
-            if (user) {
-                $scope.message = "User updated successfully";
-                UserService.setCurrentUser($scope.currentUser);
-                // console.log($scope.message);
-            } else {
-                $scope.message = "Unable to update the user";
-            }
+        function deleteUser(user) {
+            console.log("controller delete");
+            console.log(user);
+            UserService
+                .deleteUser(user)
+                .then(
+                    function(response) {
+                        $location.url("/login");
+                    },
+                    function(err) {
+                        vm.error = err;
+                    }
+                );
         }
+
 
     }
+
 })();

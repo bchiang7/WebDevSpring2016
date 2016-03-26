@@ -10,8 +10,8 @@
                 controller: "AdminController"
             })
             .when("/courses", {
-                templateUrl: "views/courses/courses.view.html",
-                controller: "CoursesController"
+                templateUrl: "views/courses/course.view.html",
+                controller: "CourseController"
             })
             .when("/dashboard", {
                 templateUrl: "views/dashboard/dashboard.view.html",
@@ -40,7 +40,7 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
-            .when("/profile/:username?", {
+            .when("/profile/:username", {
                 templateUrl: "views/profile/profile.view.html",
                 controller: "ProfileController",
                 controllerAs: "model",

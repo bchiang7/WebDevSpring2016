@@ -20,7 +20,7 @@
             <a href="#/degree"><i class="fa fa-graduation-cap"></i>Degree Tracking</a>
         </li>
         <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
-            <a href="#/profile"><i class="fa fa-user"></i>Profile</a>
+            <a href="#/profile/{{currentUser.username}}"><i class="fa fa-user"></i>Profile</a>
         </li>
     </ul>
 </div>

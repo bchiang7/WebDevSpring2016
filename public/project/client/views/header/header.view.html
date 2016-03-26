@@ -1,4 +1,4 @@
-<nav ng-controller="HeaderController" class="navbar navbar-default navbar-fixed-top">
+<nav ng-controller="HeaderController as model" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid header-container">
 
         <div class="navbar-header">
@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li ng-show="currentUser">
-                    <a ng-click="logout()">Logout<i class="fa fa-sign-out"></i>
+                    <a ng-click="model.logout()">Logout<i class="fa fa-sign-out"></i>
                     </a>
                 </li>
             </ul>

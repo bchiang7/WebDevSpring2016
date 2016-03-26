@@ -4,7 +4,7 @@ module.exports = function() {
 
     // use mongoose to declare a course schema
     var CourseSchema = mongoose.Schema({
-        imdbID: String,
+        courseID: String,
         title: String,
         poster: String,
         // ids of users that like this course

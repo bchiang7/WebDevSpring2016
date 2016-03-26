@@ -6,8 +6,8 @@
     function FormController($scope, $location, FormService, $rootScope) {
 
         $scope.addField = addField;
-        $scope.updateUser = updateForm;
-        $scope.deleeUser = deleteForm;
+        $scope.updateForm = updateForm;
+        $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
 
         $scope.form = {};

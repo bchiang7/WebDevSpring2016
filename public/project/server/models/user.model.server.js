@@ -1,66 +1,82 @@
 var mock = require("./user.mock.json");
-// load q promise library
 var q = require("q");
 
 // pass db and mongoose reference to model
 module.exports = function(db) {
 
     var mongoose = require("mongoose");
-
-    // load user schema
     var UserSchema = require("./user.schema.server.js")(mongoose);
-
-    // create user model from schema
-    var UserModel = mongoose.model('User', UserSchema);
+    var User = mongoose.model('User', UserSchema);
 
     var api = {
+        findAllUsers: findAllUsers,
+        findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
+
         createUser: createUser,
+        updateUser: updateUser,
+        deleteUser: deleteUser,
+
         findUserById: findUserById,
         findUsersByIds: findUsersByIds,
         userLikesCourse: userLikesCourse
     };
     return api;
 
-    function findUserByCredentials(credentials) {
 
-        // console.log("findUserByCredentials");
-        // console.log(credentials);
-        // console.log(UserModel.findOne);
+    function findAllUsers() {
+        var deferred = q.defer();
+        User
+            .find(
+                function(err, users) {
+                    if (!err) {
+                        deferred.resolve(users);
+                    } else {
+                        deferred.reject(err);
+                    }
+                }
+            );
+        return deferred.promise;
+    }
+
+    function findUserByUsername(username) {
+        var deferred = q.defer();
+        User.findOne({
+                username: username
+            },
+            function(err, user) {
+                if (!err) {
+                    deferred.resolve(user);
+                } else {
+                    deferred.reject(err);
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
+
+    function findUserByCredentials(credentials) {
 
         var deferred = q.defer();
 
-        //try {
-            // find one retrieves one document
-            UserModel.findOne(
-                // first argument is predicate
-                {
-                    username: credentials.username,
-                    password: credentials.password
-                },
-                // doc is unique instance matches predicate
-                function(err, doc) {
-                    console.log("CALLBACK ****************");
-                    console.log([err, doc]);
-
-                    if (err) {
-                        // reject promise if error
-                        console.log("REJECTING ***************");
-                        console.log(err);
-
-                        deferred.reject(err);
-
-                    } else {
-                        // resolve promise
-                        console.log("RESOLVING ***************");
-                        console.log(doc);
-
-                        deferred.resolve(doc);
-                    }
-                });
-            //} catch(e) {
-            //    console.log(e);
-            //}
+        // find one retrieves one document
+        User.findOne(
+            // first argument is predicate
+            {
+                username: credentials.username,
+                password: credentials.password
+            },
+            // doc is unique instance matches predicate
+            function(err, doc) {
+                if (err) {
+                    // reject promise if error
+                    deferred.reject(err);
+                } else {
+                    // resolve promise
+                    deferred.resolve(doc);
+                }
+            });
         return deferred.promise;
     }
 
@@ -68,7 +84,7 @@ module.exports = function(db) {
         // use q to defer the response
         var deferred = q.defer();
         // insert new user with mongoose user model's create()
-        UserModel.create(user, function(err, doc) {
+        User.create(user, function(err, doc) {
             if (err) {
                 // reject promise if error
                 deferred.reject(err);
@@ -81,10 +97,46 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
+    function updateUser(username, user) {
+        console.log("model update");
+        var deferred = q.defer();
+        User
+            .update(
+                {username: username},
+                {$set: user},
+                function(err, stats) {
+                    if (!err) {
+                        deferred.resolve(stats);
+                    } else {
+                        deferred.reject(err);
+                    }
+                }
+            );
+        return deferred.promise;
+    }
+
+    function deleteUser(username) {
+        console.log("delete clicked");
+        var deferred = q.defer();
+        User
+            .remove(
+                {username: username},
+                function (err, stats) {
+                    if (!err) {
+                        deferred.resolve(stats);
+                    } else {
+                        deferred.reject(err);
+                    }
+                }
+            );
+        return deferred.promise;
+    }
+
+
     // use user model find by id
     function findUserById(userId) {
         var deferred = q.defer();
-        UserModel.findById(userId, function(err, doc) {
+        User.findById(userId, function(err, doc) {
             if (err) {
                 deferred.reject(err);
             } else {
@@ -106,7 +158,7 @@ module.exports = function(db) {
     function findUsersByIds(userIds) {
         var deferred = q.defer();
         // find all users in array of user IDs
-        UserModel.find({
+        User.find({
             _id: {
                 $in: userIds
             }
@@ -124,13 +176,13 @@ module.exports = function(db) {
     function userLikesCourse(userId, course) {
         var deferred = q.defer();
         // find the user
-        UserModel.findById(userId, function(err, doc) {
+        User.findById(userId, function(err, doc) {
             // reject promise if error
             if (err) {
                 deferred.reject(err);
             } else {
                 // add course id to user likes
-                doc.likes.push(course.imdbID);
+                doc.likes.push(course.courseID);
                 // save user
                 doc.save(function(err, doc) {
                     if (err) {

@@ -5,31 +5,31 @@
 
     function DetailsController($routeParams, $rootScope, $location, OmdbService, CourseService) {
         var vm = this;
-        var imdbID = $routeParams.imdbID;
+        var courseID = $routeParams.courseID;
         var currentUser = $rootScope.currentUser;
         vm.favorite = favorite;
 
         function init() {
             OmdbService
-                .findMovieByImdbID(imdbID)
+                .findCourseByCourseID(courseID)
                 .then(function(response) {
                     vm.data = response.data;
                 });
 
-            MovieService
-                .findUserLikes(imdbID)
+            CourseService
+                .findUserLikes(courseID)
                 .then(function(response) {
-                    vm.movie = response.data;
+                    vm.course = response.data;
                 });
         }
         init();
 
-        function favorite(movie) {
+        function favorite(course) {
             if (currentUser) {
-                vm.movie.likes = [];
-                vm.movie.likes.push(currentUser._id);
-                MovieService
-                    .userLikesMovie(currentUser._id, movie);
+                vm.course.likes = [];
+                vm.course.likes.push(currentUser._id);
+                CourseService
+                    .userLikesCourse(currentUser._id, course);
             } else {
                 $location.url("/login");
             }

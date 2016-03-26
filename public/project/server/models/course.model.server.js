@@ -5,38 +5,112 @@ var q = require("q");
 
 // pass db and mongoose reference to model
 module.exports = function(db) {
-
     var mongoose = require("mongoose");
-
-    // load course schema from course model
     var CourseSchema = require("./course.schema.server.js")(mongoose);
-
-    // create course from schema
     var Course  = mongoose.model("Course", CourseSchema);
-
     var courses = [];
+
     var api = {
-        findCourseByImdbID: findCourseByImdbID,
-        findCoursesByImdbIDs: findCoursesByImdbIDs,
+        findAllCourses: findAllCourses,
+
         createCourse: createCourse,
-        userLikesCourse: userLikesCourse
+        updateCourse: updateCourse,
+        deleteCourse: deleteCourse,
+
+        // SEARCH
+        searchCourseBySubject: searchCourseBySubject,
+        searchCourseByTitle: searchCourseByTitle,
+
+
+        // SAVED COURSES
+        userLikesCourse: userLikesCourse,
+        findAllCoursesLikedByUser: findAllCoursesLikedByUser
     };
     return api;
+
+
+    function findAllCourses() {
+        var deferred = q.defer();
+        Course
+            .find(
+                function(err, users) {
+                    if (!err) {
+                        deferred.resolve(users);
+                    } else {
+                        deferred.reject(err);
+                    }
+                }
+            );
+        return deferred.promise;
+
+    }
+
+
+    function createCourse(course) {
+        // use q to defer the response
+        var deferred = q.defer();
+        // insert new user with mongoose user model's create()
+        Course.create(course, function(err, doc) {
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                deferred.resolve(doc);
+            }
+        });
+        // return a promise
+        return deferred.promise;
+    }
+
+    function updateCourse(courseID, course) {
+        console.log("model update");
+        var deferred = q.defer();
+        Course
+            .update(
+                {courseID: courseID},
+                {$set: course},
+                function(err, stats) {
+                    if (!err) {
+                        deferred.resolve(stats);
+                    } else {
+                        deferred.reject(err);
+                    }
+                }
+            );
+        return deferred.promise;
+    }
+
+    function deleteCourse(courseID) {
+        console.log("delete clicked");
+        var deferred = q.defer();
+        Course
+            .remove(
+                {courseID: courseID},
+                function (err, stats) {
+                    if (!err) {
+                        deferred.resolve(stats);
+                    } else {
+                        deferred.reject(err);
+                    }
+                }
+            );
+        return deferred.promise;
+    }
+
 
     function userLikesCourse (userId, course) {
 
         var deferred = q.defer();
 
         // find the course by imdb ID
-        Course.findOne({imdbID: course.imdbID},
+        Course.findOne({courseID: course.courseID},
 
             function (err, doc) {
-
                 // reject promise if error
                 if (err) {
                     deferred.reject(err);
                 }
-
                 // if there's a course
                 if (doc) {
                     // add user to likes
@@ -53,7 +127,7 @@ module.exports = function(db) {
                     // if there's no course
                     // create a new instance
                     course = new Course({
-                        imdbID: course.imdbID,
+                        courseID: course.courseID,
                         title: course.Title,
                         poster: course.Poster,
                         likes: []
@@ -73,15 +147,15 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function findCoursesByImdbIDs (imdbIDs) {
+    function findCoursesByCourseIDs (courseIDs) {
 
         var deferred = q.defer();
 
         // find all courses
         // whose imdb IDs
-        // are in imdbIDs array
+        // are in courseIDs array
         Course.find({
-            imdbID: {$in: imdbIDs}
+            courseID: {$in: courseIDs}
         }, function (err, courses) {
             if (err) {
                 deferred.reject(err);
@@ -96,7 +170,7 @@ module.exports = function(db) {
 
         // create instance of course
         var course = new Course({
-            imdbID: course.imdbID,
+            courseID: course.courseID,
             poster: course.Poster,
             title: course.Title,
             likes: []
@@ -120,11 +194,11 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function findCourseByImdbID(imdbID) {
+    function findCourseByCourseID(courseID) {
 
         var deferred = q.defer();
 
-        Course.findOne({imdbID: imdbID}, function (err, doc) {
+        Course.findOne({courseID: courseID}, function (err, doc) {
             if (err) {
                 deferred.reject(err);
             } else {

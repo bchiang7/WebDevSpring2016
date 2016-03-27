@@ -45,7 +45,6 @@ module.exports = function(db) {
 
     }
 
-
     function createCourse(course) {
         // use q to defer the response
         var deferred = q.defer();
@@ -60,6 +59,33 @@ module.exports = function(db) {
             }
         });
         // return a promise
+        return deferred.promise;
+    }
+
+    function createCourse2(course) {
+
+        // create instance of course
+        var course = new Course({
+            courseID: course.courseID,
+            poster: course.Poster,
+            title: course.Title,
+            likes: []
+        });
+
+        var deferred = q.defer();
+
+        // save course to database
+        course.save(function (err, doc) {
+
+            if (err) {
+                // reject promise if error
+                defferred.reject(err)
+            } else {
+                // resolve promise
+                deferred.resolve(doc);
+            }
+
+        });
         return deferred.promise;
     }
 
@@ -96,6 +122,16 @@ module.exports = function(db) {
                 }
             );
         return deferred.promise;
+    }
+
+
+
+
+    function searchCourseBySubject(subject) {
+        console.log('search by subject');
+    }
+    function searchCourseByTitle(title) {
+        console.log('search by title');
     }
 
 
@@ -147,52 +183,11 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function findCoursesByCourseIDs (courseIDs) {
-
-        var deferred = q.defer();
-
-        // find all courses
-        // whose imdb IDs
-        // are in courseIDs array
-        Course.find({
-            courseID: {$in: courseIDs}
-        }, function (err, courses) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(courses);
-            }
-         })
-        return deferred.promise;
+    function findAllCoursesLikedByUser(user) {
+        console.log("find all courses liked by a certain user");
     }
 
-    function createCourse(course) {
 
-        // create instance of course
-        var course = new Course({
-            courseID: course.courseID,
-            poster: course.Poster,
-            title: course.Title,
-            likes: []
-        });
-
-        var deferred = q.defer();
-
-        // save course to database
-        course.save(function (err, doc) {
-
-            if (err) {
-                // reject promise if error
-                defferred.reject(err)
-            } else {
-                // resolve promise
-                deferred.resolve(doc);
-            }
-
-        });
-
-        return deferred.promise;
-    }
 
     function findCourseByCourseID(courseID) {
 

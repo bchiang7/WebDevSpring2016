@@ -70,6 +70,16 @@ module.exports = function(app, UserModel, CourseModel) {
             );
     }
 
+
+    function searchCourseBySubject(req, res) {
+        console.log("search Course by subject");
+    }
+
+    function searchCourseByTitle(req, res) {
+        console.log("search Course by title");
+    }
+
+
     function findUserLikes(req, res) {
         var courseID = req.params.courseID;
 

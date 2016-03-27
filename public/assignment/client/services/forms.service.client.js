@@ -21,6 +21,7 @@
         }
 
         function findAllFormsForUser(userId) {
+            form.userId = userId;
             return $http.get("/api/assignment/user/" + userId + "/form");
         }
 

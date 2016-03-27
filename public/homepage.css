@@ -1,8 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
-@import url(https://fonts.googleapis.com/css?family=Nunito:400,300,700);
 
 html, body {
     font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
+a {
+    color: #333;
+}
+a:hover {
+    color: #555;
 }
 .intro-bg {
     background: url(../../images/hbp.jpg) no-repeat center center fixed;
@@ -21,8 +27,8 @@ html, body {
     padding: 40px 30px;
 }
 #intro .intro-panel h1, #intro .intro-panel h2 {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
     margin: 0 auto 10px;
 }

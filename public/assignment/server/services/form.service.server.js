@@ -1,51 +1,39 @@
-module.exports = function(app, model, db) {
+module.exports = function(app, FormModel) {
 
-    app.get("/api/assignment/form/:formId/form", getAllForms);
-    app.get("/api/assignment/form/:formId", getFormById);
+    app.get("/api/assignment/form/:formId/form", findAllForms);
+    app.get("/api/assignment/form/:formId", findFormById); app.post("/api/assignment/form/:formId/form", createFormForUser); app.put("/api/assignment/form/:formId", updateFormById);
     app.delete("/api/assignment/form/:formId", deleteFormById);
-    app.post("/api/assignment/form/:formId/form", createForm);
-    app.put("/api/assignment/form/:formId", updateFormById);
 
 
-    function getAllForms (req, res) {
-        var forms = model.findAllForms();
+    function findAllForms(req, res) {
+        var forms = FormModel.findAllForms();
         res.json(forms);
     }
 
-    function getFormById (req, res) {
-        var id = req.params.id;
-        var form = model.findFormById(id);
-        if(form) {
-            res.json(form);
-            return;
-        }
-        res.json({message: "Form not found"});
+    function findFormById(req, res) {
+        var formId = req.params.formId;
+        var form = FormModel.findFormById(formId);
+        res.json(form);
     }
 
-    function deleteFormById (req, res) {
-        var id = req.params._id;
-        if(model.deleteForm(id)) {
-            res.send(200);
-            return;
-        }
-        res.json ({message: "Form not found"});
+    function createFormForUser(req, res) {
+        var user = req.params.userId;
+        var newForm = req.body;
+        var form = FormModel.createForm(newForm);
+        res.json(form);
     }
 
-    function createForm (req, res) {
+    function updateFormById(req, res) {
+        var id = req.params.formId;
         var form = req.body;
-        model.createForm(movie);
-        res.send (200);
+        var updatedForm = FormModel.updateForm(id, form);
+        res.send(updatedForm);
     }
 
-    function updateFormById (req, res) {
-        var id = req.params._id;
-        var form = req.body;
-        form = model.updateForm(id, form);
-        if(form) {
-            res.json(form);
-            return;
-        }
-        res.json({message: "Form not found"});
+    function deleteFormById(req, res) {
+        var formId = req.params.formId;
+        var form = FormModel.deleteFormById(formId);
+        res.json(form);
     }
 
 

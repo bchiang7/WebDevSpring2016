@@ -7,11 +7,11 @@ a {
     text-decoration: none;
 }
 a:hover {
-    color: #ef283f;
+    color: #0073ff;
 }
 p {
     margin: 0 0 10px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1.5;
     font-weight: 300;
 }
@@ -19,8 +19,8 @@ p {
     border-radius: 0;
 }
 .navbar {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    /*padding-top: 5px;
+    padding-bottom: 5px;*/
     padding-right: 20px;
 }
 @media screen and (max-width: 768px) {
@@ -30,7 +30,7 @@ p {
 }
 .navbar-brand {
     padding: 15px 30px;
-    font-size: 28px;
+    font-size: 24px;
 }
 .navbar-inverse .navbar-brand {
     color: #ddd;
@@ -38,7 +38,7 @@ p {
 }
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
     color: #fff;
-    background: #ef283f;
+    background: #0073ff;
 }
 .navbar-right {
     /*margin-right: 5px;*/
@@ -59,7 +59,7 @@ p {
     color: #555;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    color: #ef283f;
+    color: #0073ff;
 }
 .main {
     padding: 40px 30px;

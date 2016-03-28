@@ -6,32 +6,27 @@
     function FormService($rootScope, $http) {
 
         var api = {
-            createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,
-            deleteFormById: deleteFormById,
-            updateFormById: updateFormById
+            createFormForUser: createFormForUser,
+            updateFormById: updateFormById,
+            deleteFormById: deleteFormById
         }
         return api;
 
-        function createFormForUser(userId, form) {
-            form._id = (new Date).getTime();
-            form.userId = userId;
-
-            return $http.post("/api/assignment/user/" + userId + "/form", form);
-        }
-
         function findAllFormsForUser(userId) {
-            form.userId = userId;
             return $http.get("/api/assignment/user/" + userId + "/form");
         }
 
-        function deleteFormById(formId) {
-            return $http.delete("/api/assignment/form/" + formId);
+        function createFormForUser(userId, form) {
+            return $http.post("/api/assignment/user/" + userId + "/form", form);
         }
 
         function updateFormById(formId, newForm) {
             return $http.put("/api/assignment/form/" + formId, newForm);
-
+        }
+        
+        function deleteFormById(formId) {
+            return $http.delete("/api/assignment/form/" + formId);
         }
     }
 })();

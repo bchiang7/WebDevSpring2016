@@ -1,75 +1,57 @@
-module.exports = function(app, model, db) {
+module.exports = function(app, UserModel) {
 
+    app.get("/api/assignment/user", findAllUsers);
+    app.get("/api/assignment/user/:id", findUserById);
+    app.get("/api/assignment/user?username=username", findUserByUsername);
+    app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);
     app.post("/api/assignment/user", createUser);
-    app.get("/api/assignment/user", getAllUsers);
-    app.get("/api/assignment/user/:id", getUserById);
-    app.get("/api/assignment/user?username=username", getUserByUsername);
-    app.get("/api/assignment/user?username=alice&password=wonderland", getUserByCredentials);
-    app.put("/api/assignment/user/:id", updateUserById);
+    app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUserById);
 
-    function createUser (req, res) {
-        var user = req.body;
-        model.createUser(user);
-        res.send (200);
+
+    function findAllUsers(req, res) {
+        var allUsers = UserModel.findAllUsers();
+        res.json(allUsers);
     }
 
-    function getAllUsers (req, res) {
-        var users = model.findAllUsers();
-        res.json(users);
+    function findUserById(req, res) {
+        var userId = req.params.userId;
+        var user = UserModel.findUserById(userId);
+        res.json(user);
     }
 
-    function getUserById (req, res) {
-        var id = req.params.id;
-        var user = model.findUserById(id);
-        if(user) {
-            res.json(user);
-            return;
-        }
-        res.json({message: "User not found"});
-    }
-
-    function getUserByUsername (req, res) {
+    function findUserByUsername(req, res) {
         var username = req.params.username;
-        var user = model.findUserByUsername(username);
-        if(username) {
-            res.json(username);
-            return;
-        }
-        res.json({message: "User not found"});
+        var user = UserModel.findUserByUsername(username);
+        res.json(user);
     }
 
-    function getUserByCredentials (req, res) {
-        var credentials = {
-            username: req.params.username,
-            password: req.params.password
-        }
-        if(credentials) {
-            res.json(credentials);
-            return;
-        }
-        res.json({message: "User not found"});
-
+    function findUserByCredentials(req, res) {
+        console.log("Server service");
+        var username = req.query.username;
+        var password = req.query.password;
+        var user = UserModel.findUserByCredentials(username, password);
+        res.json(user);
     }
 
-    function updateUserById (req, res) {
+    function createUser(req, res) {
+        var new_user = req.body;
+        UserModel.createUser(new_user);
+        res.json(new_user);
+    }
+
+    function updateUser(req, res) {
         var id = req.params._id;
         var user = req.body;
-        user = model.updateUser(id, user);
-        if(user) {
-            res.json(user);
-            return;
-        }
-        res.json({message: "User not found"});
+        user = UserModel.updateUser(id, user);
+        res.json(user);
     }
 
-    function deleteUserById (req, res) {
-        var id = req.params._id;
-        if(model.deleteUser(id)) {
-            res.send(200);
-            return;
-        }
-        res.json ({message: "User not found"});
+    function deleteUserById(req, res) {
+        var userId = req.params._id;
+        UserModel.deleteUserById(userId);
+        var users = UserModel.findAllUsers();
+        res.json(users);
     }
 
 }

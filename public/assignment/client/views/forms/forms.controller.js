@@ -3,16 +3,15 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, $location, FormService, $rootScope) {
+    function FormController(FormService, $scope, $rootScope, $location) {
 
-        $scope.addField = addField;
+        $scope.addForm = addForm;
         $scope.updateForm = updateForm;
         $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
 
         $scope.form = {};
 
-        // Get forms from FormService
         function getForms() {
             FormService
                 .findAllFormsForUser($rootScope.currentUser._id)

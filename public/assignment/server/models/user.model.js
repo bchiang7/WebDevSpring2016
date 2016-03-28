@@ -1,70 +1,80 @@
-var userMock = require('./user.mock.json');
+var mock = require('./user.mock.json');
 
 module.exports = function(app, db) {
 
     var api = {
-        createUser: createUser,
         findAllUsers: findAllUsers,
         findUserById: findUserById,
-        updateUser: updateUser,
-        deleteUser: deleteUser,
         findUserByUsername: findUserByUsername,
-        findUserByCredentials: findUserByCredentials
+        findUserByCredentials: findUserByCredentials,
+        createUser: createUser,
+        updateUser: updateUser,
+        deleteUserById: deleteUserById
     }
     return api;
 
-    function createUser(user) {
-        userMock.push(user);
-        return userMock;
-    }
-
     function findAllUsers() {
-        return userMock;
+        return mock;
     }
 
     function findUserById(id) {
-        for (var i = 0; i < userMock.length; i++) {
-            if (userMock[i]._id == id) {
-                return userMock[i];
+        for (var i in mock) {
+            if (mock[i]._id === id) {
+                return mock[i];
             }
         }
+        return null;
     }
 
-    function updateUser(id, user) {
-        var idx = userMock.indexOf(findUserById(id));
-        userMock[idx].title = user.title;
-        return userMock;
-    }
-
-    function deleteUser(id) {
-        var user = findUserById(id);
-        var idx = userMock.indexOf(user);
-        userMock.splice(idx, 1);
-        return userMock;
-    }
-
-    // returns a single user whose username is equal to username parameter, null otherwise
     function findUserByUsername(username) {
-        for (var i in userMock) {
-            if (userMock[i].username === username) {
-                return userMock[i];
+        for (var i in mock) {
+            if (mock[i].username === username) {
+                return mock[i];
             }
         }
         return null;
     }
 
-    // Accepts an object credentials with properties username and password.
-    // Returns a single user from the model whose username and password are equal to the username and password properties in the credentials parameter, null otherwise
-    function findUserByCredentials(credentials) {
-        for (var i in userMock) {
-            if (userMock[i].username === credentials.username &&
-                userMock[i].password === credentials.password) {
-                return userMock[i];
+    function findUserByCredentials(username, password) {
+        console.log("user model");
+        for (var u in mock) {
+            if (mock[u].username === username &&
+                mock[u].password === password) {
+                return mock[u];
             }
         }
         return null;
     }
 
+    function createUser(user) {
+        user._id = "ID_" + (new Date()).getTime();
+        mock.push(user);
+        return mock;
+    }
 
+    function updateUser(userId, user) {
+        // var user_to_update = findUserIndexById(userId);
+        // mock[user_to_update] = user;
+        // return user;
+
+        for (var i in mock) {
+            if (mock[i]._id === userId) {
+                mock[i].firstName = user.firstName;
+                mock[i].lastName = user.lastName;
+                mock[i].password = user.password;
+                return mock[i];
+            }
+        }
+        return null;
+    }
+
+    function deleteUserById(id) {
+        for (var i in mock) {
+            if (mock[i]._id === userId) {
+                mock.splice(i, 1);
+            }
+        }
+        return mock;
+    }
 
 }

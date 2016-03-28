@@ -22,7 +22,7 @@
                 })
                 .then(
                     function(response) {
-                        if (response.data) {
+                        if(response.data) {
                             UserService.setCurrentUser(response.data);
                             $location.url("/dashboard");
                         }

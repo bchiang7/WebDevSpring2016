@@ -6,17 +6,31 @@
     function LoginController(UserService, $scope, $rootScope, $location) {
 
         $scope.login = login;
-        $scope.user = {};
 
         function login(user) {
+            console.log("login controller");
+            if (!user) {
+                $scope.message = "Please fill in the required fields";
+                return;
+            }
+
             UserService
-                .findUserByCredentials(user.username, user.password)
-                .then(function(response) {
-                    if (response.data) {
-                        $rootScope.currentUser = response.data;
-                        $location.url("/profile");
+                .findUserByCredentials({
+                    username: user.username,
+                    password: user.password
+                })
+                .then(
+                    function(response) {
+                        if (response.data) {
+                            UserService.setCurrentUser(response.data);
+                            $location.url("/profile");
+                        }
+                    },
+                    function(error) {
+                        $scope.message = "Incorrect username or password";
+                        return;
                     }
-                });
+                );
         }
 
     }

@@ -10,48 +10,102 @@ module.exports = function(app, UserModel) {
 
 
     function findAllUsers(req, res) {
-        var allUsers = UserModel.findAllUsers();
-        res.json(allUsers);
+        UserModel
+            .findAllUsers()
+            .then(
+                function(users) {
+                    res.json(users);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findUserById(req, res) {
-        var userId = req.params.userId;
-        var user = UserModel.findUserById(userId);
-        res.json(user);
+        UserModel
+            .findUserById(req.params._id)
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findUserByUsername(req, res) {
-        var username = req.params.username;
-        var user = UserModel.findUserByUsername(username);
-        res.json(user);
+        UserModel
+            .findUserByUsername(req.params.username)
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findUserByCredentials(req, res) {
         console.log("Server service");
-        var username = req.query.username;
-        var password = req.query.password;
-        var user = UserModel.findUserByCredentials(username, password);
-        res.json(user);
+        var username = req.params.username;
+        var password = req.params.password;
+        UserModel
+            .findUserByUsername(username, password)
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
     }
 
     function createUser(req, res) {
-        var new_user = req.body;
-        UserModel.createUser(new_user);
-        res.json(new_user);
+        var user = req.body;
+        UserModel
+            .createUser(user)
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function updateUser(req, res) {
-        var id = req.params._id;
+        var username = req.params.username;
         var user = req.body;
-        user = UserModel.updateUser(id, user);
-        res.json(user);
+        UserModel
+            .updateUser(username, user)
+            .then(
+                function(stats) {
+                    res.send(200);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteUserById(req, res) {
-        var userId = req.params._id;
-        UserModel.deleteUserById(userId);
-        var users = UserModel.findAllUsers();
-        res.json(users);
+        var username = req.params.username;
+        UserModel
+            .deleteUser(username)
+            .then(
+                function(stats) {
+                    res.send(200);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
 }

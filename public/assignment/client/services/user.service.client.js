@@ -14,7 +14,7 @@
             getCurrentUser: getCurrentUser,
             createUser: createUser,
             updateUser: updateUser,
-            deleteUserById: deleteUserById
+            deleteUser: deleteUser
         }
         return api;
 
@@ -23,16 +23,15 @@
         }
 
         function findUserById(userId) {
-            return $http.get("/api/assignment/user/:id" + userId);
+            return $http.get("/api/assignment/user/" + userId);
         }
 
         function findUserByUsername(username) {
-            return $http.get("/api/assignment/user?username=" + username);
+            return $http.get("/api/assignment/user/" + username);
         }
 
         function findUserByCredentials(username, password) {
-            console.log("client service");
-            return $http.get("/api/assignment/user?username="+username+"&password="+password);
+            return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
         }
 
         function setCurrentUser(user) {
@@ -47,12 +46,12 @@
             return $http.post("/api/assignment/user", user);
         }
 
-        function updateUser(userId, user) {
-            return $http.put("/api/assignment/user/" + userId, user);
+        function updateUser(user) {
+            return $http.put("/api/assignment/user/" + user.username, user);
         }
 
-        function deleteUserById(userId) {
-            return $http.delete("/api/assignment/user/" + userId);
+        function deleteUser(user) {
+            return $http.delete("/api/assignment/user/" + developer.username);
         }
 
     }

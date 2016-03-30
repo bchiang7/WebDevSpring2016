@@ -2,11 +2,11 @@ module.exports = function(app, UserModel) {
 
     app.get("/api/assignment/user", findAllUsers);
     app.get("/api/assignment/user/:id", findUserById);
-    app.get("/api/assignment/user?username=username", findUserByUsername);
+    app.get("/api/assignment/user/:username", findUserByUsername);
     app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);
     app.post("/api/assignment/user", createUser);
-    app.put("/api/assignment/user/:id", updateUser);
-    app.delete("/api/assignment/user/:id", deleteUserById);
+    app.put("/api/assignment/user/:username", updateUser);
+    app.delete("/api/assignment/user/:username", deleteUser);
 
 
     function findAllUsers(req, res) {
@@ -49,9 +49,8 @@ module.exports = function(app, UserModel) {
     }
 
     function findUserByCredentials(req, res) {
-        console.log("Server service");
-        var username = req.params.username;
-        var password = req.params.password;
+        var username = req.query.username;
+        var password = req.query.password;
         UserModel
             .findUserByUsername(username, password)
             .then(
@@ -62,7 +61,6 @@ module.exports = function(app, UserModel) {
                     res.status(400).send(err);
                 }
             );
-    }
     }
 
     function createUser(req, res) {
@@ -94,7 +92,7 @@ module.exports = function(app, UserModel) {
             );
     }
 
-    function deleteUserById(req, res) {
+    function deleteUser(req, res) {
         var username = req.params.username;
         UserModel
             .deleteUser(username)

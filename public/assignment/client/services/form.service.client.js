@@ -7,6 +7,7 @@
 
         var api = {
             findAllFormsForUser: findAllFormsForUser,
+            findFormById: findFormById,
             createFormForUser: createFormForUser,
             updateFormById: updateFormById,
             deleteFormById: deleteFormById
@@ -17,14 +18,18 @@
             return $http.get("/api/assignment/user/" + userId + "/form");
         }
 
-        function createFormForUser(userId, form) {
-            return $http.post("/api/assignment/user/" + userId + "/form", form);
+        function findFormById(formId) {
+            return $http.get("/api/assignment/form/" + formId);
         }
 
-        function updateFormById(formId, newForm) {
-            return $http.put("/api/assignment/form/" + formId, newForm);
+        function createFormForUser(username, form) {
+            return $http.post("/api/assignment/user/" + username + "/form", form);
         }
-        
+
+        function updateFormById(formId, form) {
+            return $http.put("/api/assignment/form/" + formId, form);
+        }
+
         function deleteFormById(formId) {
             return $http.delete("/api/assignment/form/" + formId);
         }

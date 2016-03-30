@@ -6,8 +6,11 @@ module.exports = function() {
     // use mongoose to declare a user schema
     var FieldSchema = mongoose.Schema({
         label: String,  // First Name
-        type: {type: String, default: "TEXT"},
-        // ENUM VALUES: TEXT, EMAIL, PASSWORD, OPTIONS, DATE, RADIOS, CHECKBOXES
+        type: {
+            type: String,
+            default: "TEXT",
+            enum: ["TEXT, EMAIL, PASSWORD, OPTIONS, DATE, RADIOS, CHECKBOXES"]
+        },
         placeholder: String,    // Alice
         options: [{label:STRING, value:STRING}] // [{label:'Male', value:'MALE'}, {label:'Female', value:'FEMALE'}]
     }, {collection: 'field'});

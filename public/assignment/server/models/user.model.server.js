@@ -5,7 +5,7 @@ var q = require("q"); // load q promise library
 // pass db and mongoose reference to model
 module.exports = function(db) {
     var UserSchema = require("./user.schema.server.js")();
-    var User = mongoose.model("User", UserSchema);
+    var User = mongoose.model("FormUser", UserSchema);
 
     var api = {
         findAllUsers: findAllUsers,
@@ -69,20 +69,17 @@ module.exports = function(db) {
 
     function findUserByCredentials(username, password) {
         var deferred = q.defer();
-        // find one retrieves one document
         User
-            .findOne(
-                // first argument is predicate
-                {
+            .findOne({
                     username: username,
                     password: password
                 },
                 // doc is unique instance matches predicate
                 function(err, doc) {
-                    if (err) {
-                        deferred.reject(err);
-                    } else {
+                    if (!err) {
                         deferred.resolve(doc);
+                    } else {
+                        deferred.reject(err);
                     }
                 });
         return deferred.promise;
@@ -93,10 +90,10 @@ module.exports = function(db) {
         User
             .create(user,
                 function(err, doc) {
-                    if (err) {
-                        deferred.reject(err);
-                    } else {
+                    if (!err) {
                         deferred.resolve(doc);
+                    } else {
+                        deferred.reject(err);
                     }
                 });
         return deferred.promise;

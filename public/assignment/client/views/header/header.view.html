@@ -1,4 +1,4 @@
-<nav ng-controller="HeaderController" class="navbar navbar-inverse navbar-fixed-top">
+<nav ng-controller="HeaderController as model" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -11,17 +11,17 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="currentUser" ng-class="{'active': $location.url().indexOf('register') != -1}">
+                <li ng-hide="currentUser" ng-class="{'active': model.$location.url().indexOf('register') != -1}">
                     <a href="#/register">Register</a>
                 </li>
-                <li ng-hide="currentUser" ng-class="{'active': $location.url().indexOf('login') != -1}">
+                <li ng-hide="currentUser" ng-class="{'active': model.$location.url().indexOf('login') != -1}">
                     <a href="#/login">Login</a>
                 </li>
-                <li ng-show="currentUser" ng-class="{'active': $location.url().indexOf('username') != -1}">
+                <li ng-show="currentUser" ng-class="{'active': model.$location.url().indexOf('username') != -1}">
                     <a href="#/profile">{{currentUser.username}}</a>
                 </li>
                 <li ng-show="currentUser">
-                    <a ng-click="logout()">Logout</a>
+                    <a ng-click="model.logout()">Logout</a>
                 </li>
             </ul>
         </div>

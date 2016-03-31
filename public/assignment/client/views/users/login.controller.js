@@ -4,29 +4,33 @@
         .controller("LoginController", LoginController);
 
     function LoginController(UserService, $scope, $rootScope, $location) {
+        var vm = this;
+        vm.login = login;
 
-        $scope.login = login;
+        function init() {}
+        init();
 
         function login(user) {
-            console.log("login controller");
-            if (!user) {
+
+            if (!user || !user.username || !user.password) {
                 $scope.message = "Please fill in the required fields";
                 return;
             }
 
             UserService
-                .findUserByCredentials({
-                    username: user.username,
-                    password: user.password
-                })
+                .findUserByCredentials(user.username,user.password)
                 .then(
                     function(response) {
                         if (response.data) {
                             UserService.setCurrentUser(response.data);
                             $location.url("/profile");
                         }
+                        else {
+                            $scope.message = "Incorrect username or password";
+                        }
                     },
                     function(error) {
+                        // console.log(error);
                         $scope.message = "Incorrect username or password";
                         return;
                     }

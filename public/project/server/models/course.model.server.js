@@ -62,7 +62,7 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function createCourse2(course) {
+    function createCourse(course) {
 
         // create instance of course
         var course = new Course({

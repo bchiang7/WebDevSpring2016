@@ -1,13 +1,73 @@
 module.exports = function(app, UserModel) {
 
-    app.get("/api/assignment/user", findAllUsers);
+    //app.get("/api/assignment/user", findAllUsers);
+    //app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);
+    app.get("/api/assignment/user", findUser);
+    app.get("/api/assignment/user/loggedin", loggedin);
+    app.post("/api/assignment/user/logout", logout);
+    // app.get("/api/assignment/user/profile/:userId", getProfile);
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user/:username", findUserByUsername);
-    app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);
     app.post("/api/assignment/user", createUser);
     app.put("/api/assignment/user/:username", updateUser);
     app.delete("/api/assignment/user/:username", deleteUser);
 
+
+
+    function findUser(req, res) {
+        var username = req.query.username;
+        var password = req.query.password;
+        
+        if (username && password) {
+            UserModel
+                .findUserByCredentials(username, password)
+                .then(
+                    function(user) {
+                        console.log("findUser!");
+                        req.session.currentUser = user;
+                        res.json(user);
+                    },
+                    function(err) {
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            UserModel
+                .findAllUsers()
+                .then(
+                    function(users) {
+                        res.json(users);
+                    },
+                    function(err) {
+                        res.status(400).send(err);
+                    }
+                );
+        }
+    }
+
+    function loggedin(req, res) {
+        res.json(req.session.currentUser);
+    }
+
+    function logout(req, res) {
+        req.session.destroy();
+        res.send(200);
+    }
+
+    // function getProfile(req, res) {
+    //     var userId = req.params.userId;
+    //     var user = null;
+    //     UserModel.findUserById(userId)
+    //         .then(
+    //             function(doc) {
+    //                 req.session.currentUser = doc;
+    //                 res.json(user);
+    //             },
+    //             function(err) {
+    //                 res.status(400).send(err);
+    //             }
+    //         );
+    // }
 
     function findAllUsers(req, res) {
         UserModel
@@ -49,6 +109,7 @@ module.exports = function(app, UserModel) {
     }
 
     function findUserByCredentials(req, res) {
+        console.log("find user by creds");
         var username = req.query.username;
         var password = req.query.password;
         UserModel

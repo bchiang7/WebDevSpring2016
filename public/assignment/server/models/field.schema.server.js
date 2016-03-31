@@ -12,7 +12,7 @@ module.exports = function() {
             enum: ["TEXT, EMAIL, PASSWORD, OPTIONS, DATE, RADIOS, CHECKBOXES"]
         },
         placeholder: String,    // Alice
-        options: [{label:STRING, value:STRING}] // [{label:'Male', value:'MALE'}, {label:'Female', value:'FEMALE'}]
+        options: [{label:String, value:String}] // [{label:'Male', value:'MALE'}, {label:'Female', value:'FEMALE'}]
     }, {collection: 'field'});
 
     return FieldSchema;

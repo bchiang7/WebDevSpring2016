@@ -23,6 +23,7 @@
         }
 
         function createFormForUser(username, form) {
+            console.log("create form client");
             return $http.post("/api/assignment/user/" + username + "/form", form);
         }
 

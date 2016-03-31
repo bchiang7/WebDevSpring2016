@@ -38,7 +38,7 @@ module.exports = function(app, db) {
         return deferred.promise;
     }
 
-    function findFormsByUserId(userId) {
+    function findAllFormsForUser(userId) {
         var deferred = q.defer();
         Form
             .find({
@@ -47,7 +47,7 @@ module.exports = function(app, db) {
                 }
             }, function(err, forms) {
                 if (!err) {
-                    deferred.resolve(doc);
+                    deferred.resolve(forms);
                 } else {
                     deferred.reject(err);
                 }
@@ -55,10 +55,10 @@ module.exports = function(app, db) {
         return deferred.promise;
     }
 
-    function findFormById(id) {
+    function findFormById(formId) {
         var deferred = q.defer();
         Form
-            .findById(userId, function(err, doc) {
+            .findById(formId, function(err, doc) {
                 if (!err) {
                     deferred.resolve(form);
                 } else {
@@ -85,7 +85,7 @@ module.exports = function(app, db) {
         return deferred.promise;
     }
 
-    function createForm(form) {
+    function createFormForUser(form) {
         var deferred = q.defer();
         Form
             .create(form,
@@ -103,7 +103,7 @@ module.exports = function(app, db) {
         console.log('create field for form');
     }
 
-    function updateForm(formId, form) {
+    function updateFormById(formId, form) {
         var deferred = q.defer();
         Form
             .update({

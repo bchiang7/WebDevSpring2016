@@ -3,35 +3,45 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController(FormService, $scope, $rootScope, $location) {
+    function FormController(FormService, $scope, $rootScope, $location, $routeParams) {
+        var vm = this;
 
-        $scope.addForm = addForm;
-        $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
-        $scope.selectForm = selectForm;
+        vm.addForm = addForm;
+        vm.updateForm = updateForm;
+        vm.deleteForm = deleteForm;
+        vm.selectForm = selectForm;
+
+        vm.currentUser = $rootScope.currentUser;
 
         $scope.form = {};
 
+        // console.log(vm.currentUser);
+
         function getForms() {
             FormService
-                .findAllFormsForUser($rootScope.currentUser._id)
-                .then(function(response) {
-                    if (response.data) {
-                        $scope.forms = response.data;
-                    }
-                });
+                .findAllFormsForUser(vm.currentUser._id)
+                .then(
+                    function(response) {
+                        if (response.data) {
+                            $scope.forms = response.data;
+                        }
+                    });
         }
         getForms();
 
-        function addField(userId, form) {
+        function addForm(form) {
+
+            username = form.username;
             FormService
-                .createFormForUser(userId, form)
-                .then(function(response) {
-                    if (response.data) {
-                        $scope.form = {};
-                        retrieveForms();
+                .createFormForUser(username, form)
+                .then (
+                    function(response) {
+                        $location.url ("/user/" + form._id + "/form");
+                    },
+                    function(err) {
+                        vm.error = err;
                     }
-                });
+                )
         }
 
         function selectForm(index) {
@@ -48,7 +58,7 @@
                 .then(function(response) {
                     if (response.data) {
                         $scope.form = {};
-                        $scope.forms = retrieveForms();
+                        // $scope.forms = retrieveForms();
                     }
                 });
         }
@@ -60,7 +70,7 @@
                 .deleteFormById(form._id)
                 .then(function(response) {
                     if (response.data) {
-                        retrieveForms();
+                        // retrieveForms();
                         $scope.form = {};
                     }
                 });

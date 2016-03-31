@@ -6,21 +6,20 @@
     function FieldService($rootScope, $http) {
 
         var api = {
-            getFieldForForm: getFieldForForm,
-            getFieldsForForm: getFieldsForForm,
+            findFieldsForForm: findFieldsForForm,
+            findFieldForForm: findFieldForForm,
             createFieldForForm: createFieldForForm,
-            deleteFieldFromForm: deleteFieldFromForm,
-            updateField: updateField
+            updateFieldById: updateFieldById,
+            deleteFieldFromForm: deleteFieldFromForm
         }
         return api;
 
-
-        function getFieldForForm(formId, fieldId) {
-            return $http.get("/api/assignment/form/" + formId + "/field/" + fieldId);
+        function findFieldsForForm(formId) {
+            return $http.get("/api/assignment/form/" + formId + "/field");
         }
 
-        function getFieldsForForm(formId) {
-            return $http.get("/api/assignment/form/" + formId + "/field");
+        function findFieldForForm(formId, fieldId) {
+            return $http.get("/api/assignment/form/" + formId + "/field/" + fieldId);
         }
 
         function createFieldForForm(formId, field) {

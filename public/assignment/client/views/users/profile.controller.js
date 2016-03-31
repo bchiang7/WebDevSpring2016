@@ -4,30 +4,32 @@
         .controller("ProfileController", ProfileController);
 
     function ProfileController(UserService, $scope, $rootScope, $location) {
+        var vm = this;
 
-        $scope.error = null;
-        $scope.message = null;
-        $scope.update = update;
+        vm.error = null;
+        vm.message = null;
+        vm.update = update;
 
-        $scope.currentUser = UserService.getCurrentUser();
+        vm.currentUser = UserService.getCurrentUser();
 
-        if (!$scope.currentUser) {
+        if (!vm.currentUser) {
             $location.url("/home");
         }
 
         function update(user) {
-
             UserService
-                .updateUser(user._id, user)
-                .then(function() {
-                    return UserService.findUserByCredentials(user.username, user.password);
-                })
-                .then(function(response){
-                    if (response.data){
-                        $rootScope.currentUser = response.data;
-                        console.log("hooray!");
-                    }
-                });
+                .updateUser(user)
+                .then(
+                    function() {
+                        return UserService.findUserByCredentials(user.username, user.password);
+                    })
+                .then(
+                    function(response) {
+                        if (response.data) {
+                            $rootScope.currentUser = response.data;
+                            // console.log("hooray!");
+                        }
+                    });
 
         }
 

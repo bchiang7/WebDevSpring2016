@@ -6,8 +6,10 @@ module.exports = function(app, UserModel) {
     app.get("/api/assignment/user/loggedin", loggedin);
     app.post("/api/assignment/user/logout", logout);
     // app.get("/api/assignment/user/profile/:userId", getProfile);
+
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user/:username", findUserByUsername);
+
     app.post("/api/assignment/user", createUser);
     app.put("/api/assignment/user/:username", updateUser);
     app.delete("/api/assignment/user/:username", deleteUser);
@@ -17,15 +19,18 @@ module.exports = function(app, UserModel) {
     function findUser(req, res) {
         var username = req.query.username;
         var password = req.query.password;
-        
+
         if (username && password) {
             UserModel
                 .findUserByCredentials(username, password)
                 .then(
                     function(user) {
-                        console.log("findUser!");
+                        // console.log("findUser!");
+
                         req.session.currentUser = user;
                         res.json(user);
+
+                        // console.log(user);
                     },
                     function(err) {
                         res.status(400).send(err);
@@ -55,11 +60,15 @@ module.exports = function(app, UserModel) {
     }
 
     // function getProfile(req, res) {
-    //     var userId = req.params.userId;
+    //
+    //     var userId = req.params._id;
     //     var user = null;
+    //     console.log(userId);
+    //
     //     UserModel.findUserById(userId)
     //         .then(
     //             function(doc) {
+    //                 console.log("inside get profile");
     //                 req.session.currentUser = doc;
     //                 res.json(user);
     //             },
@@ -108,21 +117,20 @@ module.exports = function(app, UserModel) {
             );
     }
 
-    function findUserByCredentials(req, res) {
-        console.log("find user by creds");
-        var username = req.query.username;
-        var password = req.query.password;
-        UserModel
-            .findUserByUsername(username, password)
-            .then(
-                function(user) {
-                    res.json(user);
-                },
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
-    }
+    // function findUserByCredentials(req, res) {
+    //     var username = req.query.username;
+    //     var password = req.query.password;
+    //     UserModel
+    //         .findUserByCredentials(username, password)
+    //         .then(
+    //             function(user) {
+    //                 res.json(user);
+    //             },
+    //             function(err) {
+    //                 res.status(400).send(err);
+    //             }
+    //         );
+    // }
 
     function createUser(req, res) {
         var user = req.body;

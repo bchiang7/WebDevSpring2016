@@ -7,9 +7,8 @@
         $routeProvider
             .when("/home", {
                 templateUrl: "views/home/home.view.html",
-                // controller:"HomeController"
                 resolve: {
-                    getLoggedIn: getLoggedIn
+                    loggedin: getLoggedIn
                 }
             })
             .when("/profile", {
@@ -17,11 +16,12 @@
                 controller: "ProfileController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    loggedin: checkLoggedIn
                 }
             })
             .when("/admin", {
-                templateUrl: "views/admin/admin.view.html"
+                templateUrl: "views/admin/admin.view.html",
+                controller: "AdminController"
             })
             .when("/register", {
                 templateUrl: "views/users/register.view.html",

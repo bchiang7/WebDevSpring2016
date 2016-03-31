@@ -3,8 +3,10 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController(UserService, $scope, $rootScope, $location) {
+    function ProfileController(UserService, $location, $routeParams, $scope) {
         var vm = this;
+
+        // var username = $routeParams.username;
 
         vm.error = null;
         vm.message = null;
@@ -12,11 +14,19 @@
 
         vm.currentUser = UserService.getCurrentUser();
 
-        if (!vm.currentUser) {
+
+        function init() {}
+        init();
+
+
+        if(!vm.currentUser) {
             $location.url("/home");
         }
 
         function update(user) {
+
+            // console.log("update!");
+
             UserService
                 .updateUser(user)
                 .then(
@@ -26,10 +36,15 @@
                 .then(
                     function(response) {
                         if (response.data) {
-                            $rootScope.currentUser = response.data;
-                            // console.log("hooray!");
+                            vm.currentUser = response.data;
+                            $scope.message = "Profile updated!";
                         }
-                    });
+                    },
+                    function(error) {
+                        $scope.message = "Incorrect username or password";
+                        return;
+                    }
+                );
 
         }
 

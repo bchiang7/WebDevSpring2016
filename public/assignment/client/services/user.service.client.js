@@ -10,10 +10,13 @@
             findUserById: findUserById,
             findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
+
             getCurrentUser: getCurrentUser,
             setCurrentUser: setCurrentUser,
+
             logout: logout,
             // getProfile: getProfile,
+
             createUser: createUser,
             updateUser: updateUser,
             deleteUser: deleteUser

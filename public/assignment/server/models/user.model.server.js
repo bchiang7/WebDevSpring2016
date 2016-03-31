@@ -35,18 +35,14 @@ module.exports = function(db) {
 
     function findUserById(userId) {
         var deferred = q.defer();
-        User
-            .findOne({
-                    _id: userId
-                },
-                function(err, user) {
-                    if (!err) {
-                        deferred.resolve(user);
-                    } else {
-                        deferred.reject(err);
-                    }
+        UserModel
+            .findById(userId, function(err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
                 }
-            );
+            });
         return deferred.promise;
     }
 

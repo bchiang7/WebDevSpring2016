@@ -30,7 +30,6 @@
                         }
                     },
                     function(error) {
-                        // console.log(error);
                         $scope.message = "Incorrect username or password";
                         return;
                     }

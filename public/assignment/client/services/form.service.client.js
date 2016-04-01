@@ -32,6 +32,7 @@
         }
 
         function deleteFormById(formId) {
+            //console.log("client deleteFormById " + formId);
             return $http.delete("/api/assignment/form/" + formId);
         }
     }

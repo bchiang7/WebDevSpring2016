@@ -25,6 +25,7 @@ module.exports = function(app, FormModel) {
     }
 
     function findFormById(req, res) {
+        console.log("server findFormById");
         var formId = req.params.formId;
         FormModel
             .findFormById(formId)
@@ -80,17 +81,30 @@ module.exports = function(app, FormModel) {
     }
 
     function deleteFormById(req, res) {
+        var userId = req.params.userId;
         var formId = req.params.formId;
+        //console.log("server deleteFormById " + formId);
+
         FormModel
             .deleteFormById(formId)
-            .then(
-                function(stats) {
-                    res.send(200);
+            .then (
+                function(form) {
+                    //res.json(form);
+                    return FormModel.findAllFormsForUser(userId);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then (
+                function(forms) {
+                    res.json(forms);
                 },
                 function(err) {
                     res.status(400).send(err);
                 }
             );
+
     }
 
 

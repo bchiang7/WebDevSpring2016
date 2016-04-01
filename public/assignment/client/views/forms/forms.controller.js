@@ -37,7 +37,6 @@
                 .createFormForUser(userId, form)
                 .then (
                     function(response) {
-                        //vm.forms.push(response.data);
                         vm.forms = response.data;
                     },
                     function(err) {
@@ -66,16 +65,24 @@
         }
 
         function deleteForm(index) {
-            var form = $scope.forms[index];
+
+            var form = vm.forms[index];
+
+            //console.log("deleteForm " + form._id);
 
             FormService
                 .deleteFormById(form._id)
-                .then(function(response) {
-                    if (response.data) {
-                        // retrieveForms();
-                        $scope.form = {};
+                .then(
+                    function(response) {
+                        console.log(vm.forms);
+                        //vm.forms = response.data;
+                        //FormService.findAllFormsForUser()
+                    },
+                    function(err) {
+                        vm.error = err;
                     }
-                });
+                );
+
         }
     }
 })();

@@ -90,11 +90,7 @@ module.exports = function(app, db) {
         //console.log("model userId = " + userId);
         var deferred = q.defer();
         Form
-            .create({
-                title: form.title,
-                    userId: userId
-
-                    },
+            .create({title: form.title, userId: userId},
                 function(err, form) {
                     if (!err) {
                         deferred.resolve(form);
@@ -133,19 +129,26 @@ module.exports = function(app, db) {
     }
 
     function deleteFormById(formId) {
+        console.log("model deleteFormById " + formId);
+
         var deferred = q.defer();
-        Form.remove({
-                formId: formId
-            },
-            function(err, stats) {
-                if (!err) {
-                    deferred.resolve(stats);
-                } else {
-                    deferred.reject(err);
+
+        Form
+            .remove (
+                formId,
+                function (err, stats) {
+                    if(!err) {
+                        deferred.resolve(stats);
+                    } else {
+                        deferred.reject(err);
+                    }
                 }
-            }
-        );
+            );
+
+
         return deferred.promise;
+
+
     }
 
 

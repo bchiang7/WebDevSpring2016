@@ -8,7 +8,7 @@
             .when("/home", {
                 templateUrl: "views/home/home.view.html",
                 resolve: {
-                    loggedin: getLoggedIn
+                    getLoggedIn: getLoggedIn
                 }
             })
             .when("/profile", {
@@ -16,7 +16,7 @@
                 controller: "ProfileController",
                 controllerAs: "model",
                 resolve: {
-                    loggedin: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn
                 }
             })
             .when("/admin", {
@@ -38,10 +38,10 @@
                 controller: "FormController",
                 controllerAs: "model",
                 resolve: {
-                    loggedin: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn
                 }
             })
-            .when("/fields", {
+            .when("/form/:formId/fields", {
                 templateUrl: "views/forms/fields.view.html",
                 controller: "FieldsController"
                 // resolve: {

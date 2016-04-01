@@ -23,26 +23,26 @@
                         if (response.data) {
                             vm.forms = response.data;
                         }
-                    });
-
-            //console.log("init userId = " + vm.currentUser._id);
+                    }
+                );
         }
         init();
 
         function addForm(form) {
             var userId = vm.currentUser._id;
-            //console.log("addForm clicked by userId", userId);
+            //console.log("form title: ", form.title);
 
             FormService
                 .createFormForUser(userId, form)
-                .then (
+                .then(
                     function(response) {
                         vm.forms = response.data;
+                        $scope.message = "New form '" + form.title + "' added!";
                     },
                     function(err) {
                         vm.error = err;
                     }
-                )
+                );
         }
 
         function selectForm(form) {
@@ -73,24 +73,20 @@
                     },
                     function (err) {
                         vm.error = err;
-                        //$scope.error = "Unable to update the user";
-                        return;
+                        $scope.message = "Unable to update form :(";
                     }
                 );
         }
 
         function deleteForm(form) {
-
-            //var form = vm.forms[index];
-
-            console.log("form to delete: " + form._id);
-
+            //console.log("form to delete: " + form._id);
             FormService
                 .deleteFormById(vm.currentUser._id, form._id)
                 .then(
                     function(response) {
                         //console.log(vm.forms);
                         vm.forms = response.data;
+                        $scope.message = "Form '" + form.title + "' successfully deleted!";
                     },
                     function(err) {
                         vm.error = err;

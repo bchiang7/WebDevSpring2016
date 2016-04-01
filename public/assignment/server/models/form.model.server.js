@@ -14,11 +14,11 @@ module.exports = function(app, db) {
         findFormByTitle: findFormByTitle,
 
         createFormForUser: createFormForUser,
-        createFieldForForm: createFieldForForm,
-
         updateFormById: updateFormById,
-        updateField: updateField,
-        deleteFormById: deleteFormById
+        deleteFormById: deleteFormById,
+
+        createFieldForForm: createFieldForForm,
+        updateField: updateField
 
     };
     return api;
@@ -75,9 +75,8 @@ module.exports = function(app, db) {
     function findFormByTitle(title) {
         var deferred = q.defer();
         Form
-            .findOne({
-                    title: title
-                },
+            .findOne(
+                {title: title},
                 function(err, doc) {
                     if (!err) {
                         deferred.resolve(doc);
@@ -93,7 +92,8 @@ module.exports = function(app, db) {
         //console.log("model userId = " + userId);
         var deferred = q.defer();
         Form
-            .create({title: form.title, userId: userId},
+            .create(
+                {title: form.title, userId: userId},
                 function(err, form) {
                     if (!err) {
                         deferred.resolve(form);
@@ -104,9 +104,7 @@ module.exports = function(app, db) {
         return deferred.promise;
     }
 
-    function createFieldForForm(formId) {
-        console.log('create field for form');
-    }
+
 
     function updateFormById(formId, newForm) {
         var deferred = q.defer();
@@ -125,15 +123,12 @@ module.exports = function(app, db) {
         return deferred.promise;
     }
 
-    function updateField(formId, fieldId, field) {
-        console.log('update field');
-    }
+
 
     function deleteFormById(formId) {
         //console.log("model deleteFormById " + formId);
 
         var deferred = q.defer();
-
         Form
             .remove (
                 {_id: formId},
@@ -145,13 +140,18 @@ module.exports = function(app, db) {
                     }
                 }
             );
-
-
         return deferred.promise;
+    }
 
 
+    function createFieldForForm(formId) {
+        console.log('create field for form');
+    }
+
+    function updateField(formId, fieldId, field) {
+        console.log('update field');
     }
 
 
 
-}
+};

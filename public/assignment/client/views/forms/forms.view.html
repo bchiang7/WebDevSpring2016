@@ -7,7 +7,7 @@
 
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="#/forms">Forms</a></li>
-                <li role="presentation"><a href="#/fields">Fields</a></li>
+                <li role="presentation"><a href="#/form/:formId/fields">Fields</a></li>
             </ul>
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
@@ -19,7 +19,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input ng-model="model.form.title" type="text" class="form-control" placeholder="Form Name">
+                            <input ng-model="model.form.title" type="text" class="form-control" placeholder="Form Title">
                         </td>
                         <td>
                             <a ng-click="model.addForm(model.form)"><span class="glyphicon glyphicon-plus"></span></a>

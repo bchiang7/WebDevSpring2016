@@ -79,19 +79,18 @@
                 );
         }
 
-        function deleteForm(index) {
+        function deleteForm(form) {
 
-            var form = vm.forms[index];
+            //var form = vm.forms[index];
 
-            //console.log("deleteForm " + form._id);
+            console.log("form to delete: " + form._id);
 
             FormService
-                .deleteFormById(form._id)
+                .deleteFormById(vm.currentUser._id, form._id)
                 .then(
                     function(response) {
-                        console.log(vm.forms);
-                        //vm.forms = response.data;
-                        //FormService.findAllFormsForUser()
+                        //console.log(vm.forms);
+                        vm.forms = response.data;
                     },
                     function(err) {
                         vm.error = err;

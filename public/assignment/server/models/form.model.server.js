@@ -136,7 +136,7 @@ module.exports = function(app, db) {
 
         Form
             .remove (
-                formId,
+                {_id: formId},
                 function (err, stats) {
                     if(!err) {
                         deferred.resolve(stats);

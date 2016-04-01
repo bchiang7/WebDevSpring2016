@@ -31,9 +31,8 @@
             return $http.put("/api/assignment/form/" + formId, newForm);
         }
 
-        function deleteFormById(formId) {
-            //console.log("client deleteFormById " + formId);
-            return $http.delete("/api/assignment/form/" + formId);
+        function deleteFormById(userId, formId) {
+            return $http.delete("/api/assignment/user/" + userId + "/form/" + formId);
         }
     }
 })();

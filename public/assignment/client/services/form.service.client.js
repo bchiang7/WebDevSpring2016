@@ -20,15 +20,15 @@
         }
 
         function findFormById(formId) {
-            return $http.get("/api/assignment/form/" + formId);
+            return $http.get("/api/assignment/form/" + formId, formId);
         }
 
         function createFormForUser(userId, form) {
             return $http.post("/api/assignment/user/" + userId + "/form", form);
         }
 
-        function updateFormById(formId, form) {
-            return $http.put("/api/assignment/form/" + formId, form);
+        function updateFormById(formId, newForm) {
+            return $http.put("/api/assignment/form/" + formId, newForm);
         }
 
         function deleteFormById(formId) {

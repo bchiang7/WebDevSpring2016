@@ -45,23 +45,38 @@
                 )
         }
 
-        function selectForm(index) {
-            $scope.form = {
-                title: $scope.forms[index].title,
-                userId: $scope.forms[index].userId,
-                _id: $scope.forms[index]._id
-            }
+        function selectForm(form) {
+            FormService
+                .findFormById(form._id)
+                .then(
+                    function(response) {
+                        //$scope.form = response.data;
+                        vm.form = form;
+                        vm.form.title = form.title;
+                    },
+                    function(err) {
+                        vm.error = err;
+                    }
+                );
         }
 
         function updateForm(form) {
             FormService
                 .updateFormById(form._id, form)
-                .then(function(response) {
-                    if (response.data) {
-                        $scope.form = {};
-                        // $scope.forms = retrieveForms();
+                .then(
+                    function(response) {
+                        if (response.data) {
+                            vm.form = response.data;
+                            $scope.message = "Form updated successfully!";
+                            //UserService.setCurrentUser(vm.currentUser);
+                        }
+                    },
+                    function (err) {
+                        vm.error = err;
+                        //$scope.error = "Unable to update the user";
+                        return;
                     }
-                });
+                );
         }
 
         function deleteForm(index) {

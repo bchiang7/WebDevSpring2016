@@ -57,15 +57,18 @@ module.exports = function(app, db) {
     }
 
     function findFormById(formId) {
+        //console.log("inside select model");
+
         var deferred = q.defer();
         Form
-            .findById(formId, function(err, doc) {
-                if (!err) {
-                    deferred.resolve(form);
-                } else {
-                    deferred.reject(err);
-                }
-            });
+            .findById(formId,
+                function (err, form) {
+                    if (!err) {
+                        deferred.resolve(form);
+                    } else {
+                        deferred.reject(err);
+                    }
+                });
         return deferred.promise;
     }
 
@@ -105,15 +108,13 @@ module.exports = function(app, db) {
         console.log('create field for form');
     }
 
-    function updateFormById(formId, form) {
+    function updateFormById(formId, newForm) {
         var deferred = q.defer();
         Form
-            .update({
-                    formId: formId
-                }, {
-                    $set: form
-                },
-                function(err, stats) {
+            .update (
+                {_id: formId},
+                {$set: newForm},
+                function (err, stats) {
                     if (!err) {
                         deferred.resolve(stats);
                     } else {
@@ -129,7 +130,7 @@ module.exports = function(app, db) {
     }
 
     function deleteFormById(formId) {
-        console.log("model deleteFormById " + formId);
+        //console.log("model deleteFormById " + formId);
 
         var deferred = q.defer();
 

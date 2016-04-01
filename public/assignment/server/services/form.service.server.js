@@ -1,15 +1,14 @@
 module.exports = function(app, FormModel) {
 
-    app.get("/api/assignment/user/:userId/form", findAllFormsForUser);
-    app.get("/api/assignment/form/:formId", findFormById);
-    app.post("/api/assignment/user/:userId/form", createFormForUser);
-    app.put("/api/assignment/form/:formId", updateFormById);
-    app.delete("/api/assignment/form/:formId", deleteFormById);
+    app.get     ("/api/assignment/user/:userId/form", findAllFormsForUser);
+    app.get     ("/api/assignment/form/:formId", findFormById);
+    app.post    ("/api/assignment/user/:userId/form", createFormForUser);
+    app.put     ("/api/assignment/form/:formId", updateFormById);
+    app.delete  ("/api/assignment/form/:formId", deleteFormById);
 
 
     function findAllFormsForUser(req, res) {
         var userId = req.params.userId;
-
         //console.log("server userId = " + userId);
 
         FormModel
@@ -25,7 +24,8 @@ module.exports = function(app, FormModel) {
     }
 
     function findFormById(req, res) {
-        console.log("server findFormById");
+        //console.log("server findFormById");
+
         var formId = req.params.formId;
         FormModel
             .findFormById(formId)
@@ -37,6 +37,7 @@ module.exports = function(app, FormModel) {
                     res.status(400).send(err);
                 }
             );
+
     }
 
     function createFormForUser(req, res) {
@@ -66,15 +67,18 @@ module.exports = function(app, FormModel) {
     }
 
     function updateFormById(req, res) {
-        var formId = req.params.formId;
-        var form = req.body;
+        //console.log("Inside User Server");
+        //var formId = req.params.formId;
+        //console.log(formId);
+        var newForm = req.body;
+        var formId = newForm._id;
         FormModel
-            .updateFormById(formId, form)
+            .updateFormById(formId, newForm)
             .then(
                 function(stats) {
                     res.send(200);
                 },
-                function(err) {
+                function (err) {
                     res.status(400).send(err);
                 }
             );

@@ -36,10 +36,10 @@
             .when("/forms", {
                 templateUrl: "views/forms/forms.view.html",
                 controller: "FormController",
-                controllerAs: "model"
-                // resolve: {
-                //     getLoggedIn: getLoggedIn
-                // }
+                controllerAs: "model",
+                resolve: {
+                    loggedin: checkLoggedIn
+                }
             })
             .when("/fields", {
                 templateUrl: "views/forms/fields.view.html",

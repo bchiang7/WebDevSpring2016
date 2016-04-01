@@ -5,28 +5,20 @@
 
     function ProfileController(UserService, $location, $routeParams, $scope) {
         var vm = this;
-
-        // var username = $routeParams.username;
-
         vm.error = null;
         vm.message = null;
         vm.update = update;
-
         vm.currentUser = UserService.getCurrentUser();
-
 
         function init() {}
         init();
-
 
         if(!vm.currentUser) {
             $location.url("/home");
         }
 
         function update(user) {
-
             // console.log("update!");
-
             UserService
                 .updateUser(user)
                 .then(
@@ -41,7 +33,7 @@
                         }
                     },
                     function(error) {
-                        $scope.message = "Incorrect username or password";
+                        $scope.message = "Uh oh, something went wrong.";
                         return;
                     }
                 );

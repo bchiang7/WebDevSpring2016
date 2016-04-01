@@ -15,7 +15,6 @@
             setCurrentUser: setCurrentUser,
 
             logout: logout,
-            // getProfile: getProfile,
 
             createUser: createUser,
             updateUser: updateUser,
@@ -49,10 +48,6 @@
         function setCurrentUser(user) {
             $rootScope.currentUser = user;
         }
-
-        // function getProfile() {
-        //     return $http.get("/api/assignment/user/profile/" + $rootScope.currentUser._id);
-        // }
 
         function logout() {
             return $http.post("/api/assignment/user/logout");

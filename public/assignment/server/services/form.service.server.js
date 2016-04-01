@@ -1,12 +1,17 @@
 module.exports = function(app, FormModel) {
 
     app.get("/api/assignment/user/:userId/form", findAllFormsForUser);
-    app.get("/api/assignment/form/:formId", findFormById); app.post("/api/assignment/user/:formId/form", createFormForUser); app.put("/api/assignment/form/:formId", updateFormById);
+    app.get("/api/assignment/form/:formId", findFormById);
+    app.post("/api/assignment/user/:userId/form", createFormForUser);
+    app.put("/api/assignment/form/:formId", updateFormById);
     app.delete("/api/assignment/form/:formId", deleteFormById);
 
 
     function findAllFormsForUser(req, res) {
-        var userId = req.params._id;
+        var userId = req.params.userId;
+
+        //console.log("server userId = " + userId);
+
         FormModel
             .findAllFormsForUser(userId)
             .then (
@@ -34,13 +39,24 @@ module.exports = function(app, FormModel) {
     }
 
     function createFormForUser(req, res) {
-        var username = req.params.username;
+        var userId = req.params.userId;
         var form = req.body;
+        //form.userId = userId;
+
         FormModel
-            .createFormForUser(username, form)
+            .createFormForUser(userId, form)
             .then (
                 function(form) {
-                    res.json(form);
+                    //res.json(form);
+                    return FormModel.findAllFormsForUser(userId);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then (
+                function(forms) {
+                    res.json(forms);
                 },
                 function(err) {
                     res.status(400).send(err);

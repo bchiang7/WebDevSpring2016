@@ -16,14 +16,15 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input ng-model="model.form.title" type="text" class="form-control" placeholder="Name">
+                            <input ng-model="model.form.title" type="text" class="form-control" placeholder="Form Name">
                         </td>
                         <td>
-                            <a ng-click="model.createForm(model.username, model.form)"><span class="glyphicon glyphicon-plus"></span></a>
+                            <a ng-click="model.addForm(model.form)"><span class="glyphicon glyphicon-plus"></span></a>
+
                             <a ng-click="model.updateForm(model.form._id)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
                         </td>
                     </tr>
-                    <tr ng-repeat="form in forms">
+                    <tr ng-repeat="form in model.forms">
                         <td><a href="#/fields">{{form.title}}</a></td>
                         <td>
                             <a ng-click="model.deleteForm(model.form._id)"><span class="glyphicon glyphicon-remove"></span></a>

@@ -9,11 +9,14 @@ module.exports = function() {
         type: {
             type: String,
             default: "TEXT",
-            enum: ["TEXT, EMAIL, PASSWORD, OPTIONS, DATE, RADIOS, CHECKBOXES"]
+            enum: ["TEXT", "EMAIL", "PASSWORD", "OPTIONS", "DATE", "RADIOS", "CHECKBOXES"]
         },
         placeholder: String,    // Alice
-        options: [{label:String, value:String}] // [{label:'Male', value:'MALE'}, {label:'Female', value:'FEMALE'}]
-    }, {collection: 'field'});
+        options: [{
+            label: String,
+            value: String
+        }] // [{label:'Male', value:'MALE'}, {label:'Female', value:'FEMALE'}]
+    }, {collection: 'assignment.field'});
 
     return FieldSchema;
 };

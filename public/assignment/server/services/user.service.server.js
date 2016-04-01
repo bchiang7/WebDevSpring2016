@@ -5,7 +5,6 @@ module.exports = function(app, UserModel) {
     app.get("/api/assignment/user", findUser);
     app.get("/api/assignment/user/loggedin", loggedin);
     app.post("/api/assignment/user/logout", logout);
-    // app.get("/api/assignment/user/profile/:userId", getProfile);
 
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user/:username", findUserByUsername);
@@ -13,7 +12,6 @@ module.exports = function(app, UserModel) {
     app.post("/api/assignment/user", createUser);
     app.put("/api/assignment/user/:username", updateUser);
     app.delete("/api/assignment/user/:username", deleteUser);
-
 
 
     function findUser(req, res) {
@@ -25,12 +23,8 @@ module.exports = function(app, UserModel) {
                 .findUserByCredentials(username, password)
                 .then(
                     function(user) {
-                        // console.log("findUser!");
-
                         req.session.currentUser = user;
                         res.json(user);
-
-                        // console.log(user);
                     },
                     function(err) {
                         res.status(400).send(err);
@@ -58,25 +52,6 @@ module.exports = function(app, UserModel) {
         req.session.destroy();
         res.send(200);
     }
-
-    // function getProfile(req, res) {
-    //
-    //     var userId = req.params._id;
-    //     var user = null;
-    //     console.log(userId);
-    //
-    //     UserModel.findUserById(userId)
-    //         .then(
-    //             function(doc) {
-    //                 console.log("inside get profile");
-    //                 req.session.currentUser = doc;
-    //                 res.json(user);
-    //             },
-    //             function(err) {
-    //                 res.status(400).send(err);
-    //             }
-    //         );
-    // }
 
     function findAllUsers(req, res) {
         UserModel
@@ -152,7 +127,7 @@ module.exports = function(app, UserModel) {
         UserModel
             .updateUser(username, user)
             .then(
-                function(stats) {
+                function(response) {
                     res.send(200);
                 },
                 function(err) {

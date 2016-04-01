@@ -15,28 +15,30 @@
 
         $scope.form = {};
 
-        // console.log(vm.currentUser);
-
-        function getForms() {
+        function init() {
             FormService
                 .findAllFormsForUser(vm.currentUser._id)
                 .then(
                     function(response) {
                         if (response.data) {
-                            $scope.forms = response.data;
+                            vm.forms = response.data;
                         }
                     });
+
+            //console.log("init userId = " + vm.currentUser._id);
         }
-        getForms();
+        init();
 
         function addForm(form) {
+            var userId = vm.currentUser._id;
+            //console.log("addForm clicked by userId", userId);
 
-            username = form.username;
             FormService
-                .createFormForUser(username, form)
+                .createFormForUser(userId, form)
                 .then (
                     function(response) {
-                        $location.url ("/user/" + form._id + "/form");
+                        //vm.forms.push(response.data);
+                        vm.forms = response.data;
                     },
                     function(err) {
                         vm.error = err;

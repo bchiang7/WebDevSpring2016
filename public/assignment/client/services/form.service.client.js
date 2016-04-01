@@ -11,10 +11,11 @@
             createFormForUser: createFormForUser,
             updateFormById: updateFormById,
             deleteFormById: deleteFormById
-        }
+        };
         return api;
 
         function findAllFormsForUser(userId) {
+            //console.log("client userId = " + userId);
             return $http.get("/api/assignment/user/" + userId + "/form");
         }
 
@@ -22,9 +23,8 @@
             return $http.get("/api/assignment/form/" + formId);
         }
 
-        function createFormForUser(username, form) {
-            console.log("create form client");
-            return $http.post("/api/assignment/user/" + username + "/form", form);
+        function createFormForUser(userId, form) {
+            return $http.post("/api/assignment/user/" + userId + "/form", form);
         }
 
         function updateFormById(formId, form) {

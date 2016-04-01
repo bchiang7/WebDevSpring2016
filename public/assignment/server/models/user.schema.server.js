@@ -1,7 +1,7 @@
 module.exports = function() {
 
     var mongoose = require("mongoose");
-    // var FormSchema = require("./form.schema.server.js")(mongoose);
+    var FormSchema = require("./form.schema.server.js")(mongoose);
 
     // use mongoose to declare a user schema
     var UserSchema = mongoose.Schema({
@@ -10,9 +10,9 @@ module.exports = function() {
         firstName: String,  // Alice
         lastName: String,   // Wonderland
         emails: [String],   // ['alice@wonderland.com', 'alice@gmail.com']
-        // roles: [String],
+        roles: [String],
         phones: [String]    // ['123-234-4321', '234-432-2344']
-    }, {collection: 'user'});
+    }, {collection: 'assignment.user'});
 
     return UserSchema;
 };

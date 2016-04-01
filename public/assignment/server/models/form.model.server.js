@@ -20,7 +20,7 @@ module.exports = function(app, db) {
         updateField: updateField,
         deleteFormById: deleteFormById
 
-    }
+    };
     return api;
 
     function findAllForms() {
@@ -39,13 +39,14 @@ module.exports = function(app, db) {
     }
 
     function findAllFormsForUser(userId) {
+
+        //console.log("model userId = " + userId);
+
         var deferred = q.defer();
         Form
-            .find({
-                _id: {
-                    $in: userId
-                }
-            }, function(err, forms) {
+            .find(
+                {userId: userId},
+            function(err, forms) {
                 if (!err) {
                     deferred.resolve(forms);
                 } else {
@@ -85,13 +86,18 @@ module.exports = function(app, db) {
         return deferred.promise;
     }
 
-    function createFormForUser(form) {
+    function createFormForUser(userId, form) {
+        //console.log("model userId = " + userId);
         var deferred = q.defer();
         Form
-            .create(form,
-                function(err, doc) {
+            .create({
+                title: form.title,
+                    userId: userId
+
+                    },
+                function(err, form) {
                     if (!err) {
-                        deferred.resolve(doc);
+                        deferred.resolve(form);
                     } else {
                         deferred.reject(err);
                     }

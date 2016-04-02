@@ -1,0 +1,12 @@
+<button ng-click="model.editField(field)" type="button" class="btn btn-warning" data-toggle="modal" data-target="#editField">
+    <span class="glyphicon glyphicon-pencil"></span>
+</button>
+<button type="button" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus"></span>
+</button>
+<button ng-click="model.deleteField(field)" type="button" class="btn btn-danger">
+    <span class="glyphicon glyphicon-remove"></span>
+</button>
+<button type="button" ng-mouseup="model.reorder()" id="myhandle" class="btn btn-info" as-sortable-item-handle>
+    <span class="glyphicon glyphicon-align-justify"></span>
+</button>

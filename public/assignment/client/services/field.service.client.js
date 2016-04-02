@@ -6,32 +6,42 @@
     function FieldService($rootScope, $http) {
 
         var api = {
-            findFieldsForForm: findFieldsForForm,
-            findFieldForForm: findFieldForForm,
-            createFieldForForm: createFieldForForm,
-            updateFieldById: updateFieldById,
-            deleteFieldFromForm: deleteFieldFromForm
-        }
+            findField: findField,
+            findFieldsByFormId: findFieldsByFormId,
+            createField: createField,
+            updateField: updateField,
+            deleteField: deleteField
+
+            //getFieldsForForm: getFieldsForForm,
+            //findFieldForForm: findFieldForForm,
+            //createFieldForForm: createFieldForForm,
+            //updateFieldById: updateFieldById,
+            //deleteFieldFromForm: deleteFieldFromForm
+        };
         return api;
 
-        function findFieldsForForm(formId) {
-            return $http.get("/api/assignment/form/" + formId + "/field");
-        }
 
-        function findFieldForForm(formId, fieldId) {
+        function findField(formId, fieldId) {
             return $http.get("/api/assignment/form/" + formId + "/field/" + fieldId);
         }
 
-        function createFieldForForm(formId, field) {
+        function findFieldsByFormId(formId) {
+            return $http.get("/api/assignment/form/" + formId + "/field")
+        }
+
+        function createField(formId, field) {
+            console.log("client create field");
             return $http.post("/api/assignment/form/" + formId + "/field", field);
         }
 
-        function updateFieldById(formId, fieldId, field) {
+        function updateField(formId, fieldId, field) {
             return $http.put("/api/assignment/form/" + formId + "/field/" + fieldId, field);
         }
 
-        function deleteFieldFromForm(formId, fieldId) {
+        function deleteField (formId, fieldId) {
             return $http.delete("/api/assignment/form/" + formId + "/field/" + fieldId);
         }
+
+
     }
 })();

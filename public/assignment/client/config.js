@@ -43,10 +43,11 @@
             })
             .when("/form/:formId/fields", {
                 templateUrl: "views/forms/fields.view.html",
-                controller: "FieldsController"
-                // resolve: {
-                //     getLoggedIn: getLoggedIn
-                // }
+                controller: "FieldsController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .otherwise({
                 redirectTo: "/home"

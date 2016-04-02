@@ -150,3 +150,13 @@ select.form-control {
     outline: 1px solid #CCC;
     background-color: white;
 }
+
+.fields .action-links {
+    margin-top: 54px;
+}
+.fields .action-links .glyphicon {
+    margin: 0;
+}
+.fields .form-group {
+    width: 100%;
+}

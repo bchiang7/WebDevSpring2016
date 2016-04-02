@@ -20,7 +20,8 @@
         }
 
         function findFormById(formId) {
-            return $http.get("/api/assignment/form/" + formId, formId);
+            //return $http.get("/api/assignment/form/" + formId, formId);
+            return $http.get("/api/assignment/form/" + formId);
         }
 
         function createFormForUser(userId, form) {

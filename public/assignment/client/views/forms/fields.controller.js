@@ -3,7 +3,7 @@
         .module("FormBuilderApp")
         .controller("FieldsController", FieldsController);
 
-    function FieldsController(FieldService, $scope, $routeParams) {
+    function FieldsController(FieldService, FormService, $scope, $routeParams) {
         var vm = this;
         vm.cField = null;
         vm.eField = null;
@@ -12,56 +12,55 @@
         vm.deleteField = deleteField;
         vm.addField = addField;
         vm.reorder = reorder;
-        vm.options = [
-            'Single Line Text Field',
-            'Multi Line Text Field',
-            'Date Field',
-            'Dropdown Field',
-            'Checkboxes Field',
-            'Radio Buttons Field'
-        ];
-        vm.selection = vm.options[0];
-        vm.fieldOptions = null;
+        vm.options =
+            [
+                'Single Line Text Field',
+                'Multi Line Text Field',
+                'Date Field',
+                'Dropdown Field',
+                'Checkboxes Field',
+                'Radio Buttons Field'
+            ];
+
         var formId = "000";
         if ($routeParams.formId) {
             formId = $routeParams.formId;
         }
 
-        var optionMap = [{
-            key: "Single Line Text Field",
-            value: "TEXT"
-        }, {
-            key: "Multi Line Text Field",
-            value: "TEXTAREA"
-        }, {
-            key: "Date Field",
-            value: "DATE"
-        }, {
-            key: "Dropdown Field",
-            value: "OPTIONS"
-        }, {
-            key: "Checkboxes Field",
-            value: "CHECKBOXES"
-        }, {
-            key: "Radio Buttons Field",
-            value: "RADIOS"
-        }];
+        vm.sortableOptions = {
+            orderChanged: function(e) {
+                vm.form.fields = vm.fields;
+                FormService
+                    .updateFormById(formId, vm.form)
+                    .then(init);
+            }
+        };
 
-        function render(response) {
-            vm.display = response.data;
-            vm.fields = response.data;
-        }
+        var optionMap =
+            [
+                {key: "Single Line Text Field", value: "TEXT"},
+                {key: "Multi Line Text Field", value: "TEXTAREA"},
+                {key: "Date Field", value: "DATE"},
+                {key: "Dropdown Field", value: "OPTIONS"},
+                {key: "Checkboxes Field", value: "CHECKBOXES"},
+                {key: "Radio Buttons Field", value: "RADIOS"}
+            ];
 
         function init() {
             FieldService
-                .findFieldsByForm(formId)
-                .then(render);
+                .findFieldsByFormId(formId)
+                .then(function (response) {
+                    vm.fields = response.data;
+                    vm.eField = null;
+                });
             FormService
-                .getFormById(formId)
-                .then(function(response) {
+                .findFormById(formId)
+                .then(function (response)
+                {
                     vm.form = response.data;
                 })
         }
+
         init();
 
         function sendEdit(field) {
@@ -76,7 +75,6 @@
             FormService
                 .updateFormById(formId, vm.form)
                 .then(init);
-
         }
 
         function deleteField(field) {
@@ -89,19 +87,14 @@
         function translateFieldType(fieldType) {
             for (var k in optionMap) {
                 console.log(optionMap[k].key + " " + optionMap[k].value);
-                if (optionMap[k].key == fieldType) {
+                if (optionMap[k].key == fieldType){
                     return optionMap[k].value;
                 }
             }
         }
 
         function addField(fieldType) {
-            var field = {
-                "label": "",
-                "type": translateFieldType(fieldType),
-                "placeholder": "",
-                "options": null
-            };
+            var field = {"label": "", "type": translateFieldType(fieldType), "placeholder": "", "options": null};
             console.log(field);
             FieldService
                 .createField(formId, field)
@@ -120,21 +113,20 @@
                 for (var o in ol) {
                     optionList.push(ol[o].label + ":" + ol[o].value)
                 }
-                console.log(optionList);
                 vm.optionText = optionList.join("\n");
-                console.log(vm.optionText);
             }
         }
 
         function commitEdit(field) {
+
             vm.eField = field;
 
             var isOption = !(field.type == 'TEXT' || field.type == 'TEXTAREA');
 
             var optionArray = [];
+
             if (isOption) {
-                console.log(vm.optionText);
-                var oa = vm.optionText;
+                var oa = vm.optionText.split("\n");
                 for (var o in oa) {
                     var a = oa[o].split(":");
                     optionArray.push({
@@ -143,13 +135,14 @@
                     });
                 }
                 vm.eField.options = optionArray;
-
-            } else {}
-            console.log(vm.eField._id);
+            }
+            else {
+            }
             FieldService
                 .updateField(formId, vm.eField._id, vm.eField)
                 .then(init);
-            vm.eField = null;
         }
+
+
     }
 })();

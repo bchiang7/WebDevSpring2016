@@ -84,12 +84,12 @@ h1 {
 }
 .form-control {
     border-radius: 0;
-    height: 37px;
+    /*height: 37px;*/
 }
 .glyphicon {
-    font-size: 20px;
+    font-size: 17px;
     top: 5px;
-    margin: 0 10px;
+    margin: 0 5px;
     cursor: pointer;
 }
 @media screen and (max-width: 768px) {
@@ -151,12 +151,17 @@ select.form-control {
     background-color: white;
 }
 
+
+.fields .form-group {
+    width: 100%;
+    margin: 0;
+}
+.fields .form-fields {
+    margin: 0;
+}
 .fields .action-links {
-    margin-top: 54px;
+    margin-top: 20px;
 }
 .fields .action-links .glyphicon {
     margin: 0;
-}
-.fields .form-group {
-    width: 100%;
 }

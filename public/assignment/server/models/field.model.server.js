@@ -3,32 +3,55 @@ var q = require("q");
 
 module.exports = function(app, db) {
 
-    var FormSchema = require("./form.schema.server.js")(mongoose);
-    var FormField = mongoose.model("FormField", FormSchema);
-
-    var FieldSchema = require("./form.schema.server.js")();
+    var FieldSchema = require("./field.schema.server.js")();
     var Field = mongoose.model("Field", FieldSchema);
 
+    var FormSchema = require("./form.schema.server.js")();
+    var Form = mongoose.model("FormField", FormSchema);
+
     var api = {
-        findFieldsByFormId: findFieldsByFormId,
+        getMongooseModel: getMongooseModel,
         findField: findField,
+        findFieldsByFormId: findFieldsByFormId,
         createField: createField,
         updateField: updateField,
         deleteField: deleteField
     };
     return api;
 
+    function getMongooseModel() {
+        return Field;
+    }
+
+    function findField(formId, fieldId) {
+        var deferred = q.defer();
+
+        Form
+            .findById(formId, function(err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    for (field in doc.fields) {
+                        if (doc.fields[field]._id === fieldId) {
+                            deferred.resolve(doc.fields[field]);
+                            return deferred.promise;
+                        }
+                    }
+                    deferred.reject("Couldn't find field");
+                }
+            });
+        return deferred.promise;
+    }
 
     function findFieldsByFormId(formId) {
         var deferred = q.defer();
 
-        FormField
+        Form
             .findById(formId,
-                function (err, doc) {
+                function(err, doc) {
                     if (err) {
                         deferred.reject(err);
-                    }
-                    else {
+                    } else {
                         deferred.resolve(doc.fields);
                     }
                 }
@@ -37,68 +60,47 @@ module.exports = function(app, db) {
         return deferred.promise;
     }
 
-
-
-    function findField(formId, fieldId) {
-        var deferred = q.defer();
-
-        FormField
-            .findById(formId,
-                function (err, doc) {
-                    if (err) {
-                        deferred.reject(err);
-                    }
-                    else {
-                        for (f in doc.fields) {
-                            if (doc.fields[f]._id === fieldId) {
-                                deferred.resolve(doc.fields[f]);
-                                return deferred.promise;
-                            }
-                        }
-                        deferred.reject("Could not find field");
-                    }
-                }
-            );
-        return deferred.promise;
-    }
-
-
     function createField(formId, field) {
+        // console.log(field);
         var deferred = q.defer();
 
-        FormField
-            .findByIdAndUpdate(
-                formId,
-                {$push: {"fields": field}},
-                {new: true},
-                function (err, doc) {
-                    if (err) {
-                        deferred.reject(err);
-                    }
-                    else {
-                        deferred.resolve(doc)
-                    }
+        Form
+            .findByIdAndUpdate(formId, {
+                $push: {
+                    "fields": field
                 }
-            );
+            }, {
+                new: true
+            },
+            function(err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc)
+                }
+            }
+        );
         return deferred.promise;
     }
 
     function updateField(formId, field) {
-
-        console.log(field);
-
         var deferred = q.defer();
 
-        FormField
-            .update(
-                {_id: formId, "fields._id" : field._id},
-                {$set: {"fields.$": field}},
-                {new: true},
-                function (err, doc) {
+        Form
+            .update({
+                    _id: formId,
+                    "fields._id": field._id
+                }, {
+                    $set: {
+                        "fields.$": field
+                    }
+                }, {
+                    new: true
+                },
+                function(err, doc) {
                     if (err) {
                         deferred.reject(err);
-                    }
-                    else {
+                    } else {
                         console.log(doc);
                         deferred.resolve(doc)
                     }
@@ -107,24 +109,27 @@ module.exports = function(app, db) {
         return deferred.promise;
     }
 
-    function deleteField(formId, fieldId) {
 
+    function deleteField(formId, fieldId) {
         var deferred = q.defer();
 
-        FormField
-            .findByIdAndUpdate(formId, {$pull: {fields:{_id: fieldId}}},
-            function (err, doc) {
-                if (err) {
-                    deferred.reject(err);
+        Form
+            .findByIdAndUpdate(formId, {
+                    $pull: {
+                        fields: {
+                            _id: fieldId
+                        }
+                    }
+                },
+                function(err, doc) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve(doc);
+                    }
                 }
-                else {
-                    deferred.resolve(doc);
-                }
-            });
-
+            );
         return deferred.promise;
     }
-
-
 
 };

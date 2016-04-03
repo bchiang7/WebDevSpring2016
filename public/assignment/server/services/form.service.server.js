@@ -24,27 +24,19 @@ module.exports = function(app, UserModel, FormModel) {
     }
 
     function findFormById(req, res) {
-        //console.log("server findFormById");
-
-        //var formId = req.params.formId;
-        //FormModel
-        //    .findFormById(formId)
-        //    .then(
-        //        function(form) {
-        //            res.json(form);
-        //        },
-        //        function(err) {
-        //            res.status(400).send(err);
-        //        }
-        //    );
+        // console.log("server findFormById");
 
         var formId = req.params.formId;
-        var form = FormModel.findFormById(formId);
-        if (form) {
-            res.json(form);
-            return;
-        }
-        res.json({message: "Form not found"});
+        FormModel
+            .findFormById(formId)
+            .then(
+                function(form) {
+                    res.json(form);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
 
     }
 

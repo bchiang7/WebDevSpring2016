@@ -15,6 +15,9 @@ p {
     line-height: 1.5;
     font-weight: 300;
 }
+h1 {
+    font-size: 30px;
+}
 .btn, .nav-tabs>li>a, .navbar-toggle {
     border-radius: 0;
 }
@@ -30,7 +33,7 @@ p {
 }
 .navbar-brand {
     padding: 15px 30px;
-    font-size: 24px;
+    font-size: 22px;
 }
 .navbar-inverse .navbar-brand {
     color: #ddd;
@@ -84,7 +87,7 @@ h1 {
 }
 .form-control {
     border-radius: 0;
-    /*height: 37px;*/
+    height: 35px;
 }
 .glyphicon {
     font-size: 17px;
@@ -148,7 +151,10 @@ h1 {
 select.form-control {
     border: 0;
     outline: 1px solid #CCC;
-    background-color: white;
+    background-color: #fff;
+    height: 33px;
+    top: 1px;
+
 }
 
 
@@ -159,9 +165,44 @@ select.form-control {
 .fields .form-fields {
     margin: 0;
 }
+.fields .fields-label {
+    display: block;
+}
+.fields button {
+    padding: 6px 10px;
+}
+.fields .glyphicon {
+    margin: 0;
+    top: 3px;
+}
 .fields .action-links {
     margin-top: 20px;
 }
 .fields .action-links .glyphicon {
     margin: 0;
+}
+.fields .addField {
+    height: 35px;
+    margin-top: -1px;
+}
+.fields .table>tbody>tr>td {
+    padding-bottom: 20px;
+    /*border: 1px solid #ddd;*/
+    border: none;
+}
+.fields .btn-default {
+    /*background: #0073ff;*/
+}
+
+
+.modal-content {
+    border-radius: 0;
+}
+.modal-header .close {
+    font-size: 30px;
+    margin-top: -5px;
+    padding: 0;
+}
+.modal-body h3 {
+    margin: 0 0 25px;
 }

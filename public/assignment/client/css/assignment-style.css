@@ -206,3 +206,7 @@ select.form-control {
 .modal-body h3 {
     margin: 0 0 25px;
 }
+
+.optionsBox {
+    display: none;
+}

@@ -5,12 +5,6 @@
 
     function FieldsController($routeParams, FormService, $rootScope, $scope, $location, FieldService) {
 
-        // $scope.changeme = function() {
-        //     $scope.selectOptions = true;
-        // }
-
-
-
         var vm = this;
         var formId = $routeParams.formId;
         var currentUser = $rootScope.currentUser;
@@ -21,26 +15,6 @@
         vm.updateField = updateField;
         vm.deleteField = deleteField;
         vm.sort = sort;
-
-        // $scope.fieldOptions = [{
-        //     opt: "Single Line Text Field",
-        //     type: "TEXT"
-        // }, {
-        //     opt: "Multi Line Text Field",
-        //     type: "TEXTAREA"
-        // }, {
-        //     opt: "Date Field",
-        //     type: "DATE"
-        // }, {
-        //     opt: "Dropdown Field",
-        //     type: "OPTIONS"
-        // }, {
-        //     opt: "Checkboxes Field",
-        //     type: "CHECKBOXES"
-        // }, {
-        //     opt: "Radio Buttons Field",
-        //     type: "RADIOS"
-        // }];
 
         $scope.options = [
             'Single Line Text Field',
@@ -73,6 +47,15 @@
             value: "RADIOS"
         }];
 
+        // if field type selected is dropdown, checboxes, or radio buttons, show options box
+        $('#newFieldType').on('change', function() {
+            if ($(this).children(':selected').hasClass('needsOptionsBox')) {
+                $('.optionsBox').css('display', 'block');
+            }
+            else {
+                $('.optionsBox').css('display', 'none');
+            }
+        });
 
 
         function init() {
@@ -92,7 +75,9 @@
         }
         init();
 
+
         function addField(fieldType) {
+
             var field = vm.newField; // starts out null
             var optionArray = []; // field options start as an empty array
             $scope.message = null;

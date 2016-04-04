@@ -186,14 +186,14 @@
                             <form>
                                 <label>Type of Field</label>
                                 <!-- <select ng-model="fieldType" ng-dropdown required ng-change="changeme()" id="newFieldType" class="form-control fields-form" ng-options="fieldOption.type as fieldOption.opt for fieldOption in fieldOptions"> -->
-                                <select ng-model="fieldType" ng-dropdown required id="newFieldType" class="form-control fields-form" ng-options="option for option in options">
-                                    <!-- <option value="" selected disabled>Select a field type</option>
-                                    <option ng-option>Single Line Text Field</option>
-                                    <option ng-option>Multi Line Text Field</option>
-                                    <option ng-option>Date Field</option>
-                                    <option ng-option>Dropdown Field</option>
-                                    <option ng-option>Checkboxes Field</option>
-                                    <option ng-option>Radio Buttons Field</option> -->
+                                <select ng-model="fieldType" ng-dropdown required id="newFieldType" class="form-control fields-form">
+                                    <option value="" selected disabled>Select a field type</option>
+                                    <option>Single Line Text Field</option>
+                                    <option>Multi Line Text Field</option>
+                                    <option>Date Field</option>
+                                    <option class="needsOptionsBox">Dropdown Field</option>
+                                    <option class="needsOptionsBox">Checkboxes Field</option>
+                                    <option class="needsOptionsBox">Radio Buttons Field</option>
                                 </select>
                                 <br>
                                 <label>Label</label>
@@ -207,8 +207,10 @@
                                 <!-- <div ng-show="fieldType=='OPTIONS' || fieldType=='CHECKBOXES' || fieldType=='RADIOS'"> -->
                                 <!-- <div ng-switch="fieldType"> -->
                                     <!-- <div ng-switch-when="OPTIONS"> -->
+                                    <div class="optionsBox">
                                         <label>Options (no need for text fields)</label>
                                         <textarea ng-model="model.optionText" class="form-control" placeholder="Option X: X"></textarea>
+                                    </div>
                                     <!-- </div> -->
                                 <!-- </div> -->
                                 <!-- </div> -->

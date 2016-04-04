@@ -6,8 +6,10 @@
     function FieldsController($routeParams, FormService, $rootScope, $scope, $location, FieldService) {
 
         // $scope.changeme = function() {
-        //     console.log('yas');
+        //     $scope.selectOptions = true;
         // }
+
+
 
         var vm = this;
         var formId = $routeParams.formId;
@@ -19,7 +21,28 @@
         vm.updateField = updateField;
         vm.deleteField = deleteField;
         vm.sort = sort;
-        vm.options = [
+
+        // $scope.fieldOptions = [{
+        //     opt: "Single Line Text Field",
+        //     type: "TEXT"
+        // }, {
+        //     opt: "Multi Line Text Field",
+        //     type: "TEXTAREA"
+        // }, {
+        //     opt: "Date Field",
+        //     type: "DATE"
+        // }, {
+        //     opt: "Dropdown Field",
+        //     type: "OPTIONS"
+        // }, {
+        //     opt: "Checkboxes Field",
+        //     type: "CHECKBOXES"
+        // }, {
+        //     opt: "Radio Buttons Field",
+        //     type: "RADIOS"
+        // }];
+
+        $scope.options = [
             'Single Line Text Field',
             'Multi Line Text Field',
             'Date Field',
@@ -27,6 +50,7 @@
             'Checkboxes Field',
             'Radio Buttons Field'
         ];
+
         vm.fieldOptions = null;
 
         var optionMap = [{

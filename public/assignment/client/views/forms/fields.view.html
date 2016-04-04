@@ -156,14 +156,14 @@
                 <div class="form-group">
                     <label for="newField" class="fields-label">Add A New Field:</label>
                     <div class="fields-form col-xs-10">
-                        <select ng-model="fieldType" id="newField" class="form-control fields-form">
-                            <option value="" selected disabled>Select a field type</option>
+                        <select ng-model="fieldType" ng-options="option for option in options" id="newField" class="form-control fields-form">
+                            <!-- <option value="" selected disabled>Select a field type</option>
                             <option>Single Line Text Field</option>
                             <option>Multi Line Text Field</option>
                             <option>Date Field</option>
                             <option>Dropdown Field</option>
                             <option>Checkboxes Field</option>
-                            <option>Radio Buttons Field</option>
+                            <option>Radio Buttons Field</option> -->
                         </select>
                     </div>
                     <button type="button" class="btn btn-default addField" data-toggle="modal" data-target="#createField">
@@ -185,14 +185,15 @@
                         <div class="modal-body">
                             <form>
                                 <label>Type of Field</label>
-                                <select ng-model="fieldType" ng-dropdown required ng-change="changeme()" id="newFieldType" class="form-control fields-form">
-                                    <option value="" selected disabled>Select a field type</option>
+                                <!-- <select ng-model="fieldType" ng-dropdown required ng-change="changeme()" id="newFieldType" class="form-control fields-form" ng-options="fieldOption.type as fieldOption.opt for fieldOption in fieldOptions"> -->
+                                <select ng-model="fieldType" ng-dropdown required id="newFieldType" class="form-control fields-form" ng-options="option for option in options">
+                                    <!-- <option value="" selected disabled>Select a field type</option>
                                     <option ng-option>Single Line Text Field</option>
                                     <option ng-option>Multi Line Text Field</option>
                                     <option ng-option>Date Field</option>
                                     <option ng-option>Dropdown Field</option>
                                     <option ng-option>Checkboxes Field</option>
-                                    <option ng-option>Radio Buttons Field</option>
+                                    <option ng-option>Radio Buttons Field</option> -->
                                 </select>
                                 <br>
                                 <label>Label</label>
@@ -203,10 +204,14 @@
                                 <input ng-model="model.newField.placeholder" class="form-control" type="text" placeholder="Placeholder">
                                 <br>
 
-                                <div ng-show="fieldType=='OPTIONS' || fieldType=='CHECKBOXES' || fieldType=='RADIOS'">
-                                    <label>Options</label>
-                                    <textarea ng-model="model.optionText" class="form-control" placeholder="Option X: X"></textarea>
-                                </div>
+                                <!-- <div ng-show="fieldType=='OPTIONS' || fieldType=='CHECKBOXES' || fieldType=='RADIOS'"> -->
+                                <!-- <div ng-switch="fieldType"> -->
+                                    <!-- <div ng-switch-when="OPTIONS"> -->
+                                        <label>Options (no need for text fields)</label>
+                                        <textarea ng-model="model.optionText" class="form-control" placeholder="Option X: X"></textarea>
+                                    <!-- </div> -->
+                                <!-- </div> -->
+                                <!-- </div> -->
                             </form>
                             <br>
                             <div ng-show="message" class="alert alert-danger" role="alert">{{message}}</div>

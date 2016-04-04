@@ -23,7 +23,7 @@
         }
 
         function createField(formId, field) {
-            // console.log("client createField");
+            // console.log(field);
             return $http.post("/api/assignment/form/" + formId + "/field", field);
         }
 

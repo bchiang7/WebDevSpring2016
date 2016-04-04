@@ -5,6 +5,10 @@
 
     function FieldsController($routeParams, FormService, $rootScope, $scope, $location, FieldService) {
 
+        // $scope.changeme = function() {
+        //     console.log('yas');
+        // }
+
         var vm = this;
         var formId = $routeParams.formId;
         var currentUser = $rootScope.currentUser;
@@ -45,6 +49,8 @@
             value: "RADIOS"
         }];
 
+
+
         function init() {
             // console.log(formId);
             FormService
@@ -63,12 +69,19 @@
         init();
 
         function addField(fieldType) {
+            var field = vm.newField; // starts out null
+            var optionArray = []; // field options start as an empty array
+            $scope.message = null;
 
-            var field = vm.newField;
-            // console.log(field);
-            var optionArray = [];
+            if (fieldType == null) {
+                $scope.message = "Please choose a field type!";
+            } else if (field == null) {
+                $scope.message = "Please fill in all field properties!";
+            } else {
+                $('#createField').modal('hide');
+            }
 
-            if (!(field.type == 'TEXT' || field.type == 'TEXTAREA')) {
+            if (!(fieldType == 'Single Line Text Field' || fieldType == 'Multi Line Text Field' || fieldType == 'Date Field')) {
                 var arrayOptions = vm.optionText.split("\n");
                 for (var option in arrayOptions) {
                     var arrayOption = arrayOptions[option].split(":");
@@ -86,6 +99,7 @@
                 "placeholder": field.placeholder,
                 "options": field.options
             };
+
             FieldService
                 .createField(formId, field)
                 .then(init);
@@ -95,7 +109,9 @@
         function editField(field) {
             vm.newField = field;
 
-            if (!(vm.newField.type === 'TEXT' || vm.newField.type === 'TEXTAREA')) {
+            console.log(field.type);
+
+            if (!(field.type === 'TEXT' || field.type === 'TEXTAREA')) {
                 var optionList = [];
                 var newOptions = vm.newField.options;
                 for (var option in newOptions) {

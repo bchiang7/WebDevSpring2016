@@ -101,7 +101,7 @@ module.exports = function(app, db) {
                     if (err) {
                         deferred.reject(err);
                     } else {
-                        console.log(doc);
+                        // console.log(doc);
                         deferred.resolve(doc)
                     }
                 }

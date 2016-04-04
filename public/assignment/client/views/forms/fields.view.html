@@ -3,7 +3,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main fields">
             <h1>Fields for form '{{model.data.title}}'</h1>
 
-            <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
+            <!-- <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div> -->
 
             <ul class="nav nav-tabs">
                 <li role="presentation"><a href="#forms">Forms</a></li>
@@ -154,7 +154,7 @@
             <hr>
             <form>
                 <div class="form-group">
-                    <label for="newField" class="fields-label">Add New Field:</label>
+                    <label for="newField" class="fields-label">Add A New Field:</label>
                     <div class="fields-form col-xs-10">
                         <select ng-model="fieldType" id="newField" class="form-control fields-form">
                             <option value="" selected disabled>Select a field type</option>
@@ -171,6 +171,8 @@
                     </button>
                 </div>
             </form>
+            <br>
+            <br>
 
             <!--- Add New Field Modal --->
             <div id="createField" class="modal fade" role="dialog">
@@ -183,28 +185,35 @@
                         <div class="modal-body">
                             <form>
                                 <label>Type of Field</label>
-                                <select ng-model="fieldType" id="brandNewField" class="form-control fields-form">
+                                <select ng-model="fieldType" ng-dropdown required ng-change="changeme()" id="newFieldType" class="form-control fields-form">
                                     <option value="" selected disabled>Select a field type</option>
-                                    <option>Single Line Text Field</option>
-                                    <option>Multi Line Text Field</option>
-                                    <option>Date Field</option>
-                                    <option>Dropdown Field</option>
-                                    <option>Checkboxes Field</option>
-                                    <option>Radio Buttons Field</option>
+                                    <option ng-option>Single Line Text Field</option>
+                                    <option ng-option>Multi Line Text Field</option>
+                                    <option ng-option>Date Field</option>
+                                    <option ng-option>Dropdown Field</option>
+                                    <option ng-option>Checkboxes Field</option>
+                                    <option ng-option>Radio Buttons Field</option>
                                 </select>
                                 <br>
                                 <label>Label</label>
                                 <input ng-model="model.newField.label" class="form-control" type="text" placeholder="Label">
                                 <br>
+
                                 <label>Placeholder</label>
                                 <input ng-model="model.newField.placeholder" class="form-control" type="text" placeholder="Placeholder">
                                 <br>
-                                <label>Options (if applicable)</label>
-                                <textarea ng-model="model.optionText" class="form-control" placeholder="Option X: X"></textarea>
+
+                                <div ng-show="fieldType=='OPTIONS' || fieldType=='CHECKBOXES' || fieldType=='RADIOS'">
+                                    <label>Options</label>
+                                    <textarea ng-model="model.optionText" class="form-control" placeholder="Option X: X"></textarea>
+                                </div>
                             </form>
+                            <br>
+                            <div ng-show="message" class="alert alert-danger" role="alert">{{message}}</div>
+
                         </div>
                         <div class="modal-footer">
-                            <button ng-click="model.addField(fieldType)" type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                            <button ng-click="model.addField(fieldType)" type="button" class="btn btn-default">Add</button>
                         </div>
                     </div>
                 </div>
@@ -231,7 +240,7 @@
                                 </form>
                             </div>
                             <div ng-switch-when="TEXTAREA">
-                                <h3>Multi Line Field</h3>
+                                <h3>Multi Line Text Field</h3>
                                 <form>
                                     <label>Label</label>
                                     <input ng-model="model.newField.label" class="form-control" type="text" placeholder="Multi Line Label">

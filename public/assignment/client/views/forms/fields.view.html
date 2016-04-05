@@ -11,8 +11,9 @@
             </ul>
 
             <table class="table table-responsive">
-                <tbody ng-model="model.fields">
-                    <tr ng-switch="field.type" ng-repeat="field in model.fields">
+                <tbody ng-model="model.fields" fields-sortable fields-sortable-callback="model.sortField(start, end)" as-sortable="model.sortableOptions">
+
+                    <tr ng-switch="field.type" ng-repeat="field in model.fields" as-sortable-item>
                         <td ng-switch-when="TEXT">
                             <label>{{field.label}}</label>
                             <div class="input-group">
@@ -21,13 +22,10 @@
                                     <button ng-click="model.editField(field)" type="button" class="btn btn-default" data-toggle="modal" data-target="#editField">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <!-- <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button> -->
                                     <button ng-click="model.deleteField(field)" type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
-                                    <button type="button" ng-mouseup="model.sort()" class="btn btn-default handle">
+                                    <button type="button" class="btn btn-default handle" id="myhandle" ng-mouseup="model.sortField()" as-sortable-item-handle>
                                         <span class="glyphicon glyphicon-align-justify"></span>
                                     </button>
                                 </div>
@@ -41,13 +39,10 @@
                                     <button ng-click="model.editField(field)" type="button" class="btn btn-default" data-toggle="modal" data-target="#editField">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <!-- <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button> -->
                                     <button ng-click="model.deleteField(field)" type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
-                                    <button type="button" ng-mouseup="model.sort()" class="btn btn-default myHandle">
+                                    <button type="button" class="btn btn-default handle" id="myhandle" ng-mouseup="model.sortField()" as-sortable-item-handle>
                                         <span class="glyphicon glyphicon-align-justify"></span>
                                     </button>
                                 </div>
@@ -63,13 +58,10 @@
                                     <button ng-click="model.editField(field)" type="button" class="btn btn-default" data-toggle="modal" data-target="#editField">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <!-- <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button> -->
                                     <button ng-click="model.deleteField(field)" type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
-                                    <button type="button" ng-mouseup="model.sort()" class="btn btn-default handle">
+                                    <button type="button" class="btn btn-default handle" id="myhandle" ng-mouseup="model.sortField()" as-sortable-item-handle>
                                         <span class="glyphicon glyphicon-align-justify"></span>
                                     </button>
                                 </div>
@@ -90,13 +82,10 @@
                                     <button ng-click="model.editField(field)" type="button" class="btn btn-default" data-toggle="modal" data-target="#editField">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <!-- <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button> -->
                                     <button ng-click="model.deleteField(field)" type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
-                                    <button type="button" ng-mouseup="model.sort()" class="btn btn-default handle">
+                                    <button type="button" class="btn btn-default handle" id="myhandle" ng-mouseup="model.sortField()" as-sortable-item-handle>
                                         <span class="glyphicon glyphicon-align-justify"></span>
                                     </button>
                                 </div>
@@ -114,13 +103,10 @@
                                     <button ng-click="model.editField(field)" type="button" class="btn btn-default" data-toggle="modal" data-target="#editField">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <!-- <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button> -->
                                     <button ng-click="model.deleteField(field)" type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
-                                    <button type="button" ng-mouseup="model.sort()" class="btn btn-default handle">
+                                    <button type="button" class="btn btn-default handle" id="myhandle" ng-mouseup="model.sortField()" as-sortable-item-handle>
                                         <span class="glyphicon glyphicon-align-justify"></span>
                                     </button>
                                 </div>
@@ -134,13 +120,10 @@
                                     <button ng-click="model.editField(field)" type="button" class="btn btn-default" data-toggle="modal" data-target="#editField">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
-                                    <!-- <button type="button" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button> -->
                                     <button ng-click="model.deleteField(field)" type="button" class="btn btn-default">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
-                                    <button type="button" ng-mouseup="model.sort()" class="btn btn-default handle">
+                                    <button type="button" class="btn btn-default handle" id="myhandle" ng-mouseup="model.sortField()" as-sortable-item-handle>
                                         <span class="glyphicon glyphicon-align-justify"></span>
                                     </button>
                                 </div>
@@ -156,14 +139,14 @@
                 <div class="form-group">
                     <label for="newField" class="fields-label">Add A New Field:</label>
                     <div class="fields-form col-xs-10">
-                        <select ng-model="fieldType" ng-options="option for option in options" id="newField" class="form-control fields-form">
-                            <!-- <option value="" selected disabled>Select a field type</option>
+                        <select ng-model="fieldType" id="newFieldType" class="form-control fields-form">
+                            <option value="" selected disabled>Select a field type</option>
                             <option>Single Line Text Field</option>
                             <option>Multi Line Text Field</option>
                             <option>Date Field</option>
-                            <option>Dropdown Field</option>
-                            <option>Checkboxes Field</option>
-                            <option>Radio Buttons Field</option> -->
+                            <option class="needsOptionsBox">Dropdown Field</option>
+                            <option class="needsOptionsBox">Checkboxes Field</option>
+                            <option class="needsOptionsBox">Radio Buttons Field</option>
                         </select>
                     </div>
                     <button type="button" class="btn btn-default addField" data-toggle="modal" data-target="#createField">
@@ -185,8 +168,7 @@
                         <div class="modal-body">
                             <form>
                                 <label>Type of Field</label>
-                                <!-- <select ng-model="fieldType" ng-dropdown required ng-change="changeme()" id="newFieldType" class="form-control fields-form" ng-options="fieldOption.type as fieldOption.opt for fieldOption in fieldOptions"> -->
-                                <select ng-model="fieldType" ng-dropdown required id="newFieldType" class="form-control fields-form">
+                                <select ng-model="fieldType" id="newFieldType" class="form-control fields-form">
                                     <option value="" selected disabled>Select a field type</option>
                                     <option>Single Line Text Field</option>
                                     <option>Multi Line Text Field</option>
@@ -204,16 +186,10 @@
                                 <input ng-model="model.newField.placeholder" class="form-control" type="text" placeholder="Placeholder">
                                 <br>
 
-                                <!-- <div ng-show="fieldType=='OPTIONS' || fieldType=='CHECKBOXES' || fieldType=='RADIOS'"> -->
-                                <!-- <div ng-switch="fieldType"> -->
-                                    <!-- <div ng-switch-when="OPTIONS"> -->
-                                    <div class="optionsBox">
-                                        <label>Options (no need for text fields)</label>
-                                        <textarea ng-model="model.optionText" class="form-control" placeholder="Option X: X"></textarea>
-                                    </div>
-                                    <!-- </div> -->
-                                <!-- </div> -->
-                                <!-- </div> -->
+                                <div class="optionsBox">
+                                    <label>Options (Label:Value)</label>
+                                    <textarea ng-model="model.optionText" class="form-control" placeholder="Option X: X"></textarea>
+                                </div>
                             </form>
                             <br>
                             <div ng-show="message" class="alert alert-danger" role="alert">{{message}}</div>

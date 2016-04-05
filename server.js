@@ -1,10 +1,11 @@
-var express     = require('express');
-var session      = require('express-session');
-var app         = express();
-var bodyParser  = require('body-parser');
-var multer      = require('multer');
-var mongoose    = require('mongoose');
-var passport = require('passport');
+var express         = require('express');
+var app             = express();
+var session         = require('express-session');
+var bodyParser      = require('body-parser');
+var multer          = require('multer');
+var cookieParser    = require('cookie-parser');
+var mongoose        = require('mongoose');
+var passport        = require('passport');
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs4550';
 
@@ -24,6 +25,7 @@ var db = mongoose.connect(connectionString);
 var ipaddress   = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port        = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
+var secret = process.env.SESSION_SECRET || '1234567890QWERTY';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,7 +37,6 @@ app.use(express.session({secret: '1234567890QWERTY'}));
 // initialize passport and session support
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use(express.static(__dirname + '/public'));
 

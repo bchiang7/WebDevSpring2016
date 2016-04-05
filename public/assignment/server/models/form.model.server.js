@@ -15,10 +15,7 @@ module.exports = function(app, db) {
 
         createFormForUser: createFormForUser,
         updateFormById: updateFormById,
-        deleteFormById: deleteFormById,
-
-        createFieldForForm: createFieldForForm,
-        updateField: updateField
+        deleteFormById: deleteFormById
 
     };
     return api;
@@ -44,15 +41,16 @@ module.exports = function(app, db) {
 
         var deferred = q.defer();
         Form
-            .find(
-                {userId: userId},
-            function(err, forms) {
-                if (!err) {
-                    deferred.resolve(forms);
-                } else {
-                    deferred.reject(err);
-                }
-            });
+            .find({
+                    userId: userId
+                },
+                function(err, forms) {
+                    if (!err) {
+                        deferred.resolve(forms);
+                    } else {
+                        deferred.reject(err);
+                    }
+                });
         return deferred.promise;
     }
 
@@ -62,7 +60,7 @@ module.exports = function(app, db) {
         var deferred = q.defer();
         Form
             .findById(formId,
-                function (err, form) {
+                function(err, form) {
                     if (!err) {
                         deferred.resolve(form);
                     } else {
@@ -75,8 +73,9 @@ module.exports = function(app, db) {
     function findFormByTitle(title) {
         var deferred = q.defer();
         Form
-            .findOne(
-                {title: title},
+            .findOne({
+                    title: title
+                },
                 function(err, doc) {
                     if (!err) {
                         deferred.resolve(doc);
@@ -92,8 +91,10 @@ module.exports = function(app, db) {
         //console.log("model userId = " + userId);
         var deferred = q.defer();
         Form
-            .create(
-                {title: form.title, userId: userId},
+            .create({
+                    title: form.title,
+                    userId: userId
+                },
                 function(err, form) {
                     if (!err) {
                         deferred.resolve(form);
@@ -108,11 +109,40 @@ module.exports = function(app, db) {
 
     function updateFormById(formId, newForm) {
         var deferred = q.defer();
+        // Form
+        //     .update({
+        //             _id: formId
+        //         }, {
+        //             $set: newForm
+        //         },
+        //         function(err, stats) {
+        //             if (!err) {
+        //                 deferred.resolve(stats);
+        //             } else {
+        //                 deferred.reject(err);
+        //             }
+        //         }
+        //     );
+
+
+        var newForm = {
+            userId: newForm.userId,
+            title: newForm.title,
+            fields: newForm.fields,
+            created: newForm.created,
+            updated: (new Date).getTime()
+        }
+
+        newForm.updated = (new Date).getTime();
+
         Form
-            .update (
-                {_id: formId},
-                {$set: newForm},
-                function (err, stats) {
+            .findByIdAndUpdate(formId, {
+                    $set: newForm
+                }, {
+                    new: true,
+                    upsert: true
+                },
+                function(err, stats) {
                     if (!err) {
                         deferred.resolve(stats);
                     } else {
@@ -120,6 +150,8 @@ module.exports = function(app, db) {
                     }
                 }
             );
+
+
         return deferred.promise;
     }
 
@@ -130,10 +162,11 @@ module.exports = function(app, db) {
 
         var deferred = q.defer();
         Form
-            .remove (
-                {_id: formId},
-                function (err, stats) {
-                    if(!err) {
+            .remove({
+                    _id: formId
+                },
+                function(err, stats) {
+                    if (!err) {
                         deferred.resolve(stats);
                     } else {
                         deferred.reject(err);
@@ -141,15 +174,6 @@ module.exports = function(app, db) {
                 }
             );
         return deferred.promise;
-    }
-
-
-    function createFieldForForm(formId) {
-        console.log('create field for form');
-    }
-
-    function updateField(formId, fieldId, field) {
-        console.log('update field');
     }
 
 

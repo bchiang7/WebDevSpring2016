@@ -73,7 +73,7 @@ module.exports = function(app, UserModel, FormModel) {
         FormModel
             .updateFormById(formId, newForm)
             .then(
-                function(stats) {
+                function(doc) {
                     res.send(200);
                 },
                 function (err) {

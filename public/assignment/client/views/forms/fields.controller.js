@@ -14,7 +14,7 @@
         vm.editField = editField;
         vm.updateField = updateField;
         vm.deleteField = deleteField;
-        vm.sort = sort;
+        vm.sortField = sortField;
 
         $scope.options = [
             'Single Line Text Field',
@@ -26,6 +26,15 @@
         ];
 
         vm.fieldOptions = null;
+
+        vm.sortableOptions = {
+            orderChanged: function(e) {
+                vm.form.fields = vm.fields;
+                FormService
+                    .updateFormById(formId, vm.form)
+                    .then(init);
+            }
+        };
 
         var optionMap = [{
             key: "Single Line Text Field",
@@ -71,10 +80,19 @@
                 .then(function(response) {
                     vm.fields = response.data;
                     vm.newField = null;
+                    vm.optionText = "";
                 });
         }
         init();
 
+
+        function findFieldType(fieldType) {
+            for (var k in optionMap) {
+                if (optionMap[k].key == fieldType) {
+                    return optionMap[k].value;
+                }
+            }
+        }
 
         function addField(fieldType) {
 
@@ -118,8 +136,6 @@
         function editField(field) {
             vm.newField = field;
 
-            console.log(field.type);
-
             if (!(field.type === 'TEXT' || field.type === 'TEXTAREA')) {
                 var optionList = [];
                 var newOptions = vm.newField.options;
@@ -150,27 +166,35 @@
                 .then(init);
         }
 
+
         function deleteField(field) {
             FieldService
                 .deleteField(formId, field._id)
                 .then(init);
         }
 
-        function sort() {
+
+        function sortField() {
+            // vm.form.fields = vm.fields;
+            // FormService
+            //     .updateFormById(formId, vm.form)
+            //     .then(init);
+            //
+            // FieldService
+            //     .sortField(vm.formId, vm.fieldId, start, end)
+            //     .then(
+            //         function(response) {
+            //
+            //         },
+            //         function(err) {
+            //             vm.error = error;
+            //         }
+            //     )
+
             vm.form.fields = vm.fields;
             FormService
                 .updateFormById(formId, vm.form)
                 .then(init);
-        }
-
-
-
-        function findFieldType(fieldType) {
-            for (var k in optionMap) {
-                if (optionMap[k].key == fieldType) {
-                    return optionMap[k].value;
-                }
-            }
         }
     }
 })();

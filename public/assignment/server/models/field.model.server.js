@@ -15,7 +15,8 @@ module.exports = function(app, db) {
         findFieldsByFormId: findFieldsByFormId,
         createField: createField,
         updateField: updateField,
-        deleteField: deleteField
+        deleteField: deleteField,
+        sortField: sortField
     };
     return api;
 
@@ -130,6 +131,21 @@ module.exports = function(app, db) {
                 }
             );
         return deferred.promise;
+    }
+
+
+    function sortField(formId, fieldId, startIndex, endIndex) {
+        // return Field
+        //     .findById(fieldId)
+        //     .then(
+        //         function(field) {
+        //             field.pages.id(pageId).widgets.splice(endIndex, 0, field.pages.id(pageId).widgets.splice(startIndex, 1)[0]);
+        //
+        //             field.markModified("pages");
+        //
+        //             field.save();
+        //         }
+        //     );
     }
 
 };

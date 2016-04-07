@@ -18,12 +18,21 @@
 
             createUser: createUser,
             updateUser: updateUser,
-            deleteUser: deleteUser
+            deleteUser: deleteUser,
+
+            // adminCreateUser: adminCreateUser,
+            // adminUpdateUser: adminUpdateUser,
+            // adminDeleteUser: adminDeleteUser,
+            // adminFindAllUsers: adminFindAllUsers,
+            // adminFindUserById: adminFindUserById,
+
+            login: login,
+            logout: logout,
+            register: register
         }
         return api;
 
         function findAllUsers() {
-            // console.log("find all users");
             return $http.get("/api/assignment/user");
         }
 
@@ -65,6 +74,17 @@
             return $http.delete("/api/assignment/user/" + developer.username);
         }
 
+        function login(user) {
+            return $http.post("/api/assignment/login", user);
+        }
+
+        function logout() {
+            return $http.post("/api/assignment/logout");
+        }
+
+        function register(user) {
+            return $http.post("/api/assignment/register", user);
+        }
 
 
     }

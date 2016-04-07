@@ -210,3 +210,11 @@ select.form-control {
 .optionsBox {
     display: none;
 }
+
+.handle {
+    /*display: table;*/
+}
+.ui-sortable-helper {
+    width: auto !important;
+    height: auto !important;
+}

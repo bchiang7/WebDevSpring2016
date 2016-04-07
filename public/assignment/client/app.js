@@ -1,4 +1,5 @@
 (function() {
     angular
-        .module("FormBuilderApp", ["ngRoute", "as.sortable"]);
+        //.module("FormBuilderApp", ["ngRoute"]);
+        .module("FormBuilderApp", ["ngRoute", "sortableDirective"]);
 })();

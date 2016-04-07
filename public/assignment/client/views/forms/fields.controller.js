@@ -3,10 +3,11 @@
         .module("FormBuilderApp")
         .controller("FieldsController", FieldsController);
 
-    function FieldsController($routeParams, FormService, $rootScope, $scope, $location, FieldService) {
+    function FieldsController(FormService, FieldService, $routeParams, $rootScope, $scope) {
 
         var vm = this;
         var formId = $routeParams.formId;
+        // var fieldId = $routeParams.fieldId;
         var currentUser = $rootScope.currentUser;
 
         vm.newField = null;
@@ -82,6 +83,9 @@
                     vm.newField = null;
                     vm.optionText = "";
                 });
+
+
+            // console.log(fieldId);
         }
         init();
 
@@ -174,27 +178,17 @@
         }
 
 
-        function sortField() {
-            // vm.form.fields = vm.fields;
-            // FormService
-            //     .updateFormById(formId, vm.form)
-            //     .then(init);
-            //
-            // FieldService
-            //     .sortField(vm.formId, vm.fieldId, start, end)
-            //     .then(
-            //         function(response) {
-            //
-            //         },
-            //         function(err) {
-            //             vm.error = error;
-            //         }
-            //     )
-
-            vm.form.fields = vm.fields;
-            FormService
-                .updateFormById(formId, vm.form)
-                .then(init);
+        function sortField(start, end) {
+            //console.log("sort field!");
+            FieldService
+                .sortField(formId, start, end)
+                .then(
+                    function (response) {
+                    },
+                    function (err) {
+                        vm.error = err;
+                    }
+                );
         }
     }
 })();

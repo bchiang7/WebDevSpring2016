@@ -36,8 +36,9 @@
             return $http.delete("/api/assignment/form/" + formId + "/field/" + fieldId);
         }
 
-        function sortField(formId, fieldId, startIndex, endIndex) {
-            return $http.put("/api/assignment/"+formId+"/form/"+fieldId+"/field?startIndex="+startIndex+"&endIndex="+endIndex);
+        function sortField(formId, startIndex, endIndex) {
+            //console.log("client sort " + startIndex, endIndex);
+            return $http.put("/api/assignment/form/" + formId + "/startIndex/" + startIndex + "/endIndex/" + endIndex);
         }
 
 

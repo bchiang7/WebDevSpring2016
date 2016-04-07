@@ -134,18 +134,20 @@ module.exports = function(app, db) {
     }
 
 
-    function sortField(formId, fieldId, startIndex, endIndex) {
-        // return Field
-        //     .findById(fieldId)
-        //     .then(
-        //         function(field) {
-        //             field.pages.id(pageId).widgets.splice(endIndex, 0, field.pages.id(pageId).widgets.splice(startIndex, 1)[0]);
-        //
-        //             field.markModified("pages");
-        //
-        //             field.save();
-        //         }
-        //     );
+    function sortField(formId, startIndex, endIndex) {
+        //console.log("model sort " + startIndex + endIndex);
+        return Form
+            .findById(formId)
+            .then(
+                function(form) {
+                    form.fields.splice(endIndex, 0, form.fields.splice(startIndex, 1)[0]);
+
+                    // notify mongoose fields have changed
+                    form.markModified("fields");
+
+                    form.save();
+                }
+            );
     }
 
 };

@@ -5,7 +5,8 @@ module.exports = function(app, FormModel, FieldModel) {
     app.post("/api/assignment/form/:formId/field", addFieldToForm);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldById);
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldById);
-    app.put    ("/api/assignment/:formId/form/:fieldId/field", sortFields);
+    app.put("/api/assignment/form/:formId/startIndex/:startIndex/endIndex/:endIndex", sortField);
+
 
     function fieldsForFormId(req, res) {
         var formId = req.params.formId;
@@ -85,23 +86,25 @@ module.exports = function(app, FormModel, FieldModel) {
     }
 
 
-    function sortFields(req, res) {
+    function sortField(req, res) {
+        //console.log("server sort");
         var formId = req.params.formId;
-        var fieldId = req.params.fieldId;
-        var startIndex = req.query.startIndex;
-        var endIndex = req.query.endIndex;
+        var startIndex = req.params.startIndex;
+        var endIndex = req.params.endIndex;
 
         if (startIndex && endIndex) {
             FieldModel
-                .sortField(formId, fieldId, startIndex, endIndex)
+                .sortField(formId, startIndex, endIndex)
                 .then(
-                    function (stat) {
+                    function(stat) {
                         return res.json(200);
                     },
-                    function (err) {
+                    function(err) {
                         res.status(400).send(err);
                     }
                 );
         }
     }
+
+
 };

@@ -71,6 +71,22 @@
         return deferred.promise;
     };
 
+
+    function checkAdmin($q, $timeout, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+
+        $http.get('/api/assignment/loggedin').success(function(user) {
+            $rootScope.errorMessage = null;
+            // User is Authenticated
+            if (user !== '0' && user.roles.indexOf('admin') != -1) {
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            }
+        });
+
+        return deferred.promise;
+    };
+
     function checkLoggedIn(UserService, $q, $location) {
         var deferred = $q.defer();
         UserService
@@ -85,21 +101,6 @@
                     $location.url("/login");
                 }
             });
-
-        return deferred.promise;
-    };
-
-    function checkAdmin($q, $timeout, $http, $location, $rootScope) {
-        var deferred = $q.defer();
-
-        $http.get('/api/assignment/loggedin').success(function(user) {
-            $rootScope.errorMessage = null;
-            // User is Authenticated
-            if (user !== '0' && user.roles.indexOf('admin') != -1) {
-                $rootScope.currentUser = user;
-                deferred.resolve();
-            }
-        });
 
         return deferred.promise;
     };

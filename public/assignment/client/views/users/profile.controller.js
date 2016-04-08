@@ -18,7 +18,7 @@
         }
 
         function update(user) {
-            // console.log("update!");
+            // console.log(user);
             UserService
                 .updateUser(user)
                 .then(

@@ -12,7 +12,7 @@
         init();
 
         function register(user) {
-            console.log("register controller");
+            // console.log("register controller");
             UserService
                 .createUser(user)
                 .then(function(response) {

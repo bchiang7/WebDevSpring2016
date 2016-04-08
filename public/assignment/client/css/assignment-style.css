@@ -18,6 +18,9 @@ p {
 h1 {
     font-size: 30px;
 }
+td {
+    white-space: nowrap;
+}
 .btn, .nav-tabs>li>a, .navbar-toggle {
     border-radius: 0;
 }
@@ -211,10 +214,6 @@ select.form-control {
     display: none;
 }
 
-.handle {
-    /*display: table;*/
-}
-.ui-sortable-helper {
-    width: auto !important;
-    height: auto !important;
+.field-sortable-placeholder {
+    opacity: 0.3;
 }

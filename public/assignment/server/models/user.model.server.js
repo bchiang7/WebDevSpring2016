@@ -96,6 +96,7 @@ module.exports = function(db) {
     }
 
     function updateUser(username, user) {
+        // console.log("update user");
         var deferred = q.defer();
         User
             .update({

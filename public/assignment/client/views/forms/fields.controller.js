@@ -7,7 +7,6 @@
 
         var vm = this;
         var formId = $routeParams.formId;
-        // var fieldId = $routeParams.fieldId;
         var currentUser = $rootScope.currentUser;
 
         vm.newField = null;
@@ -58,7 +57,8 @@
         }];
 
         // if field type selected is dropdown, checboxes, or radio buttons, show options box
-        $('#newFieldType').on('change', function() {
+        $('.newFieldType').on('change', function() {
+            // console.log("hi");
             if ($(this).children(':selected').hasClass('needsOptionsBox')) {
                 $('.optionsBox').css('display', 'block');
             }
@@ -83,9 +83,6 @@
                     vm.newField = null;
                     vm.optionText = "";
                 });
-
-
-            // console.log(fieldId);
         }
         init();
 

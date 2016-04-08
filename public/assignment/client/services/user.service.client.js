@@ -58,21 +58,28 @@
             $rootScope.currentUser = user;
         }
 
-        function logout() {
-            return $http.post("/api/assignment/user/logout");
-        }
+
 
         function createUser(user) {
             return $http.post("/api/assignment/user", user);
         }
 
         function updateUser(user) {
+            // console.log("here");
             return $http.put("/api/assignment/user/" + user.username, user);
         }
 
         function deleteUser(user) {
             return $http.delete("/api/assignment/user/" + developer.username);
         }
+
+
+
+        function logout() {
+            return $http.post("/api/assignment/user/logout");
+        }
+
+
 
         function login(user) {
             return $http.post("/api/assignment/login", user);

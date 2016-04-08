@@ -12,7 +12,7 @@ module.exports = function(app, UserModel) {
     //app.get("/api/assignment/user?username=:username&password=:password", findUserByCredentials);
     app.get("/api/assignment/user", findUser);
     app.get("/api/assignment/user/loggedin", loggedin);
-    app.post("/api/assignment/user/logout", logout);
+    app.post("/api/assignment/user/logout", logout);    ///////////////////
 
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user/:username", findUserByUsername);
@@ -23,7 +23,7 @@ module.exports = function(app, UserModel) {
 
     app.post('/api/assignment/login', passport.authenticate('local'), login);
     app.get('/api/assignment/loggedin', loggedin);
-    app.post('/api/assignment/logout', logout);
+    app.post('/api/assignment/logout', logout); ////////////////////
     app.post('/api/assignment/register', register);
 
 
@@ -66,7 +66,6 @@ module.exports = function(app, UserModel) {
         //callbackURL: process.env.GOOGLE_CALLBACK_URL
         callbackURL: 'http://127.0.0.1:3000/auth/google/callback'
     };
-
 
     //var facebookConfig = {
     //    clientID: process.env.FACEBOOK_CLIENT_ID,
@@ -380,6 +379,7 @@ module.exports = function(app, UserModel) {
     }
 
     function updateUser(req, res) {
+        // console.log("update");
         var username = req.params.username;
         var user = req.body;
         UserModel

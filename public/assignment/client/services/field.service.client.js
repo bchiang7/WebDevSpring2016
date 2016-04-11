@@ -24,7 +24,6 @@
         }
 
         function createField(formId, field) {
-            // console.log(field);
             return $http.post("/api/assignment/form/" + formId + "/field", field);
         }
 
@@ -37,7 +36,7 @@
         }
 
         function sortField(formId, startIndex, endIndex) {
-            //console.log("client sort " + startIndex, endIndex);
+            console.log("client " + "start:"+startIndex + " end:"+endIndex);
             return $http.put("/api/assignment/form/" + formId + "/startIndex/" + startIndex + "/endIndex/" + endIndex);
         }
 

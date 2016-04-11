@@ -10,7 +10,7 @@
 
             <table class="table table-responsive" id="sort">
 
-                <tbody id="ewq" ng-model="model.fields" fields-sortable fields-sortable-callback="model.sortField(start, end)">
+                <tbody ng-model="model.fields" fields-sortable fields-sortable-callback="model.sortField(start, end)">
 
                     <tr ng-switch="field.type" ng-repeat="field in model.fields">
                         <td ng-switch-when="TEXT">

@@ -13,22 +13,22 @@
 
             getCurrentUser: getCurrentUser,
             setCurrentUser: setCurrentUser,
-
-            logout: logout,
+            // logout: logout,
 
             createUser: createUser,
             updateUser: updateUser,
             deleteUser: deleteUser,
+
+            login: login,
+            logout: logout,
+            register: register
+
 
             // adminCreateUser: adminCreateUser,
             // adminUpdateUser: adminUpdateUser,
             // adminDeleteUser: adminDeleteUser,
             // adminFindAllUsers: adminFindAllUsers,
             // adminFindUserById: adminFindUserById,
-
-            login: login,
-            logout: logout,
-            register: register
         }
         return api;
 
@@ -45,7 +45,6 @@
         }
 
         function findUserByCredentials(username, password) {
-            // console.log("find by creds");
             return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
         }
 
@@ -64,21 +63,24 @@
             return $http.post("/api/assignment/user", user);
         }
 
-        function updateUser(user) {
-            // console.log("here");
-            return $http.put("/api/assignment/user/" + user.username, user);
+        // function updateUser(user) {
+        //     return $http.put("/api/assignment/user/" + user.username, user);
+        // }
+        //
+        // function deleteUser(user) {
+        //     return $http.delete("/api/assignment/user/" + user.username);
+        // }
+        function updateUser(userId, user) {
+            return $http.put('/api/assignment/user/' + userId, user);
         }
 
-        function deleteUser(user) {
-            return $http.delete("/api/assignment/user/" + developer.username);
+        function deleteUser(userId) {
+            return $http.delete('/api/assignment/user/' + userId);
         }
 
-
-
-        function logout() {
-            return $http.post("/api/assignment/user/logout");
-        }
-
+        // function logout() {
+        //     return $http.post("/api/assignment/user/logout");
+        // }
 
 
         function login(user) {
@@ -90,6 +92,7 @@
         }
 
         function register(user) {
+            console.log("register client");
             return $http.post("/api/assignment/register", user);
         }
 

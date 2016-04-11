@@ -17,6 +17,7 @@
         init();
 
         function remove(user) {
+            // console.log("remove");
             UserService
                 .deleteUser(user._id)
                 .then(handleSuccess, handleError);

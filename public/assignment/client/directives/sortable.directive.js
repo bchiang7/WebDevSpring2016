@@ -24,6 +24,9 @@
                         if (start >= end) {
                             start--;
                         }
+                        // if (start < end) {
+                        //     start++;
+                        // }
                         scope.fieldsSortableCallback({
                             start: start,
                             end: end

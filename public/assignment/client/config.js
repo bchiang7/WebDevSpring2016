@@ -58,19 +58,51 @@
             });
     }
 
-    function getLoggedIn(UserService, $q) {
+    // function getLoggedIn(UserService, $q) {
+    //     var deferred = $q.defer();
+    //     UserService
+    //         .getCurrentUser()
+    //         .then(function(response) {
+    //             var currentUser = response.data;
+    //             UserService.setCurrentUser(currentUser);
+    //             deferred.resolve();
+    //         });
+    //
+    //     return deferred.promise;
+    // };
+    //
+    // function checkLoggedIn(UserService, $q, $location) {
+    //     var deferred = $q.defer();
+    //     UserService
+    //         .getCurrentUser()
+    //         .then(function(response) {
+    //             var currentUser = response.data;
+    //             if (currentUser) {
+    //                 UserService.setCurrentUser(currentUser);
+    //                 deferred.resolve();
+    //             } else {
+    //                 deferred.reject();
+    //                 $location.url("/login");
+    //             }
+    //         });
+    //
+    //     return deferred.promise;
+    // };
+
+    function checkCurrentUser($q, $timeout, $http, $location, $rootScope) {
         var deferred = $q.defer();
-        UserService
-            .getCurrentUser()
-            .then(function(response) {
-                var currentUser = response.data;
-                UserService.setCurrentUser(currentUser);
-                deferred.resolve();
-            });
+
+        $http.get('/api/assignment/loggedin').success(function(user) {
+            $rootScope.errorMessage = null;
+            // User is Authenticated
+            if (user !== '0') {
+                $rootScope.currentUser = user;
+            }
+            deferred.resolve();
+        });
 
         return deferred.promise;
     };
-
 
     function checkAdmin($q, $timeout, $http, $location, $rootScope) {
         var deferred = $q.defer();
@@ -83,24 +115,6 @@
                 deferred.resolve();
             }
         });
-
-        return deferred.promise;
-    };
-
-    function checkLoggedIn(UserService, $q, $location) {
-        var deferred = $q.defer();
-        UserService
-            .getCurrentUser()
-            .then(function(response) {
-                var currentUser = response.data;
-                if (currentUser) {
-                    UserService.setCurrentUser(currentUser);
-                    deferred.resolve();
-                } else {
-                    deferred.reject();
-                    $location.url("/login");
-                }
-            });
 
         return deferred.promise;
     };
@@ -126,20 +140,6 @@
         return deferred.promise;
     };
 
-    function checkCurrentUser($q, $timeout, $http, $location, $rootScope) {
-        var deferred = $q.defer();
-
-        $http.get('/api/assignment/loggedin').success(function(user) {
-            $rootScope.errorMessage = null;
-            // User is Authenticated
-            if (user !== '0') {
-                $rootScope.currentUser = user;
-            }
-            deferred.resolve();
-        });
-
-        return deferred.promise;
-    };
 
 
 })();

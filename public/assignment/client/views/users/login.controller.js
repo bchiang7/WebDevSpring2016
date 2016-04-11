@@ -11,6 +11,7 @@
         init();
 
         function login(user) {
+            // console.log("login");
 
             if (!user || !user.username || !user.password) {
                 $scope.message = "Please fill in the required fields";
@@ -18,11 +19,13 @@
             }
 
             UserService
-                .findUserByCredentials(user.username,user.password)
+                // .findUserByCredentials(user.username,user.password)
+                .login(user)
                 .then(
                     function(response) {
                         if (response.data) {
-                            UserService.setCurrentUser(response.data);
+                            // UserService.setCurrentUser(response.data);
+                            $rootScope.currentUser = response.data;
                             $location.url("/profile");
                         }
                         else {

@@ -18,7 +18,7 @@ p {
 h1 {
     font-size: 30px;
 }
-td {
+td, th {
     white-space: nowrap;
 }
 .btn, .nav-tabs>li>a, .navbar-toggle {
@@ -85,9 +85,6 @@ h1 {
 .form-horizontal .control-label {
     text-align: left;
 }
-.form-group {
-    margin-bottom: 20px;
-}
 .form-control {
     border-radius: 0;
     height: 35px;
@@ -121,8 +118,9 @@ h1 {
 }
 .form-group {
     display: inline-block;
-    width: 65%;
+    width: 100%;
     margin-right: 10px;
+    margin-bottom: 20px;
 }
 @media screen and (max-width: 480px) {
     .container-fluid {
@@ -216,4 +214,16 @@ select.form-control {
 
 .field-sortable-placeholder {
     opacity: 0.3;
+}
+
+.login-google {
+    background: #dc4e41;
+    color: #eee;
+}
+.login-fb {
+    background: #3b5998;
+    color: #eee;
+}
+.login-google:hover, .login-fb:hover {
+    color: #fff;
 }

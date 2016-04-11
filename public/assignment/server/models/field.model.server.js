@@ -135,7 +135,7 @@ module.exports = function(app, db) {
 
 
     function sortField(formId, startIndex, endIndex) {
-        //console.log("model sort " + startIndex + endIndex);
+        // console.log("model " + "start:"+startIndex + "end:"+endIndex);
         return Form
             .findById(formId)
             .then(

@@ -20,23 +20,34 @@
         function update(user) {
             // console.log(user);
             UserService
-                .updateUser(user)
-                .then(
-                    function() {
-                        return UserService.findUserByCredentials(user.username, user.password);
-                    })
+                // .updateUser(user)
+                .updateUser(user._id, user)
                 .then(
                     function(response) {
-                        if (response.data) {
-                            vm.currentUser = response.data;
-                            $scope.message = "Profile updated!";
-                        }
+                        $scope.users = response.data;
+                        $scope.message = "Profile updated!";
                     },
-                    function(error) {
+                    function(err) {
+                        $scope.error = err;
                         $scope.message = "Uh oh, something went wrong.";
-                        return;
                     }
                 );
+                // .then(
+                //     function() {
+                //         return UserService.findUserByCredentials(user.username, user.password);
+                //     })
+                // .then(
+                //     function(response) {
+                //         if (response.data) {
+                //             vm.currentUser = response.data;
+                //             $scope.message = "Profile updated!";
+                //         }
+                //     },
+                //     function(error) {
+                //         $scope.message = "Uh oh, something went wrong.";
+                //         return;
+                //     }
+                // );
 
         }
 

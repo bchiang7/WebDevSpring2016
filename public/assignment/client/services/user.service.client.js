@@ -13,7 +13,6 @@
 
             getCurrentUser: getCurrentUser,
             setCurrentUser: setCurrentUser,
-            // logout: logout,
 
             createUser: createUser,
             updateUser: updateUser,
@@ -27,6 +26,7 @@
         return api;
 
         function findAllUsers() {
+            // console.log("client");
             return $http.get("/api/assignment/user");
         }
 
@@ -52,30 +52,18 @@
         }
 
 
-
         function createUser(user) {
             return $http.post("/api/assignment/user", user);
         }
 
-        // function updateUser(user) {
-        //     return $http.put("/api/assignment/user/" + user.username, user);
-        // }
-        //
-        // function deleteUser(user) {
-        //     return $http.delete("/api/assignment/user/" + user.username);
-        // }
         function updateUser(userId, user) {
             return $http.put('/api/assignment/user/' + userId, user);
         }
 
         function deleteUser(userId) {
+            // console.log("client delete ", userId);
             return $http.delete('/api/assignment/user/' + userId);
         }
-
-        // function logout() {
-        //     return $http.post("/api/assignment/user/logout");
-        // }
-
 
         function login(user) {
             return $http.post("/api/assignment/login", user);
@@ -86,7 +74,7 @@
         }
 
         function register(user) {
-            console.log("register client");
+            // console.log("register client");
             return $http.post("/api/assignment/register", user);
         }
 

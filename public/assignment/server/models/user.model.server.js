@@ -23,6 +23,7 @@ module.exports = function(db) {
     return api;
 
     function findAllUsers() {
+        console.log("model find all users");
         // var deferred = q.defer();
         // User
         //     .find(
@@ -112,10 +113,6 @@ module.exports = function(db) {
 
 
 
-
-
-
-
     function createUser(user) {
         // var deferred = q.defer();
         // User
@@ -176,6 +173,7 @@ module.exports = function(db) {
     // }
 
     function deleteUser(userId) {
+        // console.log("model delete ", userId);
         return User.remove({
             _id: userId
         });

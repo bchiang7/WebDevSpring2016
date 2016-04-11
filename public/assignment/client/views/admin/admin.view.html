@@ -39,8 +39,8 @@
                             <input ng-model="user.roles" class="form-control" placeholder="roles" />
                         </td>
                         <td>
-                            <a href="#"><span class="glyphicon glyphicon-plus"></span></a>
-                            <a href="#"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+                            <a ng-click="add(user)"><span class="glyphicon glyphicon-plus"></span></a>
+                            <a ng-click="update(user)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
                         </td>
                     </tr>
                     <tr ng-repeat="user in users">
@@ -52,8 +52,8 @@
                         <td>{{user.emails}}</td>
                         <td>{{user.roles}}</td>
                         <td>
-                            <a href="#" ng-click="remove(user)"><span class="glyphicon glyphicon-remove"></span></a>
-                            <a href="#" ng-click="select(user)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+                            <a ng-click="remove(user)"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a ng-click="select(user)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
                         </td>
                     </tr>
                 </tbody>

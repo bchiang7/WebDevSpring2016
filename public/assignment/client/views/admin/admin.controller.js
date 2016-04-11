@@ -16,10 +16,9 @@
         }
         init();
 
-        function remove(user) {
-            // console.log("remove");
+        function add(user) {
             UserService
-                .deleteUser(user._id)
+                .createUser(user)
                 .then(handleSuccess, handleError);
         }
 
@@ -29,9 +28,9 @@
                 .then(handleSuccess, handleError);
         }
 
-        function add(user) {
+        function remove(user) {
             UserService
-                .createUser(user)
+                .deleteUser(user._id)
                 .then(handleSuccess, handleError);
         }
 

@@ -23,13 +23,7 @@
             logout: logout,
             register: register
 
-
-            // adminCreateUser: adminCreateUser,
-            // adminUpdateUser: adminUpdateUser,
-            // adminDeleteUser: adminDeleteUser,
-            // adminFindAllUsers: adminFindAllUsers,
-            // adminFindUserById: adminFindUserById,
-        }
+        };
         return api;
 
         function findAllUsers() {

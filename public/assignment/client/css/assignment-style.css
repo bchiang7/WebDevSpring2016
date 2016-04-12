@@ -223,11 +223,20 @@ select.form-control {
 .login-google {
     background: #dc4e41;
     color: #eee;
+    margin-top: 10px;
 }
 .login-fb {
     background: #3b5998;
     color: #eee;
+    margin-top: 10px;
 }
 .login-google:hover, .login-fb:hover {
     color: #fff;
+}
+.login-google:focus, .login-fb:focus {
+    color: #ccc;
+}
+.login-google .fa, .login-fb .fa {
+    font-size: 20px;
+    vertical-align: bottom;
 }

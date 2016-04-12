@@ -136,17 +136,16 @@ module.exports = function(app, db) {
 
     function sortField(formId, startIndex, endIndex) {
 
-        console.log("SERVER MODEL " + formId,startIndex,endIndex);
-        
         return Form
             .findById(formId)
             .then(
                 function(form) {
 
+                    console.log("SERVER MODEL " + startIndex,endIndex);
+
                     form.fields.splice(endIndex, 0, form.fields.splice(startIndex, 1)[0]);
 
-                    // notify mongoose fields have changed
-                    form.markModified("fields");
+                    form.markModified("fields"); // notify mongoose fields have changed
 
                     form.save();
                 }

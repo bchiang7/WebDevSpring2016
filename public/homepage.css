@@ -1,107 +1,198 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic);
 
 html, body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
+    font-size: 100%;
+    font-family: "Lato", sans-serif;
+    /*font-family: 'Open Sans', sans-serif;*/
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+@-ms-viewport {
+    width: device-width;
 }
 a {
-    color: #333;
+    color: white;
+    font-weight: 400;
+    text-decoration: none;
 }
 a:hover {
-    color: #555;
-}
-.intro-bg {
-    background: url(../../images/hbp.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-#intro .intro-panel {
-    background: rgba(255, 255, 255, 0.7);
-    width: 450px;
-    height: 450px;
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    padding: 40px 30px;
-}
-#intro .intro-panel h1, #intro .intro-panel h2 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
-    text-transform: uppercase;
-    margin: 0 auto 10px;
-}
-#intro .intro-panel h1 {
-    letter-spacing: 1px;
-}
-#intro .intro-panel h2 {
-    font-size: 16px;
-    color: #555;
-}
-#intro .intro-links {
-    margin: 0 auto;
-}
-#intro .intro-panel ul {
-    margin: 50px auto;
-    padding: 0 20px;
-}
-#intro .intro-panel ul li {
-    display: inline-block;
-    vertical-align: middle;
-}
-#intro .intro-panel ul li .fa {
-    font-size: 45px;
-    padding: 0 20px;
-}
-#intro .intro-panel ul li > span {
-    display: block;
-    text-align: center;
-    margin-top: 10px;
+    /*color: #bbaad2;*/
 }
 
-@media screen and (max-width: 550px) {
-    #intro .intro-panel {
-        width: 85%;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
+/* Animation */
+
+@-webkit-keyframes scale {
+    from {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
     }
-    #intro .intro-panel h1 {
-        font-size: 36px;
-    }
-    #intro .intro-panel ul li .fa {
-        font-size: 36px;
-        padding: 0 20px;
+    to {
+        -webkit-transform: scale3d(1.2, 1.2, 1);
+        transform: scale3d(1.2, 1.2, 1);
     }
 }
-@media screen and (max-width: 480px) {
-    #intro .intro-panel h1 {
-        font-size: 28px;
+@keyframes scale {
+    from {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
     }
-    #intro .intro-panel p {
-        font-size: 16px;
-    }
-    #intro .intro-panel ul {
-        padding: 0;
-    }
-    #intro .intro-panel ul li .fa {
-        padding: 0 15px;
+    to {
+        -webkit-transform: scale3d(1.2, 1.2, 1);
+        transform: scale3d(1.2, 1.2, 1);
     }
 }
-@media screen and (max-width: 400px) {
-    #intro .intro-panel ul {
-        margin: 15px auto;
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
     }
-    #intro .intro-panel ul li .fa {
-        font-size: 30px;
-    }
-    #intro .intro-panel ul li span {
-        font-size: 12px;
+    to {
+        opacity: 1;
     }
 }
-@media screen and (max-width: 360px) {
-    #intro .intro-panel ul li .fa {
-        padding: 0 10px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
+    to {
+        opacity: 1;
+    }
+}
+body {
+    text-align: center;
+    font-weight: 300;
+    color: white;
+    background-color: rgba(33, 33, 33, 0.9);
+    line-height: 1.45;
+}
+.pad, .hero-content-heading, .hero-content-blurb {
+    padding-right: .75rem;
+    padding-left: .75rem;
+}
+.bg-hero {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    background: url("https://images.unsplash.com/photo-1454165205744-3b78555e5572?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=ca8c08d17555247f7580691500bb5351") no-repeat center center;
+    background-size: cover;
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
+    z-index: -999;
+    -webkit-animation: scale reverse 1s linear;
+    animation: scale reverse 1s linear;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition: -webkit-animation .5s ease;
+    transition: -webkit-animation .5s ease;
+    transition: animation .5s ease;
+    transition: animation .5s ease, -webkit-animation .5s ease;
+}
+.bg-hero:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #0B070F;
+    opacity: 0.7;
+    z-index: -888;
+}
+.fade-in {
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1.25s;
+    animation: fadeIn ease-in 1.25s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+/* Hero Module styles */
+
+.fade-in.hero-content-heading {
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+.fade-in.headshot {
+    -webkit-animation-delay: 1.25s;
+    animation-delay: 1.25s;
+}
+.fade-in.hero-content-blurb {
+    -webkit-animation-delay: 1.6s;
+    animation-delay: 1.6s;
+}
+.fade-in.social-icons {
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+}
+.hero {
+    width: 100%;
+    max-width: 36em;
+    margin: 0 auto;
+    display: table;
+    height: 100vh;
+    color: white;
+    text-align: center;
+}
+.hero-content {
+    display: table-cell;
+    vertical-align: middle;
+    height: calc(100% - 32em);
+    margin: 1.5rem auto;
+}
+.hero-content-heading {
+    font-weight: 300;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+    letter-spacing: 0.1em;
+}
+
+img.headshot {
+    width: 170px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.hero-content-blurb {
+    font-size: 1.1em;
+    margin: 33px auto 0;
+}
+
+/* Icons */
+
+.social-icons {
+    margin: 1.5rem auto;
+    display: block;
+}
+.social-icons li {
+    display: inline-block;
+    margin: 1em 0.75rem;
+}
+.social-icons a {
+    display: block;
+    padding: 5px;
+}
+.social-icons span.span-link {
+    opacity: 0;
+    /*display: none;*/
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin-top: 7px;
+}
+.icon-link:hover + .span-link {
+    /*display: block;*/
+    opacity: 1;
+    -webkit-transition: ease 0.7s;
+    transition: ease 0.7s;
+}
+.social-icons .fa {
+    font-size: 30px;
 }

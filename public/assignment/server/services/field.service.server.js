@@ -87,10 +87,11 @@ module.exports = function(app, FormModel, FieldModel) {
 
 
     function sortField(req, res) {
-        // console.log("server sort");
         var formId = req.params.formId;
         var startIndex = req.params.startIndex;
         var endIndex = req.params.endIndex;
+
+        // console.log("SERVER ", formId, startIndex, endIndex);
 
         if (startIndex && endIndex) {
             FieldModel

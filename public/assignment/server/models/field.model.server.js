@@ -135,11 +135,14 @@ module.exports = function(app, db) {
 
 
     function sortField(formId, startIndex, endIndex) {
-        // console.log("model " + "start:"+startIndex + "end:"+endIndex);
+
+        console.log("SERVER MODEL " + formId,startIndex,endIndex);
+        
         return Form
             .findById(formId)
             .then(
                 function(form) {
+
                     form.fields.splice(endIndex, 0, form.fields.splice(startIndex, 1)[0]);
 
                     // notify mongoose fields have changed

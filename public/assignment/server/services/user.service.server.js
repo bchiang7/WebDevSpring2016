@@ -14,14 +14,19 @@ module.exports = function(app, UserModel) {
     app.get("/api/assignment/user/:id", findUserById);
     app.get("/api/assignment/user/:username", findUserByUsername);
 
+    app.post("/api/assignment/user", auth, createUser);
+    app.put('/api/assignment/user/:id', auth, updateUser);
+    app.delete('/api/assignment/user/:id', auth, deleteUser);
+
+    app.post("/api/assignment/admin/user", auth, createUser);
+    app.put('/api/assignment/admin/user/:id', auth, updateUser);
+    app.delete('/api/assignment/admin/user/:id', auth, deleteUser);
+
+
     app.post('/api/assignment/login', passport.authenticate('local'), login);
     app.get('/api/assignment/loggedin', loggedin);
     app.post('/api/assignment/logout', logout);
     app.post('/api/assignment/register', register);
-
-    app.post("/api/assignment/user", auth, createUser);
-    app.put('/api/assignment/user/:id', auth, updateUser);
-    app.delete('/api/assignment/user/:id', auth, deleteUser);
 
     app.get('/auth/google', passport.authenticate('google', {
         scope: ['profile', 'email']
@@ -289,7 +294,7 @@ module.exports = function(app, UserModel) {
 
     function findAllUsers(req, res) {
         if (isAdmin(req.user)) {
-            console.log("server find all users");
+            // console.log("server find all users");
             UserModel
                 .findAllUsers()
                 .then(

@@ -176,7 +176,7 @@
 
 
         function sortField(start, end) {
-            console.log("SORT "+"start: "+start+ " end: "+end);
+            // console.log("SORT "+"start: "+start+ " end: "+end);
             FieldService
                 .sortField(formId, start, end)
                 .then(

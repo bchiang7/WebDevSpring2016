@@ -23,7 +23,7 @@ module.exports = function(db) {
     return api;
 
     function findAllUsers() {
-        console.log("model find all users");
+        // console.log("model find all users");
         // var deferred = q.defer();
         // User
         //     .find(

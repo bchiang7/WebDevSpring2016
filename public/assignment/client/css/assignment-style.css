@@ -76,6 +76,10 @@ td, th {
 .admin .main .form-control {
     border-radius: 0;
 }
+.admin th a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
 h1 {
     margin: 20px 0 40px;
 }
@@ -105,7 +109,7 @@ h1 {
         font-size: 16px;
     }
 }
-.glyphicon-triangle-bottom {
+.glyphicon-triangle-bottom, .glyphicon-triangle-top {
     top: 1px;
     font-size: 12px;
     margin-right: 10px;

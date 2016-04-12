@@ -18,6 +18,10 @@
             updateUser: updateUser,
             deleteUser: deleteUser,
 
+            adminCreateUser: adminCreateUser,
+            adminUpdateUser: adminUpdateUser,
+            adminDeleteUser: adminDeleteUser,
+
             login: login,
             logout: logout,
             register: register
@@ -26,7 +30,6 @@
         return api;
 
         function findAllUsers() {
-            // console.log("client");
             return $http.get("/api/assignment/user");
         }
 
@@ -43,7 +46,6 @@
         }
 
         function getCurrentUser() {
-            // return $rootScope.currentUser;
             return $http.get("/api/assignment/user/loggedin");
         }
 
@@ -61,9 +63,22 @@
         }
 
         function deleteUser(userId) {
-            // console.log("client delete ", userId);
             return $http.delete('/api/assignment/user/' + userId);
         }
+
+
+        function adminCreateUser(user) {
+            return $http.post("/api/assignment/admin/user", user);
+        }
+
+        function adminUpdateUser(userId, user) {
+            return $http.put('/api/assignment/admin/user/' + userId, user);
+        }
+
+        function adminDeleteUser(userId) {
+            return $http.delete('/api/assignment/admin/user/' + userId);
+        }
+
 
         function login(user) {
             return $http.post("/api/assignment/login", user);
@@ -74,9 +89,9 @@
         }
 
         function register(user) {
-            // console.log("register client");
             return $http.post("/api/assignment/register", user);
         }
+
 
 
     }

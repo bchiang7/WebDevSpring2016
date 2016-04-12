@@ -36,7 +36,8 @@
         }
 
         function sortField(formId, startIndex, endIndex) {
-            console.log("client " + "start:"+startIndex + " end:"+endIndex);
+            console.log("CLIENT " + startIndex,endIndex);
+
             return $http.put("/api/assignment/form/" + formId + "/startIndex/" + startIndex + "/endIndex/" + endIndex);
         }
 

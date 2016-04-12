@@ -4,14 +4,40 @@
             <h1>Admin</h1>
 
             <h3>Users</h3>
+            <br>
+            <!-- <span>Ordered By: {{orderByField}}, Reverse Sort: {{reverseSort}}</span> -->
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
                         <!-- <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>User ID</th> -->
-                        <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Username</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Password</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>First Name</th>
-                        <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Last Name</th>
+                        <th>
+                            <!-- <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Username -->
+                            <a ng-click="orderByField='username'; reverseSort = !reverseSort">Username
+                                <span ng-show="orderByField == 'username'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>Password</th>
+                        <th>
+                            <!-- <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>First Name -->
+                            <a ng-click="orderByField='firstName'; reverseSort = !reverseSort">First Name
+                                <span ng-show="orderByField == 'firstName'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>
+                            <!-- <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>Last Name -->
+                            <a ng-click="orderByField='lastName'; reverseSort = !reverseSort">Last Name
+                                <span ng-show="orderByField == 'lastName'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
                         <th>Email(s)</th>
                         <th>Roles</th>
                         <th>Action</th>
@@ -21,32 +47,32 @@
                     <tr>
                         <!-- <td>&nbsp;</td> -->
                         <td>
-                            <input ng-model="user.username" class="form-control" placeholder="username"/>
+                            <input ng-model="user.username" class="form-control" id="input-username" placeholder="username" />
                         </td>
                         <td>
-                            <input ng-model="user.password" class="form-control" type="password" placeholder="password"/>
+                            <input ng-model="user.password" class="form-control" id="input-password" type="password" placeholder="password" />
                         </td>
                         <td>
-                            <input ng-model="user.firstName" class="form-control" placeholder="first"/>
+                            <input ng-model="user.firstName" class="form-control" id="input-first" placeholder="first" />
                         </td>
                         <td>
-                            <input ng-model="user.lastName" class="form-control" placeholder="last"/>
+                            <input ng-model="user.lastName" class="form-control" id="input-last" placeholder="last" />
                         </td>
                         <td>
-                            <input ng-model="user.emails" class="form-control" type="email" placeholder="email"/>
+                            <input ng-model="user.emails" class="form-control" id="input-emails" type="email" placeholder="email" />
                         </td>
                         <td>
-                            <input ng-model="user.roles" class="form-control" placeholder="roles" />
+                            <input ng-model="user.roles" class="form-control" id="input-roles" placeholder="roles" />
                         </td>
                         <td>
                             <a ng-click="add(user)"><span class="glyphicon glyphicon-plus"></span></a>
                             <a ng-click="update(user)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
                         </td>
                     </tr>
-                    <tr ng-repeat="user in users">
+                    <tr ng-repeat="user in users|orderBy:orderByField:reverseSort">
                         <!-- <td>{{user._id}}</td> -->
                         <td>{{user.username}}</td>
-                        <td>{{user.password}}</td>
+                        <td>&nbsp;</td>
                         <td>{{user.firstName}}</td>
                         <td>{{user.lastName}}</td>
                         <td>{{user.emails}}</td>

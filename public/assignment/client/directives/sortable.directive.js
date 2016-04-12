@@ -11,7 +11,7 @@
             $(element)
                 .sortable({
                     axis: "y",
-                    handle: ".handle",
+                    // handle: ".handle",
                     placeholder: 'field-sortable-placeholder',
                     helper: fixedWidthHelper,
                     start: function(event, ui) {
@@ -24,9 +24,6 @@
                         if (start >= end) {
                             start--;
                         }
-                        // if (start < end) {
-                        //     start++;
-                        // }
                         scope.fieldsSortableCallback({
                             start: start,
                             end: end

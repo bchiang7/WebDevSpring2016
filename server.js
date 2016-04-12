@@ -6,6 +6,8 @@ var multer          = require('multer');
 var cookieParser    = require('cookie-parser');
 var mongoose        = require('mongoose');
 var passport        = require('passport');
+var dotenv          = require('dotenv');
+dotenv.load();
 
 var connectionString = 'mongodb://127.0.0.1:27017/cs4550';
 

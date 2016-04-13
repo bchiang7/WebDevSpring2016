@@ -18,7 +18,7 @@ module.exports = function(db) {
         createUser: createUser,
         updateUser: updateUser,
         deleteUser: deleteUser
-    }
+    };
     return api;
 
     function findAllUsers() {
@@ -177,4 +177,4 @@ module.exports = function(db) {
             _id: userId
         });
     }
-}
+};

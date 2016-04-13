@@ -48,20 +48,14 @@ module.exports = function(app, UserModel) {
 
     var googleConfig = {
         clientID: process.env.GOOGLE_CLIENT_ID,
-        // clientID: '227254899722-ht7f9m92f38jqn70f3s8iabt6j9a6r09.apps.googleusercontent.com',
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        // clientSecret: 'eskoTag--IYFwul4Ur2ciGFO',
         callbackURL: process.env.GOOGLE_CALLBACK_URL
-        // callbackURL: 'http://127.0.0.1:3000/auth/google/callback'
     };
 
     var facebookConfig = {
         clientID: process.env.FACEBOOK_CLIENT_ID,
-        // clientID: '1107922419260153',
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        // clientSecret: '26eaf3a93ff69af74046e2797ecbcb00',
         callbackURL: process.env.FACEBOOK_CALLBACK_URL
-        // callbackURL: 'http://localhost:3000/auth/facebook/callback'
     };
 
     passport.use(new LocalStrategy(localStrategy));
@@ -189,9 +183,6 @@ module.exports = function(app, UserModel) {
     }
 
 
-
-    /////////////////// from passport example //////////////////
-
     function login(req, res) {
         var user = req.user;
         res.json(user);
@@ -257,10 +248,8 @@ module.exports = function(app, UserModel) {
         } else {
             next();
         }
-    };
+    }
 
-
-    //////////////////////////////////////////////////////////////////////////////////////////
 
     // function findUser(req, res) {
     //     var username = req.query.username;

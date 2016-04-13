@@ -141,7 +141,7 @@ module.exports = function(app, db) {
             .then(
                 function(form) {
 
-                    console.log("SERVER MODEL " + startIndex,endIndex);
+                    //console.log("SERVER MODEL " + startIndex,endIndex);
 
                     form.fields.splice(endIndex, 0, form.fields.splice(startIndex, 1)[0]);
 
@@ -149,7 +149,15 @@ module.exports = function(app, db) {
 
                     form.save();
                 }
-            );
+            )
+            .then(
+                function(form){
+                    //console.log(form);
+                },
+                function(err) {
+                    //console.log(err);
+                }
+            )
     }
 
 };

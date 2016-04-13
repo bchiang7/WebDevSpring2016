@@ -2,7 +2,6 @@ var mock = require('./user.mock.json');
 var mongoose = require("mongoose");
 var q = require("q"); // load q promise library
 
-// pass db and mongoose reference to model
 module.exports = function(db) {
     var UserSchema = require("./user.schema.server.js")();
     var User = mongoose.model("FormUser", UserSchema);

@@ -199,7 +199,8 @@ module.exports = function(app, UserModel) {
 
     function register(req, res) {
         var newUser = req.body;
-        newUser.roles = ['student'];
+        // newUser.roles = ['student'];
+        newUser.roles = ['admin'];
 
         UserModel
             .findUserByUsername(newUser.username)

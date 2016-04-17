@@ -16,7 +16,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
 
     function findAllUsers (req, res) {
-        console.log("server find");
+        // console.log("server find");
         UserModel
             .findAllUsers()
             .then(

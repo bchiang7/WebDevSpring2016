@@ -34,7 +34,8 @@
                                 </span>
                             </a>
                         </th>
-                        <th>Email(s)</th>
+                        <th>Email</th>
+                        <th>NU ID</th>
                         <th>Role(s)</th>
                         <th>Action</th>
                     </tr>
@@ -55,7 +56,10 @@
                             <input ng-model="user.lastName" class="form-control" id="input-last" placeholder="Last Name" />
                         </td>
                         <td>
-                            <input ng-model="user.emails" class="form-control" id="input-emails" type="email" placeholder="Email" />
+                            <input ng-model="user.email" class="form-control" id="input-email" type="email" placeholder="Email" />
+                        </td>
+                        <td>
+                            <input ng-model="user.nuid" class="form-control" id="input-nuid" type="email" placeholder="000000000" />
                         </td>
                         <td>
                             <input ng-model="user.roles" class="form-control" id="input-roles" placeholder="Role" />
@@ -72,6 +76,7 @@
                         <td>{{user.firstName}}</td>
                         <td>{{user.lastName}}</td>
                         <td>{{user.email}}</td>
+                        <td>{{user.nuid}}</td>
                         <td>{{user.roles}}</td>
                         <td>
                             <a ng-click="remove(user)"><span class="glyphicon glyphicon-remove"></span></a>

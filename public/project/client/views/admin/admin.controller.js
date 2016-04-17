@@ -63,7 +63,8 @@
             document.getElementById('input-password').value = "";
             document.getElementById('input-first').value = "";
             document.getElementById('input-last').value = "";
-            document.getElementById('input-emails').value = "";
+            document.getElementById('input-email').value = "";
+            document.getElementById('input-nuid').value = "";
             document.getElementById('input-roles').value = "";
         }
     }

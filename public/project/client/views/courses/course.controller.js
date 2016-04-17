@@ -3,86 +3,97 @@
         .module("CourseApp")
         .controller("CourseController", CourseController);
 
-    function CourseController($location, CourseService, $rootScope, $routeParams) {
+    function CourseController(CourseService, $scope, $rootScope, $location, $routeParams) {
 
-        // var vm = this;
-        // vm.username = $routeParams.username;
-        // vm.applicationId = $routeParams.applicationId;
-        // vm.removeApplication = removeApplication;
-        //
-        // vm.createCourse = createCourse;
-        // vm.updateCourse = updateCourse;
-        // vm.deleteCourse = deleteCourse;
-        // vm.selectCourse = selectCourse;
-        //
-        // // vm.courses = CourseService.findAllCourses();
-        //
-        // function init() {
-        //     CourseService
-        //         .findAllCourses()
-        //         .then(
-        //             function(response) {
-        //                 vm.course = response.data;
-        //             },
-        //             function(err) {
-        //                 vm.error = err;
-        //             }
-        //         )
-        // }
-        // init();
-        //
-        //
-        // function createCourse(course) {
-        //     CourseService
-        //         .createCourse(course)
-        //         .then(
-        //             function(response) {
-        //                 // var currentUser = response.data;
-        //                 // if (currentUser != null) {
-        //                 //     UserService.setCurrentUser(currentUser);
-        //                 //     $location.url("/dashboard");
-        //                 // }
-        //             });
-        // }
-        //
-        // function updateCourse(course) {
-        //     console.log("controller update");
-        //     console.log(course);
-        //     CourseService
-        //         .updateCourse(user)
-        //         .then(
-        //             function(response) {
-        //                 $location.url("/courses");
-        //             },
-        //             function(err) {
-        //                 vm.error = err;
-        //             }
-        //         );
-        // }
-        //
-        // function deleteCourse(course) {
-        //     console.log("controller delete");
-        //     console.log(course);
-        //     CourseService
-        //         .deleteCourse(course)
-        //         .then(
-        //             function(response) {
-        //                 $location.url("/courses");
-        //             },
-        //             function(err) {
-        //                 vm.error = err;
-        //             }
-        //         );
-        // }
-        //
-        // function selectCourse(index) {
-        //     // vm.selectedCourseIndex = index;
-        //     //
-        //     // vm.course = {
-        //     //     number: vm.courses[index].number,
-        //     //     title: vm.courses[index].title,
-        //     //     instructor: vm.courses[index].instructor,
-        //     // }
-        // }
+        var vm = this;
+
+        vm.addCourse = addCourse;
+        vm.updateCourse = updateCourse;
+        vm.deleteCourse = deleteCourse;
+        vm.selectCourse = selectCourse;
+
+        vm.currentUser = $rootScope.currentUser;
+
+        $scope.course = {};
+
+        function init() {
+            CourseService
+                .findAllCoursesForUser(vm.currentUser._id)
+                .then(
+                    function(response) {
+                        if (response.data) {
+                            vm.courses = response.data;
+                        }
+                    }
+                );
+        }
+        init();
+
+        function addCourse(course) {
+            var userId = vm.currentUser._id;
+            //console.log("course title: ", course.title);
+
+            CourseService
+                .createCourseForUser(userId, course)
+                .then(
+                    function(response) {
+                        vm.courses = response.data;
+                        $scope.message = "New course '" + course.title + "' added!";
+                    },
+                    function(err) {
+                        vm.error = err;
+                    }
+                );
+        }
+
+        function selectCourse(course) {
+            CourseService
+                .findCourseById(course._id)
+                .then(
+                    function(response) {
+                        //$scope.course = response.data;
+                        vm.course = course;
+                        vm.course.title = course.title;
+                    },
+                    function(err) {
+                        vm.error = err;
+                    }
+                );
+        }
+
+        function updateCourse(course) {
+            CourseService
+                .updateCourseById(course._id, course)
+                .then(
+                    function(response) {
+                        if (response.data) {
+                            vm.course = response.data;
+                            $scope.message = "Course updated successfully!";
+                            //UserService.setCurrentUser(vm.currentUser);
+                        }
+                    },
+                    function(err) {
+                        vm.error = err;
+                        $scope.message = "Unable to update course :(";
+                    }
+                );
+        }
+
+        function deleteCourse(course) {
+            //console.log("course to delete: " + course._id);
+            CourseService
+                .deleteCourseById(vm.currentUser._id, course._id)
+                .then(
+                    function(response) {
+                        //console.log(vm.courses);
+                        vm.courses = response.data;
+                        $scope.message = "Course '" + course.title + "' successfully deleted!";
+                    },
+                    function(err) {
+                        vm.error = err;
+                    }
+                );
+
+        }
     }
 })();

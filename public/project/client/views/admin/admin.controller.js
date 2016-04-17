@@ -24,7 +24,7 @@
 
         function add(user) {
             UserService
-                .adminCreateUser(user)
+                .createUser(user)
                 .then(handleSuccess, handleError);
 
             // once user is added clear input fields
@@ -37,7 +37,7 @@
 
         function update(user) {
             UserService
-                .adminUpdateUser(user._id, user)
+                .updateUser(user._id, user)
                 .then(handleSuccess, handleError);
 
             // once user is updated clear input fields
@@ -46,7 +46,7 @@
 
         function remove(user) {
             UserService
-                .adminDeleteUser(user._id)
+                .deleteUser(user._id)
                 .then(handleSuccess, handleError);
         }
 

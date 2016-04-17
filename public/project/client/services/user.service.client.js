@@ -75,9 +75,9 @@
             updateUser: updateUser,
             deleteUser: deleteUser,
 
-            adminCreateUser: adminCreateUser,
-            adminUpdateUser: adminUpdateUser,
-            adminDeleteUser: adminDeleteUser,
+            // adminCreateUser: adminCreateUser,
+            // adminUpdateUser: adminUpdateUser,
+            // adminDeleteUser: adminDeleteUser,
 
             login: login,
             logout: logout,
@@ -87,7 +87,7 @@
         return api;
 
         function findAllUsers() {
-            console.log("client find");
+            // console.log("client find");
             return $http.get("/api/project/user");
         }
 
@@ -125,17 +125,17 @@
         }
 
 
-        function adminCreateUser(user) {
-            return $http.post("/api/project/admin/user", user);
-        }
-
-        function adminUpdateUser(userId, user) {
-            return $http.put('/api/project/admin/user/' + userId, user);
-        }
-
-        function adminDeleteUser(userId) {
-            return $http.delete('/api/project/admin/user/' + userId);
-        }
+        // function adminCreateUser(user) {
+        //     return $http.post("/api/project/admin/user", user);
+        // }
+        //
+        // function adminUpdateUser(userId, user) {
+        //     return $http.put('/api/project/admin/user/' + userId, user);
+        // }
+        //
+        // function adminDeleteUser(userId) {
+        //     return $http.delete('/api/project/admin/user/' + userId);
+        // }
 
 
         function login(user) {

@@ -283,6 +283,7 @@ module.exports = function(app, UserModel) {
     // }
 
     function findAllUsers(req, res) {
+        // console.log(req.user);
         if (isAdmin(req.user)) {
             // console.log("server find all users");
             UserModel

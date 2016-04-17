@@ -10,27 +10,124 @@ module.exports = function(app, UserModel, CourseModel) {
     // app.get("/api/project/user/:username", findUserByUsername);
     // // app.get("/api/project/user?username=/" + username + "&password=" + password, findUserByCredentials);
 
+    app.post("/api/project/login", login);
+    app.get("/api/project/loggedin", loggedin);
+    app.post("/api/project/logout", logout);
+    app.post("/api/project/register", register);
+
     app.get("/api/project/user", findAllUsers);
     app.get("/api/project/user/:id", findUserById);
     app.get("/api/project/user/:username", findUserByUsername);
 
-
-
-
-
-
     app.post("/api/project/user", createUser);
-    app.put("/api/project/user/:username", updateUser);
-    app.delete("/api/project/user/:username", deleteUser);
+    app.put("/api/project/user/:id", updateUser);
+    app.delete("/api/project/user/:id", deleteUser);
+    // app.get("/api/project/profile/:userId", profile);
 
-    app.post("/api/project/login", login);
-    app.post("/api/project/logout", logout);
-    app.post("/api/project/register", register);
-    app.get("/api/project/loggedin", loggedin);
-    app.get("/api/project/profile/:userId", profile);
+
+
+    function login(req, res) {
+        var credentials = req.body;
+        UserModel.findUserByCredentials(credentials)
+            .then(
+                function(doc) {
+                    req.session.currentUser = doc;
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+
+        // var user = req.user;
+        // res.json(user);
+    }
+
+    function loggedin(req, res) {
+        // store current user in session
+        res.json(req.session.currentUser);
+
+        // res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function logout(req, res) {
+        req.session.destroy();
+        res.send(200);
+
+        // req.logOut();
+        // res.send(200);
+    }
+
+    function register(req, res) {
+        console.log("server register");
+        // var user = req.body;
+        //
+        // UserModel.createUser(user)
+        //     // handle model promise
+        //     .then(
+        //         // login user if promise resolved
+        //         function(doc) {
+        //             req.session.currentUser = doc;
+        //             res.json(doc);
+        //         },
+        //         // send error if promise rejected
+        //         function(err) {
+        //             res.status(400).send(err);
+        //         }
+        //     );
+
+        var newUser = req.body;
+        newUser.roles = ['student'];
+        // newUser.roles = ['admin'];
+
+        UserModel
+            .findUserByUsername(newUser.username)
+            .then(
+                function(user) {
+                    if (user) {
+                        res.json(null);
+                    } else {
+                        return UserModel.createUser(newUser);
+                    }
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                // login user if promise resolved
+                function(doc) {
+                    req.session.currentUser = doc;
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+            // .then(
+            //     function(user) {
+            //         if (user) {
+            //             req.login(user, function(err) {
+            //                 if (err) {
+            //                     res.status(400).send(err);
+            //                 } else {
+            //                     res.json(user);
+            //                 }
+            //             });
+            //         }
+            //     },
+            //     function(err) {
+            //         res.status(400).send(err);
+            //     }
+            // );
+
+    }
 
 
     function isAdmin(user) {
+        // console.log(user);
         // if (user.roles.indexOf("admin") > 0) {
         if (user.roles.indexOf('admin') != -1) {
             return true;
@@ -38,28 +135,29 @@ module.exports = function(app, UserModel, CourseModel) {
         return false;
     }
 
-    function authorized(req, res, next) {
-        if (!req.isAuthenticated()) {
-            res.send(401);
-        } else {
-            next();
-        }
-    }
+    // function authorized(req, res, next) {
+    //     if (!req.isAuthenticated()) {
+    //         res.send(401);
+    //     } else {
+    //         next();
+    //     }
+    // }
 
 
     function findAllUsers(req, res) {
+        // console.log(req.user);
         // if (isAdmin(req.user)) {
-            console.log("server find all users");
-            UserModel
-                .findAllUsers()
-                .then(
-                    function(users) {
-                        res.json(users);
-                    },
-                    function() {
-                        res.status(400).send(err);
-                    }
-                );
+        console.log('PROJECT--------------------------------------\n', req.user);
+        UserModel
+            .findAllUsers()
+            .then(
+                function(users) {
+                    res.json(users);
+                },
+                function() {
+                    res.status(400).send(err);
+                }
+            );
         // } else {
         //     res.status(403);
         // }
@@ -98,126 +196,183 @@ module.exports = function(app, UserModel, CourseModel) {
 
 
     function createUser(req, res) {
-        var user = req.body;
+        // var user = req.body;
+        // UserModel
+        //     .createUser(user)
+        //     .then(
+        //         function(user) {
+        //             res.json(user);
+        //         },
+        //         function(err) {
+        //             res.status(400).send(err);
+        //         }
+        //     );
+
+        var newUser = req.body;
+        if (newUser.roles && newUser.roles.length > 1) {
+            newUser.roles = newUser.roles.split(",");
+        } else {
+            newUser.roles = ["student"];
+        }
+
+        // first check if a user already exists with the username
         UserModel
-            .createUser(user)
+            .findUserByUsername(newUser.username)
             .then(
                 function(user) {
-                    res.json(user);
+                    // if the user does not already exist
+                    if (user == null) {
+                        // create a new user
+                        return UserModel.createUser(newUser)
+                            .then(
+                                // fetch all the users
+                                function() {
+                                    return UserModel.findAllUsers();
+                                },
+                                function(err) {
+                                    res.status(400).send(err);
+                                }
+                            );
+                        // if the user already exists, then just fetch all the users
+                    } else {
+                        return UserModel.findAllUsers();
+                    }
                 },
                 function(err) {
                     res.status(400).send(err);
                 }
-            );
+            )
+            .then(
+                function(users) {
+                    res.json(users);
+                },
+                function() {
+                    res.status(400).send(err);
+                }
+            )
     }
+
+    // function updateUser(req, res) {
+    //     console.log("server update");
+    //     var username = req.params.username;
+    //     var user = req.body;
+    //     UserModel
+    //         .updateUser(username, user)
+    //         .then(
+    //             function(stats) {
+    //                 res.send(200);
+    //             },
+    //             function(err) {
+    //                 res.status(400).send(err);
+    //             }
+    //         );
+    // }
 
     function updateUser(req, res) {
-        console.log("server update");
-        var username = req.params.username;
-        var user = req.body;
+        var newUser = req.body;
+        if (!isAdmin(req.user)) {
+            delete newUser.roles;
+        }
+        if (typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
+        }
         UserModel
-            .updateUser(username, user)
+            .updateUser(req.params.id, newUser)
             .then(
-                function(stats) {
-                    res.send(200);
+                function(user) {
+                    return UserModel.findAllUsers();
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(users) {
+                    res.json(users);
                 },
                 function(err) {
                     res.status(400).send(err);
                 }
             );
     }
+
+    // function deleteUser(req, res) {
+    //     console.log("server delete");
+    //     var username = req.params.username;
+    //     UserModel
+    //         .deleteUser(username)
+    //         .then(
+    //             function(stats) {
+    //                 res.send(200);
+    //             },
+    //             function(err) {
+    //                 res.status(400).send(err);
+    //             }
+    //         );
+    // }
 
     function deleteUser(req, res) {
-        console.log("server delete");
-        var username = req.params.username;
-        UserModel
-            .deleteUser(username)
-            .then(
-                function(stats) {
-                    res.send(200);
-                },
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
+        // if (isAdmin(req.user)) {
+            // console.log("server delete ", req.params.id);
+            UserModel
+                .deleteUser(req.params.id)
+                .then(
+                    function(user) {
+                        return UserModel.findAllUsers();
+                    },
+                    function(err) {
+                        res.status(400).send(err);
+                    }
+                )
+                .then(
+                    function(users) {
+                        res.json(users);
+                    },
+                    function(err) {
+                        res.status(400).send(err);
+                    }
+                );
+        // } else {
+        //     res.status(403);
+        // }
     }
 
 
-    function login(req, res) {
-        var credentials = req.body;
 
-        UserModel.findUserByCredentials(credentials)
-            .then(
-                function(doc) {
-                    req.session.currentUser = doc;
-                    res.json(doc);
-                },
-                // send error if promise rejected
-                function(err) {
-                    res.status(400).send(err);
-                }
-            )
-    }
 
-    function loggedin(req, res) {
-        // store current user in session
-        res.json(req.session.currentUser);
-    }
 
-    function logout(req, res) {
-        req.session.destroy();
-        res.send(200);
-    }
 
-    function register(req, res) {
-        var user = req.body;
-
-        UserModel.createUser(user)
-            // handle model promise
-            .then(
-                // login user if promise resolved
-                function(doc) {
-                    req.session.currentUser = doc;
-                    res.json(doc);
-                },
-                // send error if promise rejected
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
-    }
-
-    function profile(req, res) {
-        var userId = req.params.userId;
-        var user = null;
-
-        // use model to find user by id
-        UserModel.findUserById(userId)
-            .then(
-                // first retrieve the user by user id
-                function(doc) {
-                    user = doc;
-                    // fetch courses this user likes
-                    return CourseModel.findCoursesByCourseIDs(doc.likes);
-                },
-                // reject promise if error
-                function(err) {
-                    res.status(400).send(err);
-                }
-            )
-            .then(
-                // fetch courses this user likes
-                function(courses) {
-                    // list of courses this user likes
-                    // courses are not stored in database
-                    // only added for UI rendering
-                    user.likesCourses = courses;
-                    res.json(user);
-                },
-                // send error if promise rejected
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
-    }
+    // function profile(req, res) {
+    //     var userId = req.params.userId;
+    //     var user = null;
+    //
+    //     // use model to find user by id
+    //     UserModel.findUserById(userId)
+    //         .then(
+    //             // first retrieve the user by user id
+    //             function(doc) {
+    //                 user = doc;
+    //                 // fetch courses this user likes
+    //                 return CourseModel.findCoursesByCourseIDs(doc.likes);
+    //             },
+    //             // reject promise if error
+    //             function(err) {
+    //                 res.status(400).send(err);
+    //             }
+    //         )
+    //         .then(
+    //             // fetch courses this user likes
+    //             function(courses) {
+    //                 // list of courses this user likes
+    //                 // courses are not stored in database
+    //                 // only added for UI rendering
+    //                 user.likesCourses = courses;
+    //                 res.json(user);
+    //             },
+    //             // send error if promise rejected
+    //             function(err) {
+    //                 res.status(400).send(err);
+    //             }
+    //         );
+    // }
 }

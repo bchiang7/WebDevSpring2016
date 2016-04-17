@@ -147,6 +147,7 @@
         }
 
         function register(user) {
+            console.log("client register");
             return $http.post("/api/project/register", user);
         }
 

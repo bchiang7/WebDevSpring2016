@@ -22,8 +22,6 @@ module.exports = function(db) {
         // userLikesCourse: userLikesCourse
 
 
-
-
         findAllUsers: findAllUsers,
         findUserById: findUserById,
         findUserByUsername: findUserByUsername,
@@ -42,6 +40,7 @@ module.exports = function(db) {
 
 
     function findAllUsers() {
+        // console.log("model findAllUsers");
         var deferred = q.defer();
         User
             .find(
@@ -116,10 +115,8 @@ module.exports = function(db) {
 
 
 
-
-
-
     function createUser(user) {
+        console.log("model createUser");
         // use q to defer the response
         var deferred = q.defer();
         // insert new user with mongoose user model's create()
@@ -136,79 +133,55 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function updateUser(username, user) {
-        console.log("model update");
-        var deferred = q.defer();
-        User
-            .update(
-                {username: username},
-                {$set: user},
-                function(err, stats) {
-                    if (!err) {
-                        deferred.resolve(stats);
-                    } else {
-                        deferred.reject(err);
-                    }
-                }
-            );
-        return deferred.promise;
-    }
-
-    function deleteUser(username) {
-        console.log("delete clicked");
-        var deferred = q.defer();
-        User
-            .remove(
-                {username: username},
-                function (err, stats) {
-                    if (!err) {
-                        deferred.resolve(stats);
-                    } else {
-                        deferred.reject(err);
-                    }
-                }
-            );
-        return deferred.promise;
-    }
-
-
-    // use user model find by id
-    function findUserById(userId) {
-        var deferred = q.defer();
-        User.findById(userId, function(err, doc) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
-    }
-
-    // function findUserById(userId) {
-    //     for (var u in mock) {
-    //         if (mock[u]._id === userId) {
-    //             return mock[u];
-    //         }
-    //     }
-    //     return null;
+    // function updateUser(username, user) {
+    //     var deferred = q.defer();
+    //     User
+    //         .update({
+    //                 username: username
+    //             }, {
+    //                 $set: user
+    //             },
+    //             function(err, stats) {
+    //                 if (!err) {
+    //                     deferred.resolve(stats);
+    //                 } else {
+    //                     deferred.reject(err);
+    //                 }
+    //             }
+    //         );
+    //     return deferred.promise;
     // }
 
-    function findUsersByIds(userIds) {
-        var deferred = q.defer();
-        // find all users in array of user IDs
-        User.find({
-            _id: {
-                $in: userIds
-            }
-        }, function(err, users) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(users);
-            }
+    function updateUser(userId, user) {
+        return User.update({
+            _id: userId
+        }, {
+            $set: user
         });
-        return deferred.promise;
+    }
+
+    // function deleteUser(username) {
+    //     var deferred = q.defer();
+    //     User
+    //         .remove({
+    //                 username: username
+    //             },
+    //             function(err, stats) {
+    //                 if (!err) {
+    //                     deferred.resolve(stats);
+    //                 } else {
+    //                     deferred.reject(err);
+    //                 }
+    //             }
+    //         );
+    //     return deferred.promise;
+    // }
+
+    function deleteUser(userId) {
+        // console.log("model delete ", userId);
+        return User.remove({
+            _id: userId
+        });
     }
 
     // add course to user likes

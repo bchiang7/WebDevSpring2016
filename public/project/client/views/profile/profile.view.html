@@ -1,6 +1,6 @@
-<div ng-controller="ProfileController as model" class="container-fluid">
+<div ng-controller="ProfileController" class="container-fluid">
     <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-3 main">
+        <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-2 main">
             <h1>Profile</h1>
             {{currentUser}}
 
@@ -57,6 +57,9 @@
                     <div class="col-sm-3 pull-right">
                         <button ng-click="model.update(currentUser)" type="submit" class="btn btn-success btn-md">Update Profile</button>
                     </div>
+                    <!-- <div class="col-sm-3 pull-right">
+                        <button ng-click="update(user)" type="submit" class="btn btn-success btn-md">Update Profile</button>
+                    </div> -->
                 </div>
             </form>
         </div>

@@ -87,7 +87,7 @@
         return api;
 
         function findAllUsers() {
-            console.log("client find");
+            // console.log("client find");
             return $http.get("/api/project/user");
         }
 
@@ -113,14 +113,17 @@
 
 
         function createUser(user) {
+            console.log("client create");
             return $http.post("/api/project/user", user);
         }
 
         function updateUser(userId, user) {
+            console.log("client update");
             return $http.put('/api/project/user/' + userId, user);
         }
 
         function deleteUser(userId) {
+            console.log("client delete");
             return $http.delete('/api/project/user/' + userId);
         }
 

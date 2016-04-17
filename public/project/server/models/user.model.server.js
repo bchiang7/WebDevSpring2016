@@ -40,7 +40,7 @@ module.exports = function(db) {
 
 
     function findAllUsers() {
-        // console.log("model findAllUsers");
+        console.log("model findAllUsers");
         var deferred = q.defer();
         User
             .find(
@@ -153,6 +153,7 @@ module.exports = function(db) {
     // }
 
     function updateUser(userId, user) {
+        console.log("model update");
         return User.update({
             _id: userId
         }, {
@@ -178,7 +179,7 @@ module.exports = function(db) {
     // }
 
     function deleteUser(userId) {
-        // console.log("model delete ", userId);
+        console.log("model delete ", userId);
         return User.remove({
             _id: userId
         });

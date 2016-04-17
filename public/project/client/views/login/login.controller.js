@@ -11,7 +11,7 @@
         init();
 
         function login(user) {
-            console.log("login controller");
+            // console.log("login controller");
 
             if (!user || !user.username || !user.password) {
                 $scope.message = "Please fill in the required fields";

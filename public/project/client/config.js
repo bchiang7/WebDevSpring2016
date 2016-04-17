@@ -152,7 +152,7 @@
     function checkLoggedin($q, $timeout, $http, $location, $rootScope) {
         var deferred = $q.defer();
 
-        console.log("checkLoggedIn");
+        // console.log("checkLoggedIn");
 
         $http.get('/api/project/loggedin').success(function(user) {
             $rootScope.errorMessage = null;

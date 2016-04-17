@@ -147,7 +147,7 @@ module.exports = function(app, UserModel, CourseModel) {
     function findAllUsers(req, res) {
         // console.log(req.user);
         // if (isAdmin(req.user)) {
-        console.log('PROJECT--------------------------------------\n', req.user);
+        console.log('\nPROJECT findAllUsers --------------------------------------\n', req.user);
         UserModel
             .findAllUsers()
             .then(
@@ -207,6 +207,8 @@ module.exports = function(app, UserModel, CourseModel) {
         //             res.status(400).send(err);
         //         }
         //     );
+
+        console.log("server create");
 
         var newUser = req.body;
         if (newUser.roles && newUser.roles.length > 1) {
@@ -269,10 +271,11 @@ module.exports = function(app, UserModel, CourseModel) {
     // }
 
     function updateUser(req, res) {
+        console.log("server update");
         var newUser = req.body;
-        if (!isAdmin(req.user)) {
-            delete newUser.roles;
-        }
+        // if (!isAdmin(req.user)) {
+        //     delete newUser.roles;
+        // }
         if (typeof newUser.roles == "string") {
             newUser.roles = newUser.roles.split(",");
         }
@@ -286,14 +289,14 @@ module.exports = function(app, UserModel, CourseModel) {
                     res.status(400).send(err);
                 }
             )
-            .then(
-                function(users) {
-                    res.json(users);
-                },
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
+            // .then(
+            //     function(users) {
+            //         res.json(users);
+            //     },
+            //     function(err) {
+            //         res.status(400).send(err);
+            //     }
+            // );
     }
 
     // function deleteUser(req, res) {
@@ -313,7 +316,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
     function deleteUser(req, res) {
         // if (isAdmin(req.user)) {
-            // console.log("server delete ", req.params.id);
+            console.log("server delete ", req.params.id);
             UserModel
                 .deleteUser(req.params.id)
                 .then(

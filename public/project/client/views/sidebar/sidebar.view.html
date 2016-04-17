@@ -7,9 +7,6 @@
         <li ng-class="{'active': $location.url()=='/dashboard'}" ng-show="currentUser">
             <a href="#/dashboard"><i class="fa fa-th-large"></i>Dashboard</a>
         </li>
-        <li ng-class="{'active': $location.url()=='/admin'}" ng-show="currentUser.roles.indexOf('admin') >= 0">
-            <a href="#/admin"><i class="fa fa-university"></i>Admin</a>
-        </li>
         <li ng-class="{'active': $location.url()=='/courses'}" ng-show="currentUser">
             <a href="#/courses"><i class="fa fa-th-list"></i>Courses</a>
         </li>
@@ -20,7 +17,10 @@
             <a href="#/degree"><i class="fa fa-graduation-cap"></i>Degree Tracking</a>
         </li>
         <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
-            <a href="#/profile/{{currentUser.username}}"><i class="fa fa-user"></i>Profile</a>
+            <a href="#/profile"><i class="fa fa-user"></i>Profile</a>
+        </li>
+        <li ng-class="{'active': $location.url()=='/admin'}" ng-show="currentUser.roles.indexOf('admin') >= 0">
+            <a href="#/admin"><i class="fa fa-university"></i>Admin</a>
         </li>
     </ul>
 </div>

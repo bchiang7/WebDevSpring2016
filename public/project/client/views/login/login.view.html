@@ -1,38 +1,40 @@
 <div ng-controller="LoginController" class="container-fluid">
     <div class="row">
-        <div class="col-sm-6 col-sm-offset-3 col-md-5 col-md-offset-4 main">
+        <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 main">
             <h1>Login</h1>
+            <div ng-show="message" class="alert alert-danger" role="alert">{{message}}</div>
             <form class="form-horizontal">
 
                 <div class="form-group">
                     <label for="" class="col-sm-2 control-label">Username:</label>
-
                     <div class="col-sm-10">
-
                         <input ng-model="model.user.username" type="text" class="form-control" id="" placeholder="Username">
-
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="" class="col-sm-2 control-label">Password:</label>
-
                     <div class="col-sm-10">
-
                         <input ng-model="model.user.password" type="password" class="form-control" id="" placeholder="Password">
-
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-
-                        <button ng-click="model.login(model.user);" type="submit" class="btn btn-default btn-md">Login</button>
-
-                        <!--<a href="#" class="forgot-password">Forgot your password?</a>-->
-
+                        <button ng-click="model.login(model.user)" type="submit" class="btn btn-default btn-md">Login</button>
                         <div class="register-link">Don't have an account?  <a href="#/register">Register here</a>!</div>
-
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <a href="/auth/google" class="btn btn-block login-google">
+                            <i class="fa fa-google"></i>&nbsp;&nbsp;Log in with Google
+                        </a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="/auth/facebook" class="btn btn-block login-fb">
+                            <i class="fa fa-facebook-official"></i>&nbsp;&nbsp;Log in with Facebook
+                        </a>
                     </div>
                 </div>
 

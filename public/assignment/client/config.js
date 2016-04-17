@@ -8,7 +8,6 @@
             .when("/home", {
                 templateUrl: "views/home/home.view.html",
                 resolve: {
-                    // getLoggedIn: getLoggedIn
                     loggedin: checkCurrentUser
                 }
             })

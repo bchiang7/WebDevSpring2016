@@ -1,66 +1,65 @@
-<div ng-controller="ProfileController" class="container-fluid">
-
+<div ng-controller="ProfileController as model" class="container-fluid">
     <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-2 main">
+        <div class="col-sm-9 col-sm-offset-3 col-md-6 col-md-offset-3 main">
             <h1>Profile</h1>
+            <!-- {{currentUser}} -->
 
             <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
-
             <div ng-show="error" class="alert alert-danger" role="alert">{{error}}</div>
 
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Username:</label>
                     <div class="col-sm-9">
-                        <input ng-model="model.user.username" type="text" class="form-control" id="" placeholder="Username">
+                        <input ng-model="currentUser.username" type="text" class="form-control" id="" placeholder="Username">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Password:</label>
                     <div class="col-sm-9">
-                        <input ng-model="model.user.password" type="password" class="form-control" id="" placeholder="Password">
+                        <input ng-model="currentUser.password" type="password" class="form-control" id="" placeholder="Password">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">First Name:</label>
                     <div class="col-sm-9">
-                        <input ng-model="model.user.firstName" type="text" class="form-control" id="" placeholder="First Name">
+                        <input ng-model="currentUser.firstName" type="text" class="form-control" id="" placeholder="First Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Last Name:</label>
                     <div class="col-sm-9">
-                        <input ng-model="model.user.lastName" type="text" class="form-control" id="" placeholder="Last Name">
+                        <input ng-model="currentUser.lastName" type="text" class="form-control" id="" placeholder="Last Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-3">Email:</label>
                     <div class="col-sm-9">
-                        <input ng-model="model.user.email" type="text" class="form-control" id="" placeholder="Email">
+                        <input ng-model="currentUser.email" type="email" class="form-control" id="" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="" class="col-sm-3">NU ID:</label>
                     <div class="col-sm-9">
-                        <input ng-model="model.user.nuid" type="text" class="form-control" id="" placeholder="000000000">
+                        <input ng-model="currentUser.nuid" type="text" class="form-control" id="" placeholder="000000000">
                     </div>
                 </div>
                 <div class="form-group">
-
-                    <div class="col-sm-6 pull-right">
-                        or &nbsp;&nbsp;&nbsp;
-                        <button ng-click="model.deleteUser(model.user)" type="submit" class="btn btn-danger btn-md">Delete My Account</button>
+                    <label for="" class="col-sm-3 control-label">Role:</label>
+                    <div class="col-sm-9">
+                        <input ng-model="currentUser.roles" type="text" class="form-control" id="" placeholder="Role">
                     </div>
-
-                    <div class="col-sm-3 pull-right">
-                        <button ng-click="model.updateUser(model.user)" type="submit" class="btn btn-success btn-md">Update Profile</button>
-                    </div>
-
                 </div>
-
+                <div class="form-group">
+                    <div class="col-sm-6 pull-right">
+                        <button ng-click="model.remove(currentUser)" type="submit" class="btn btn-danger btn-md">Delete My Account</button>
+                    </div>
+                    <div class="col-sm-3 pull-right">
+                        <button ng-click="model.update(currentUser)" type="submit" class="btn btn-success btn-md">Update Profile</button>
+                    </div>
+                </div>
             </form>
-
-
         </div>
     </div>
+    <div ng-include="'views/header/help-modal.html'"></div>
 </div>

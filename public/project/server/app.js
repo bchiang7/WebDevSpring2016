@@ -5,6 +5,6 @@ module.exports = function(app, db, mongoose) {
     var UserModel    = require("./models/user.model.server.js")(db, mongoose);
     var CourseModel   = require("./models/course.model.server.js")(db, mongoose);
 
-    var UserService  = require("./services/user.service.server.js") (app, UserModel, CourseModel);
+    var UserService  = require("./services/user.service.server.js") (app, UserModel);
     var CourseService = require("./services/course.service.server.js")(app, UserModel, CourseModel);
 }

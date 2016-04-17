@@ -3,57 +3,49 @@
         .module("CourseApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, UserService, $location) {
-        var username = $routeParams.username;
-
+    function ProfileController(UserService, $location, $routeParams, $scope) {
         var vm = this;
-        vm.updateUser = updateUser;
-        vm.deleteUser = deleteUser;
+        vm.error = null;
+        vm.message = null;
+        vm.update = update;
+        vm.currentUser = UserService.getCurrentUser();
 
-        function init() {
-            UserService
-                .findUserByUsername(username)
-                .then(
-                    function(response) {
-                        vm.user = response.data;
-                    },
-                    function(error) {
-                        vm.error = error;
-                    }
-                );
-        }
+        function init() {}
         init();
 
-        function updateUser(user) {
-            console.log("controller update");
-            console.log(user);
+        if (!vm.currentUser) {
+            $location.url("/home");
+        }
+
+        function update(user) {
+            // console.log(user);
             UserService
-                .updateUser(user)
+                .updateUser(user._id, user)
                 .then(
                     function(response) {
-                        $location.url("/dashboard");
+                        $scope.users = response.data;
+                        $scope.message = "Profile updated!";
                     },
                     function(err) {
-                        vm.error = err;
+                        $scope.error = err;
+                        $scope.message = "Uh oh, something went wrong.";
                     }
                 );
         }
 
-        function deleteUser(user) {
-            console.log("controller delete");
-            console.log(user);
+        function remove(user) {
             UserService
-                .deleteUser(user)
-                .then(
-                    function(response) {
-                        $location.url("/login");
-                    },
-                    function(err) {
-                        vm.error = err;
-                    }
-                );
+                .deleteUser(user._id)
+                .then(handleSuccess, handleError);
         }
 
+        function handleSuccess(response) {
+            $scope.users = response.data;
+        }
+
+        function handleError(error) {
+            $scope.error = error;
+        }
 
     }
 

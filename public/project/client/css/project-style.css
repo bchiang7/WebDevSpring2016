@@ -5,6 +5,9 @@ html, body {
 .table-nowrap {
     white-space: nowrap !important;
 }
+td, th {
+    white-space: nowrap;
+}
 a {
     color: #222;
     text-decoration: none;
@@ -29,7 +32,7 @@ input {
 h1 {
     margin: 0px 0 20px;
 }
-.btn, .panel, .panel-heading, .panel-body, .list-group-item {
+.btn, .panel, .panel-heading, .panel-body, .list-group-item, .modal-content {
     border-radius: 0 !important;
 }
 
@@ -275,7 +278,7 @@ i.fa.fa-question-circle, i.fa.fa-cog {
     }
 }
 
-/******************** FORMS ********************/
+/******************** TEXT INPUTS ********************/
 
 .nav-tabs>li>a {
     color: #555;
@@ -308,9 +311,9 @@ select.form-control {
     background-color: white;
 }
 .glyphicon {
-    font-size: 20px;
+    font-size: 17px;
     top: 5px;
-    margin: 0 10px;
+    margin: 0 5px;
     cursor: pointer;
 }
 @media screen and (max-width: 768px) {
@@ -326,11 +329,10 @@ select.form-control {
 .courses th {
     white-space: nowrap;
 }
-.glyphicon-triangle-bottom {
+.glyphicon-triangle-bottom, .glyphicon-triangle-top {
     top: 1px;
     font-size: 12px;
-    margin-left: 5px;
-    margin-right: 0;
+    margin-right: 10px;
 }
 .form-fields {
     margin-top: 30px;
@@ -411,6 +413,26 @@ a.forgot-password {
     text-decoration: underline;
     display: inline-block;
 }
+.login-google {
+    background: #dc4e41;
+    color: #eee;
+    margin-top: 10px;
+}
+.login-fb {
+    background: #3b5998;
+    color: #eee;
+    margin-top: 10px;
+}
+.login-google:hover, .login-fb:hover {
+    color: #fff;
+}
+.login-google:focus, .login-fb:focus {
+    color: #ccc;
+}
+.login-google .fa, .login-fb .fa {
+    font-size: 20px;
+    vertical-align: bottom;
+}
 
 /****************** COURSES PAGE ****************/
 
@@ -419,7 +441,7 @@ a.forgot-password {
     cursor: pointer;
 }
 .courses .fa {
-    font-size: 18px;
+    font-size: 20px;
     margin: 0 3px;
     vertical-align: middle;
 }

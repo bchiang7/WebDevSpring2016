@@ -1,6 +1,6 @@
 module.exports = function(app, UserModel, CourseModel) {
 
-    app.get("/api/project/user/", findAllUsers);
+    app.get("/api/project/user", findAllUsers);
     app.get("/api/project/user/:username", findUserByUsername);
     // app.get("/api/project/user?username=/" + username + "&password=" + password, findUserByCredentials);
 
@@ -16,6 +16,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
 
     function findAllUsers (req, res) {
+        console.log("server find");
         UserModel
             .findAllUsers()
             .then(

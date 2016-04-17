@@ -1,7 +1,7 @@
 module.exports = function() {
 
     var mongoose = require("mongoose");
-    
+
     var CourseSchema = require("./course.schema.server.js")(mongoose);
 
     // use mongoose to declare a user schema
@@ -11,8 +11,9 @@ module.exports = function() {
         firstName: String,
         lastName: String,
         email: String,
+        nuid: Number,
         roles: [String],
-        // imdb ids of courses this user likes
+        // ids of courses this user likes
         likes: [String],
         // courses this user likes
         likesCourses: [CourseSchema],

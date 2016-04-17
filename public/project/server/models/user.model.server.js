@@ -9,16 +9,33 @@ module.exports = function(db) {
     var User = mongoose.model('User', UserSchema);
 
     var api = {
+        // findAllUsers: findAllUsers,
+        // findUserByUsername: findUserByUsername,
+        // findUserByCredentials: findUserByCredentials,
+        //
+        // createUser: createUser,
+        // updateUser: updateUser,
+        // deleteUser: deleteUser,
+        //
+        // findUserById: findUserById,
+        // findUsersByIds: findUsersByIds,
+        // userLikesCourse: userLikesCourse
+
+
+
+
         findAllUsers: findAllUsers,
+        findUserById: findUserById,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
+
+        // findUserByGoogleId: findUserByGoogleId,
+        // findUserByFacebookId: findUserByFacebookId,
 
         createUser: createUser,
         updateUser: updateUser,
         deleteUser: deleteUser,
 
-        findUserById: findUserById,
-        findUsersByIds: findUsersByIds,
         userLikesCourse: userLikesCourse
     };
     return api;
@@ -39,19 +56,35 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
+    function findUserById(userId) {
+        var deferred = q.defer();
+        User
+            .findById(userId, function(err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(doc);
+                }
+            });
+        return deferred.promise;
+
+        // return User.findById(userId);
+    }
+
     function findUserByUsername(username) {
         var deferred = q.defer();
-        User.findOne({
-                username: username
-            },
-            function(err, user) {
-                if (!err) {
-                    deferred.resolve(user);
-                } else {
-                    deferred.reject(err);
+        User
+            .findOne({
+                    username: username
+                },
+                function(err, user) {
+                    if (!err) {
+                        deferred.resolve(user);
+                    } else {
+                        deferred.reject(err);
+                    }
                 }
-            }
-        );
+            );
         return deferred.promise;
     }
 
@@ -79,6 +112,12 @@ module.exports = function(db) {
             });
         return deferred.promise;
     }
+
+
+
+
+
+
 
     function createUser(user) {
         // use q to defer the response

@@ -87,7 +87,7 @@
         return api;
 
         function findAllUsers() {
-            // console.log("client find");
+            console.log("client find");
             return $http.get("/api/project/user");
         }
 

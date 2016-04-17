@@ -6,9 +6,18 @@ var mongoose = require("mongoose");
 
 module.exports = function(app, UserModel, CourseModel) {
 
+    // app.get("/api/project/user", findAllUsers);
+    // app.get("/api/project/user/:username", findUserByUsername);
+    // // app.get("/api/project/user?username=/" + username + "&password=" + password, findUserByCredentials);
+
     app.get("/api/project/user", findAllUsers);
+    app.get("/api/project/user/:id", findUserById);
     app.get("/api/project/user/:username", findUserByUsername);
-    // app.get("/api/project/user?username=/" + username + "&password=" + password, findUserByCredentials);
+
+
+
+
+
 
     app.post("/api/project/user", createUser);
     app.put("/api/project/user/:username", updateUser);
@@ -21,13 +30,47 @@ module.exports = function(app, UserModel, CourseModel) {
     app.get("/api/project/profile/:userId", profile);
 
 
-    function findAllUsers (req, res) {
-        // console.log("server find");
+    function isAdmin(user) {
+        // if (user.roles.indexOf("admin") > 0) {
+        if (user.roles.indexOf('admin') != -1) {
+            return true;
+        }
+        return false;
+    }
+
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    }
+
+
+    function findAllUsers(req, res) {
+        // if (isAdmin(req.user)) {
+            console.log("server find all users");
+            UserModel
+                .findAllUsers()
+                .then(
+                    function(users) {
+                        res.json(users);
+                    },
+                    function() {
+                        res.status(400).send(err);
+                    }
+                );
+        // } else {
+        //     res.status(403);
+        // }
+    }
+
+    function findUserById(req, res) {
         UserModel
-            .findAllUsers()
+            .findUserById(req.params._id)
             .then(
-                function(users) {
-                    res.json (users);
+                function(user) {
+                    res.json(user);
                 },
                 function(err) {
                     res.status(400).send(err);
@@ -38,7 +81,7 @@ module.exports = function(app, UserModel, CourseModel) {
     function findUserByUsername(req, res) {
         UserModel
             .findUserByUsername(req.params.username)
-            .then (
+            .then(
                 function(user) {
                     res.json(user);
                 },
@@ -49,16 +92,21 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
 
+
+
+
+
+
     function createUser(req, res) {
         var user = req.body;
         UserModel
             .createUser(user)
-            .then (
+            .then(
                 function(user) {
                     res.json(user);
                 },
-                function (err) {
-                    res.status (400).send ( err);
+                function(err) {
+                    res.status(400).send(err);
                 }
             );
     }
@@ -69,11 +117,11 @@ module.exports = function(app, UserModel, CourseModel) {
         var user = req.body;
         UserModel
             .updateUser(username, user)
-            .then (
-                function (stats) {
+            .then(
+                function(stats) {
                     res.send(200);
                 },
-                function (err) {
+                function(err) {
                     res.status(400).send(err);
                 }
             );
@@ -84,11 +132,11 @@ module.exports = function(app, UserModel, CourseModel) {
         var username = req.params.username;
         UserModel
             .deleteUser(username)
-            .then (
-                function (stats) {
+            .then(
+                function(stats) {
                     res.send(200);
                 },
-                function (err) {
+                function(err) {
                     res.status(400).send(err);
                 }
             );

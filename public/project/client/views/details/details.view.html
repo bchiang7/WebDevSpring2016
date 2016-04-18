@@ -1,19 +1,19 @@
 <div ng-controller="DetailsController" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main details">
-    <h1>Details for {{model.data.title}}</h1>
+    <h1>{{model.data.subject}} {{model.data.number}}: {{model.data.title}}</h1>
 
     <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span>Edit Course</span></button>
 
     <button ng-click="model.deleteCourse()" ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-danger deleteCourseButton"><i class="fa fa-trash-o"></i><span>Delete Course</span></button>
 
-    <h4>Subject: {{}}</h4>
-    <h4>Course Number: {{}}</h4>
-    <h4>Title: {{}}</h4>
-    <h4>Description: {{}}</h4>
-    <h4>Credit Hours: {{}}</h4>
-    <h4>Lecture Hours: {{}}</h4>
-    <h4>Prerequisites: {{}}</h4>
-    <h4>Level: {{}}</h4>
-    <h4>Type: {{}}</h4>
+    <h4><strong>Subject:</strong> {{model.data.subject}}</h4>
+    <h4><strong>Course Number:</strong> {{model.data.number}}</h4>
+    <h4><strong>Title:</strong> {{model.data.title}}</h4>
+    <h4><strong>Description:</strong> {{model.data.description}}</h4>
+    <h4><strong>Credit Hours:</strong> {{model.data.creditHours}}</h4>
+    <h4><strong>Lecture Hours:</strong> {{model.data.lectureHours}}</h4>
+    <h4><strong>Prerequisites:</strong> {{model.data.prereqs}}</h4>
+    <h4><strong>Level:</strong> {{model.data.level}}</h4>
+    <h4><strong>Type:</strong> {{model.data.type}}</h4>
     <br>
     <!-- <div ng-if="model.course.userLikes"> -->
     <div>

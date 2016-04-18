@@ -21,6 +21,7 @@
 
             // SAVED COURSES
             userLikesCourse: userLikesCourse,
+            findUserLikes: findUserLikes,
             findAllCoursesLikedByUser: findAllCoursesLikedByUser
         };
         return api;
@@ -31,6 +32,7 @@
         }
 
         function findCourseById(courseId) {
+            console.log("client find course by ID", courseId);
             return $http.get("/api/project/course/" + courseId);
         }
 
@@ -40,11 +42,11 @@
         }
 
         function updateCourse(course) {
-            // console.log("client update");
+            console.log("client update");
             return $http.put("/api/project/course/", course);
         }
         function deleteCourse(course) {
-            // console.log("client delete");
+            console.log("client delete");
             return $http.delete("/api/project/course", course);
         }
 

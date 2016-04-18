@@ -28,9 +28,8 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function findCourseById(req, res) {
-        // console.log("server findFormById");
-
         var courseId = req.params.courseId;
+        // console.log("server find course by ID:", courseId);
         CourseModel
             .findCourseById(courseId)
             .then(
@@ -121,7 +120,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
         var course = null;
         CourseModel
-            .findCourseByCourseID(courseID)
+            .findCourseById(courseID)
             .then(
                 function(doc) {
                     course = doc;

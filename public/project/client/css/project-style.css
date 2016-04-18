@@ -149,7 +149,7 @@ h1 {
         display: inline-block;
         vertical-align: top;
         border-left: none;
-        /*border-right: 1px solid #bbb;*/
+        border-right: 1px solid #bbb;
     }
 }
 .navbar-default .navbar-right>li>a:focus, .navbar-default .navbar-right>li>a:hover, .navbar-default .navbar-right>.active>a, .navbar-default .navbar-right>.active>a:focus, .navbar-default .navbar-right>.active>a:hover {
@@ -467,6 +467,7 @@ p.dashboard-welcome {
 }
 .courses .addCourseButton .fa {
     font-size: 16px;
+    margin-right: 7px;
 }
 
 .courses table td.subject, .courses table td.number, .courses table td.title {
@@ -482,6 +483,29 @@ p.dashboard-welcome {
 }
 .courses table td.title {
     width: 600px;
+}
+
+
+/****************** DETAILS PAGE ****************/
+.details .editCourseButton, .details .deleteCourseButton {
+    margin-left: 50px;
+    margin-bottom: 12px;
+}
+.details .deleteCourseButton {
+    margin-left: 10px;
+}
+.details .editCourseButton .fa, .details .deleteCourseButton .fa {
+    font-size: 16px;
+    margin-right: 7px;
+}
+
+@media screen and (max-width: 540px) {
+    .details .editCourseButton span, .details .deleteCourseButton span {
+        display: none;
+    }
+    .details .editCourseButton .fa, .details .deleteCourseButton .fa {
+        margin-right: 0;
+    }
 }
 
 

@@ -1,5 +1,9 @@
-<div ng-controller="DetailsController" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1>Details for {{course._id}}</h1>
+<div ng-controller="DetailsController" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main details">
+    <h1>Details for {{model.data.title}}</h1>
+
+    <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span>Edit Course</span></button>
+
+    <button ng-click="model.deleteCourse()" ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-danger deleteCourseButton"><i class="fa fa-trash-o"></i><span>Delete Course</span></button>
 
     <h4>Subject: {{}}</h4>
     <h4>Course Number: {{}}</h4>
@@ -22,4 +26,56 @@
             </li>
         </ul>
     </div>
+
+
+
+    <!-- EDIT COURSE MODAL -->
+    <div class="modal fade" id="editCourse" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Course: {{model.newCourse.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label>Subject</label>
+                        <input ng-model="model.newCourse.subject" class="form-control" type="text" placeholder="CS">
+                        <br>
+                        <label>Number</label>
+                        <input ng-model="model.newCourse.number" class="form-control" type="text" placeholder="1100">
+                        <br>
+                        <label>Title</label>
+                        <input ng-model="model.newCourse.title" class="form-control" type="text" placeholder="Computer Science and Its Applications">
+                        <br>
+                        <label>Description</label>
+                        <textarea ng-model="model.newCourse.description" class="form-control" placeholder=""></textarea>
+                        <br>
+                        <label>Credit Hours</label>
+                        <input ng-model="model.newCourse.creditHours" class="form-control" type="text" placeholder="4">
+                        <br>
+                        <label>Lecture Hours</label>
+                        <input ng-model="model.newCourse.lectureHours" class="form-control" type="text" placeholder="4">
+                        <br>
+                        <label>Prerequisites</label>
+                        <input ng-model="model.newCourse.prereqs" class="form-control" type="text" placeholder="">
+                        <br>
+                        <label>Level</label>
+                        <input ng-model="model.newCourse.level" class="form-control" type="text" placeholder="Undergraduate">
+                        <br>
+                        <label>Type</label>
+                        <input ng-model="model.newCourse.type" class="form-control" type="text" placeholder="Lecture">
+                        <br>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button ng-click="model.updateCourse(model.newCourse)" type="button" class="btn btn-success" data-dismiss="modal">Apply</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div ng-include="'views/header/help-modal.html'"></div>
 </div>

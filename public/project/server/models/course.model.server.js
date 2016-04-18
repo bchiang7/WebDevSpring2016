@@ -46,6 +46,7 @@ module.exports = function(db) {
     }
 
     function findCourseById(courseId) {
+        console.log("model find course by ID:", courseId);
         var deferred = q.defer();
         Course.findById(courseId,
             function(err, course) {

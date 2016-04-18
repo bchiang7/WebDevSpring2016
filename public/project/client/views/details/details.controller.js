@@ -15,7 +15,7 @@
 
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
-        vm.saveCourse = saveCourse;
+        vm.favoriteCourse = favoriteCourse;
 
 
         function init() {
@@ -63,7 +63,7 @@
                         vm.courses = response.data;
                         $scope.message = "Course '" + course.title + "' successfully deleted!";
                         $location.url("/courses");
-                        
+
                         $('#deleteCourse').modal('hide');
                         $('body').removeClass('modal-open');
                         $('.modal-backdrop').remove();
@@ -75,12 +75,14 @@
 
         }
 
-        function saveCourse(course) {
+        function favoriteCourse(course) {
+            console.log(course);
             if (currentUser) {
                 vm.course.likes = [];
                 vm.course.likes.push(currentUser._id);
-                CourseService
-                    .userLikesCourse(currentUser._id, course);
+
+                MovieService.favoriteCourse(currentUser._id, course);
+
             } else {
                 $location.url("/login");
             }

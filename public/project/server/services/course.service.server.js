@@ -9,7 +9,7 @@ module.exports = function(app, UserModel, CourseModel) {
     app.get("/api/project/search/:courseSubject", searchCourseBySubject);
     app.get("/api/project/search/:courseTitle", searchCourseByTitle);
 
-    app.post("/api/project/user/:userId/course/:courseId", userLikesCourse);
+    app.post("/api/project/user/:userId/course/:courseId", favoriteCourse);
     app.get("/api/project/course/:courseId/user", findUserLikes);
 
 
@@ -71,7 +71,7 @@ module.exports = function(app, UserModel, CourseModel) {
     function updateCourseById(req, res) {
         var newCourse = req.body;
         var courseId = newCourse._id
-        // console.log(newCourse);
+            // console.log(newCourse);
         CourseModel
             .updateCourseById(courseId, newCourse)
             .then(
@@ -111,19 +111,34 @@ module.exports = function(app, UserModel, CourseModel) {
 
 
 
+    function favoriteCourse(req, res) {
+        console.log("server fav");
+        var favCourse = req.body;
+        var userId = req.params.userId;
+        var courseId = req.params.courseId;
+        var course;
 
-
-
-
-
-    function searchCourseBySubject(req, res) {
-        console.log("search Course by subject");
+        CourseModel
+            .favoriteCourse(userId, favCourse)
+            // add user to course likes
+            .then(
+                function(course) {
+                    return CourseModel.favoriteCourse(userId, course);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            // add course to user likes
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
-
-    function searchCourseByTitle(req, res) {
-        console.log("search Course by title");
-    }
-
 
     function findUserLikes(req, res) {
         var courseID = req.params.courseID;
@@ -155,32 +170,16 @@ module.exports = function(app, UserModel, CourseModel) {
             );
     }
 
-    function userLikesCourse(req, res) {
-        console.log("server user likes course");
-        var course = req.body;
-        var userId = req.params.userId;
-        var courseID = req.params.courseID;
-        var course;
 
-        CourseModel
-            .userLikesCourse(userId, course)
-            // add user to course likes
-            .then(
-                function(course) {
-                    return UserModel.userLikesCourse(userId, course);
-                },
-                function(err) {
-                    res.status(400).send(err);
-                }
-            )
-            // add course to user likes
-            .then(
-                function(user) {
-                    res.json(user);
-                },
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
+
+
+
+    function searchCourseBySubject(req, res) {
+        console.log("search Course by subject");
     }
+
+    function searchCourseByTitle(req, res) {
+        console.log("search Course by title");
+    }
+
 }

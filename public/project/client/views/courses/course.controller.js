@@ -15,6 +15,7 @@
         vm.selectCourse = selectCourse;
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
+        vm.favoriteCourse = favoriteCourse;
 
         vm.currentUser = $rootScope.currentUser;
 
@@ -121,6 +122,19 @@
                     }
                 );
 
+        }
+
+        function favoriteCourse(course) {
+            console.log(course);
+            if (currentUser) {
+                vm.course.likes = [];
+                vm.course.likes.push(currentUser._id);
+
+                MovieService.favoriteCourse(currentUser._id, course);
+
+            } else {
+                $location.url("/login");
+            }
         }
     }
 })();

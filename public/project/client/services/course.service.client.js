@@ -14,15 +14,14 @@
             updateCourseById: updateCourseById,
             deleteCourseById: deleteCourseById,
 
+            // SAVED COURSES
+            favoriteCourse: favoriteCourse,
+            findUserLikes: findUserLikes,
+            findAllCoursesLikedByUser: findAllCoursesLikedByUser,
+
             // SEARCH
             searchCourseBySubject: searchCourseBySubject,
-            searchCourseByTitle: searchCourseByTitle,
-
-
-            // SAVED COURSES
-            userLikesCourse: userLikesCourse,
-            findUserLikes: findUserLikes,
-            findAllCoursesLikedByUser: findAllCoursesLikedByUser
+            searchCourseByTitle: searchCourseByTitle
         };
         return api;
 
@@ -51,6 +50,22 @@
             return $http.delete("/api/project/course/" + courseId);
         }
 
+
+        function favoriteCourse(userId, course) {
+            console.log(userId, course);
+            return $http.post("/api/project/user/" + userId + "/course/" + course._id, course);
+        }
+
+        function findUserLikes(courseID) {
+            return $http.get("/api/project/course/" + courseID + "/user");
+        }
+
+        function findAllCoursesLikedByUser(user) {
+            // return $http.get("/api/project/user/" + userId + "/course/" + course.courseID, course);
+        }
+
+
+
         function searchCourseBySubject(subject) {
             return $http.get("/api/project/course/courseSubject");
             // return $http.jsonp("http://www.omdbapi.com/?s="+title+"&callback=JSON_CALLBACK");
@@ -60,19 +75,6 @@
             return $http.get("/api/project/course/courseTitle");
             // return $http.jsonp("http://www.omdbapi.com/?s="+title+"&callback=JSON_CALLBACK");
         }
-
-        function findUserLikes(courseID) {
-            return $http.get("/api/project/course/" + courseID + "/user");
-        }
-
-        function userLikesCourse(userId, course) {
-            return $http.post("/api/project/user/" + userId + "/course/" + course.courseID, course);
-        }
-
-        function findAllCoursesLikedByUser(user) {
-            return $http.get("/api/project/user/" + userId + "/course/" + course.courseID, course);
-        }
-
 
     }
 })();

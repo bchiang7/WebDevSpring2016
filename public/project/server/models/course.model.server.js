@@ -18,14 +18,13 @@ module.exports = function(db) {
         updateCourseById: updateCourseById,
         deleteCourseById: deleteCourseById,
 
+        // SAVED COURSES
+        favoriteCourse: favoriteCourse,
+        findAllCoursesLikedByUser: findAllCoursesLikedByUser,
+
         // SEARCH
         searchCourseBySubject: searchCourseBySubject,
-        searchCourseByTitle: searchCourseByTitle,
-
-
-        // SAVED COURSES
-        userLikesCourse: userLikesCourse,
-        findAllCoursesLikedByUser: findAllCoursesLikedByUser
+        searchCourseByTitle: searchCourseByTitle
     };
     return api;
 
@@ -74,40 +73,35 @@ module.exports = function(db) {
     }
 
     function updateCourseById(courseId, newCourse) {
-
         var deferred = q.defer();
-
         var newCourse = {
-            "subject": newCourse.subject,
-            "number": newCourse.number,
-            "title": newCourse.title,
-            "description": newCourse.description,
-            "creditHours": newCourse.creditHours,
-            "lectureHours": newCourse.lectureHours,
-            "prereqs": newCourse.prereqs,
-            "level": newCourse.level,
-            "type": newCourse.type,
-            "likes": [''],
-            "userLikes": ['']
-        }
-
-        // console.log(newCourse);
-
+                "subject": newCourse.subject,
+                "number": newCourse.number,
+                "title": newCourse.title,
+                "description": newCourse.description,
+                "creditHours": newCourse.creditHours,
+                "lectureHours": newCourse.lectureHours,
+                "prereqs": newCourse.prereqs,
+                "level": newCourse.level,
+                "type": newCourse.type,
+                "likes": [''],
+                "userLikes": ['']
+            }
+            // console.log(newCourse);
         Course.findByIdAndUpdate(courseId, {
-                    $set: newCourse
-                }, {
-                    new: true,
-                    upsert: true
-                },
-                function(err, stats) {
-                    if (!err) {
-                        deferred.resolve(stats);
-                    } else {
-                        deferred.reject(err);
-                    }
+                $set: newCourse
+            }, {
+                new: true,
+                upsert: true
+            },
+            function(err, stats) {
+                if (!err) {
+                    deferred.resolve(stats);
+                } else {
+                    deferred.reject(err);
                 }
-            );
-
+            }
+        );
         return deferred.promise;
     }
 
@@ -131,24 +125,12 @@ module.exports = function(db) {
     }
 
 
-
-
-    function searchCourseBySubject(subject) {
-        console.log('search by subject');
-    }
-
-    function searchCourseByTitle(title) {
-        console.log('search by title');
-    }
-
-
-    function userLikesCourse(userId, course) {
-
+    function favoriteCourse(userId, course) {
         var deferred = q.defer();
 
         // find the course by imdb ID
         Course.findOne({
-                courseID: course.courseID
+                courseID: course._id
             },
 
             function(err, doc) {
@@ -169,8 +151,7 @@ module.exports = function(db) {
                         }
                     });
                 } else {
-                    // if there's no course
-                    // create a new instance
+                    // if there's no course, create a new instance
                     course = new Course({
                         courseID: course.courseID,
                         title: course.Title,
@@ -197,21 +178,13 @@ module.exports = function(db) {
     }
 
 
-
-    function findCourseByCourseID(courseID) {
-
-        var deferred = q.defer();
-
-        Course.findOne({
-            courseID: courseID
-        }, function(err, doc) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(doc);
-            }
-        });
-
-        return deferred.promise;
+    function searchCourseBySubject(subject) {
+        console.log('search by subject');
     }
+
+    function searchCourseByTitle(title) {
+        console.log('search by title');
+    }
+
+
 }

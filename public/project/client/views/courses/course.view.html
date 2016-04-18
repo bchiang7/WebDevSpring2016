@@ -3,7 +3,6 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main courses">
             <h1>Courses</h1>
             <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default addCourseButton" data-toggle="modal" data-target="#createCourse"><i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Add New Course</button>
-            <!-- <button ng-click="update(course)" ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default"><i class="fa fa-pencil"></i>&nbsp;&nbsp;&nbsp;Update Course</button> -->
 
             <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
 
@@ -16,16 +15,39 @@
                 </div>
             </div> -->
 
+            <!-- <span>Ordered By: {{orderByField}}, Reverse Sort: {{reverseSort}}</span> -->
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th>Subject<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></th>
-                        <th>#<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></th>
-                        <th>Title<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></th>
+                        <th>ID</th>
+                        <th>
+                            <a ng-click="orderByField='subject'; reverseSort = !reverseSort">Subject
+                                <span ng-show="orderByField == 'subject'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="orderByField='number'; reverseSort = !reverseSort">Number
+                                <span ng-show="orderByField == 'number'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="orderByField='title'; reverseSort = !reverseSort">Title
+                                <span ng-show="orderByField == 'title'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody ng-model="model.courses">
                     <!-- <tr>
                         <td ng-show="currentUser.roles.indexOf('admin') >= 0">
                             <input ng-model="course.subject" type="text" class="course-control" placeholder="Subject">
@@ -45,25 +67,31 @@
                             </a>
                         </td>
                     </tr> -->
-                    <!-- <tr ng-repeat="course in courses"> -->
-                    <tr>
+                    <tr ng-repeat="course in model.courses|orderBy:orderByField:reverseSort">
                         <td>
-                            <!-- <a href="#">{{course.subject}}</a> -->
-                            <a href="#">CS</a>
+                            <a href="#">{{course._id}}</a>
+                            <!-- <a href="#">CS</a> -->
                         </td>
                         <td>
-                            <!-- <a href="#">{{course.number}}</a> -->
-                            <a href="#">2800</a>
+                            <a href="#">{{course.subject}}</a>
+                            <!-- <a href="#">CS</a> -->
                         </td>
                         <td>
-                            <!-- <a href="#">{{course.title}}</a> -->
-                            <a href="#">Logic &amp; Comp</a>
+                            <a href="#">{{course.number}}</a>
+                            <!-- <a href="#">2800</a> -->
+                        </td>
+                        <td>
+                            <a href="#">{{course.title}}</a>
+                            <!-- <a href="#">Logic &amp; Comp</a> -->
                         </td>
                         <td class="table-nowrap">
-                            <a ng-click="completed(course)">
-                                <i class="fa fa-calendar-plus-o"></i>
+                            <a ng-click="model.completed(course)">
+                                <i class="fa fa-graduation-cap"></i>
                             </a>
-                            <a ng-click="saveCourse(course)">
+                            <a ng-click="model.inProgress(course)">
+                                <i class="fa fa-book"></i>
+                            </a>
+                            <a ng-click="model.save(course)">
                                 <i class="fa fa-star-o"></i>
                             </a>
                             <!-- <a ng-click="select(course)" ng-show="currentUser.roles.indexOf('admin') >= 0">
@@ -78,25 +106,15 @@
             </table>
 
 
-
+            <!-- ADD NEW COURSE MODAL -->
             <div class="modal fade" id="createCourse" role="dialog">
                 <div class="modal-dialog">
-                    <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Add A New Course</h4>
                         </div>
                         <div class="modal-body">
-                            <!-- subject: String,
-                            number: Number,
-                            title: String,
-                            description: String,
-                            creditHours: Number,
-                            lectureHours: Number,
-                            prereqs: [String],
-                            level: String,
-                            type: String, -->
                             <form>
                                 <label>Subject</label>
                                 <input ng-model="model.newCourse.subject" class="form-control" type="text" placeholder="CS">
@@ -125,12 +143,11 @@
                                 <label>Type</label>
                                 <input ng-model="model.newCourse.type" class="form-control" type="text" placeholder="Lecture">
                                 <br>
-
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button ng-click="model.addCourse(course)" type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-success">Add</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <button ng-click="model.addCourse()" type="button" class="btn btn-success" data-dismiss="modal">Add</button>
                         </div>
                     </div>
 

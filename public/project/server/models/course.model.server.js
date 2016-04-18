@@ -31,6 +31,7 @@ module.exports = function(db) {
 
 
     function findAllCourses() {
+        // console.log("model find all courses");
         var deferred = q.defer();
         Course.find(
             function(err, courses) {
@@ -47,13 +48,13 @@ module.exports = function(db) {
     function findCourseById(courseId) {
         var deferred = q.defer();
         Course.findById(courseId,
-                function(err, course) {
-                    if (!err) {
-                        deferred.resolve(course);
-                    } else {
-                        deferred.reject(err);
-                    }
-                });
+            function(err, course) {
+                if (!err) {
+                    deferred.resolve(course);
+                } else {
+                    deferred.reject(err);
+                }
+            });
         return deferred.promise;
     }
 
@@ -61,60 +62,44 @@ module.exports = function(db) {
         var deferred = q.defer();
         // insert new user with mongoose user model's create()
         // Course.create(course, function(err, doc) {
-//     if (err) {
-//         deferred.reject(err);
-//     } else {
-//         deferred.resolve(doc);
-//     }
-// });
-
-        Course.create({
-                    subject: course.subject,
-                    number: course.number,
-                    title: course.title,
-                },
-                function(err, form) {
-                    if (!err) {
-                        deferred.resolve(form);
-                    } else {
-                        deferred.reject(err);
-                    }
-                });
-        return deferred.promise;
-    }
-
-    function createCourse(course) {
-
+        //     if (err) {
+        //         deferred.reject(err);
+        //     } else {
+        //         deferred.resolve(doc);
+        //     }
+        // });
         // create instance of course
-        var course = new Course({
-            courseID: course.courseID,
-            poster: course.Poster,
-            title: course.Title,
-            likes: []
-        });
+        // var newCourse = new Course({
+        //     "subject": course.subject,
+        //     "number": course.number,
+        //     "title": course.title,
+        //     "description": course.description,
+        //     "creditHours": course.creditHours,
+        //     "lectureHours": course.lectureHours,
+        //     "prereqs": course.prereqs,
+        //     "level": course.level,
+        //     "type": course.type,
+        //     "likes": [''],
+        //     "userLikes": ['']
+        // });
 
-        var deferred = q.defer();
+        // console.log(newCourse);
 
-        // save course to database
-        Course.save(function(err, doc) {
-
-            if (err) {
-                // reject promise if error
-                defferred.reject(err)
-            } else {
-                // resolve promise
-                deferred.resolve(doc);
-            }
-
-        });
+        Course.create(course,
+            function(err, course) {
+                if (!err) {
+                    deferred.resolve(course);
+                } else {
+                    deferred.reject(err);
+                }
+            });
         return deferred.promise;
     }
 
     function updateCourse(courseID, course) {
         console.log("model update");
         var deferred = q.defer();
-        Course
-            .update({
+        Course.update({
                     courseID: courseID
                 }, {
                     $set: course

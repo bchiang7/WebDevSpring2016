@@ -5,8 +5,12 @@
 
     function CourseController(CourseService, $scope, $rootScope, $location, $routeParams) {
 
+        $scope.orderByField = 'subject';
+        $scope.reverseSort = false;
+
         var vm = this;
         vm.message = null;
+        vm.newCourse = null;
         vm.addCourse = addCourse;
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
@@ -17,24 +21,46 @@
         $scope.course = {};
 
         function init() {
-            // CourseService
-            //     .findAllCoursesForUser(vm.currentUser._id)
-            //     .then(
-            //         function(response) {
-            //             if (response.data) {
-            //                 vm.courses = response.data;
-            //             }
-            //         }
-            //     );
+            CourseService
+                .findAllCourses()
+                .then(handleSuccess, handleError);
         }
         init();
 
-        function addCourse(course) {
-            console.log("add course title: ", course.title);
+        function handleSuccess(response) {
+            $scope.courses = response.data;
+        }
+
+        function handleError(error) {
+            $scope.error = error;
+        }
+
+
+
+
+        function addCourse() {
+            // console.log(course);
             // var userId = vm.currentUser._id;
+            var course = vm.newCourse; // starts out null
+
+            var course = {
+                "subject": course.subject,
+                "number": course.number,
+                "title": course.title,
+                "description": course.description,
+                "creditHours": course.creditHours,
+                "lectureHours": course.lectureHours,
+                "prereqs": course.prereqs,
+                "level": course.level,
+                "type": course.type,
+                "likes": [''],
+                "userLikes": ['']
+            };
+
+            console.log(course);
 
             CourseService
-                .createCourse(userId, course)
+                .createCourse(course)
                 .then(
                     function(response) {
                         vm.courses = response.data;

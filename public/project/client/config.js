@@ -137,7 +137,7 @@
         var deferred = $q.defer();
 
         $http.get('/api/project/loggedin').success(function(user) {
-            console.log("check admin");
+            // console.log("check admin");
             $rootScope.errorMessage = null;
             // User is Authenticated
             if (user !== '0' && user.roles.indexOf('admin') != -1) {

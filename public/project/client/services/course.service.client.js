@@ -26,6 +26,7 @@
         return api;
 
         function findAllCourses() {
+            // console.log("client find all courses");
             return $http.get("/api/project/course");
         }
 

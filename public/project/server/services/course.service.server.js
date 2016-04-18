@@ -14,6 +14,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
 
     function findAllCourses(req, res) {
+        // console.log("server find all courses");
         CourseModel
             .findAllCourses()
             .then(
@@ -44,13 +45,13 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function createCourse(req, res) {
-        var newCourse = req.body;
-        CourseModel
-            .createCourse(newCourse)
+        var course = req.body;
+        CourseModel.createCourse(course)
             .then(
                 // fetch all the courses
-                function() {
+                function(course) {
                     return CourseModel.findAllCourses();
+                    // res.json(course);
                 },
                 function(err) {
                     res.status(400).send(err);
@@ -97,6 +98,12 @@ module.exports = function(app, UserModel, CourseModel) {
                 }
             );
     }
+
+
+
+
+
+
 
 
     function searchCourseBySubject(req, res) {

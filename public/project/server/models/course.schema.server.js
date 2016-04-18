@@ -17,7 +17,7 @@ module.exports = function() {
         // list of users that like this course
         userLikes: [
             {username: String}
-        ],
+        ]
         // store course documents in this collection
     }, {collection: 'project.course'});
 

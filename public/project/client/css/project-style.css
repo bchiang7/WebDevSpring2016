@@ -447,6 +447,11 @@ a.forgot-password {
     vertical-align: middle;
 }
 
+.courses .addCourseButton {
+    margin-left: 50px;
+    margin-bottom: 12px;
+}
+
 /****************** DASHBOARD ****************/
 
 .main h1 {

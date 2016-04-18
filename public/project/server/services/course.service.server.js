@@ -1,5 +1,6 @@
 module.exports = function(app, UserModel, CourseModel) {
     app.get("/api/project/course", findAllCourses);
+    app.get("/api/project/course/:courseId", findCourseById);
 
     app.post("/api/project/course", createCourse);
     app.put("/api/project/course/:courseID", updateCourse);
@@ -25,31 +26,58 @@ module.exports = function(app, UserModel, CourseModel) {
             );
     }
 
-    function createCourse(req, res) {
-        var course = req.body;
+    function findCourseById(req, res) {
+        // console.log("server findFormById");
+
+        var courseId = req.params.courseId;
         CourseModel
-            .createCourse(course)
-            .then (
+            .findCourseById(courseId)
+            .then(
                 function(course) {
                     res.json(course);
                 },
-                function (err) {
-                    res.status (400).send ( err);
+                function(err) {
+                    res.status(400).send(err);
                 }
             );
+
+    }
+
+    function createCourse(req, res) {
+        var newCourse = req.body;
+        CourseModel
+            .createCourse(newCourse)
+            .then(
+                // fetch all the courses
+                function() {
+                    return CourseModel.findAllCourses();
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(courses) {
+                    res.json(courses);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+
     }
 
     function updateCourse(req, res) {
-        console.log("server update");
+        console.log("server course update");
         // var username = req.params.username;
         var course = req.body;
         CourseModel
             .updateCourse(username, user)
-            .then (
-                function (stats) {
+            .then(
+                function(stats) {
                     res.send(200);
                 },
-                function (err) {
+                function(err) {
                     res.status(400).send(err);
                 }
             );
@@ -60,11 +88,11 @@ module.exports = function(app, UserModel, CourseModel) {
         // var username = req.params.username;
         CourseModel
             .deleteCourse(courseID)
-            .then (
-                function (stats) {
+            .then(
+                function(stats) {
                     res.send(200);
                 },
-                function (err) {
+                function(err) {
                     res.status(400).send(err);
                 }
             );

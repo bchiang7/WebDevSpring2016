@@ -8,6 +8,7 @@
         var api = {
 
             findAllCourses: findAllCourses,
+            findCourseById: findCourseById,
 
             createCourse: createCourse,
             updateCourse: updateCourse,
@@ -25,10 +26,15 @@
         return api;
 
         function findAllCourses() {
-            return $http.get("/api/project/course/courses");
+            return $http.get("/api/project/course");
+        }
+
+        function findCourseById(courseId) {
+            return $http.get("/api/project/course/" + courseId);
         }
 
         function createCourse(course) {
+            console.log("client create");
             return $http.post("/api/project/course", course);
         }
 
@@ -38,7 +44,7 @@
         }
         function deleteCourse(course) {
             // console.log("client delete");
-            return $http.delete("/api/project/course/", course);
+            return $http.delete("/api/project/course", course);
         }
 
         function searchCourseBySubject(subject) {

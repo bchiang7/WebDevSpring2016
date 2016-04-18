@@ -6,7 +6,7 @@
     function CourseController(CourseService, $scope, $rootScope, $location, $routeParams) {
 
         var vm = this;
-
+        vm.message = null;
         vm.addCourse = addCourse;
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
@@ -17,24 +17,24 @@
         $scope.course = {};
 
         function init() {
-            CourseService
-                .findAllCoursesForUser(vm.currentUser._id)
-                .then(
-                    function(response) {
-                        if (response.data) {
-                            vm.courses = response.data;
-                        }
-                    }
-                );
+            // CourseService
+            //     .findAllCoursesForUser(vm.currentUser._id)
+            //     .then(
+            //         function(response) {
+            //             if (response.data) {
+            //                 vm.courses = response.data;
+            //             }
+            //         }
+            //     );
         }
         init();
 
         function addCourse(course) {
-            var userId = vm.currentUser._id;
-            //console.log("course title: ", course.title);
+            console.log("add course title: ", course.title);
+            // var userId = vm.currentUser._id;
 
             CourseService
-                .createCourseForUser(userId, course)
+                .createCourse(userId, course)
                 .then(
                     function(response) {
                         vm.courses = response.data;

@@ -7,11 +7,12 @@ var q = require("q");
 module.exports = function(db) {
     var mongoose = require("mongoose");
     var CourseSchema = require("./course.schema.server.js")(mongoose);
-    var Course  = mongoose.model("Course", CourseSchema);
+    var Course = mongoose.model("Course", CourseSchema);
     var courses = [];
 
     var api = {
         findAllCourses: findAllCourses,
+        findCourseById: findCourseById,
 
         createCourse: createCourse,
         updateCourse: updateCourse,
@@ -31,34 +32,54 @@ module.exports = function(db) {
 
     function findAllCourses() {
         var deferred = q.defer();
-        Course
-            .find(
-                function(err, users) {
+        Course.find(
+            function(err, courses) {
+                if (!err) {
+                    deferred.resolve(courses);
+                } else {
+                    deferred.reject(err);
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
+    function findCourseById(courseId) {
+        var deferred = q.defer();
+        Course.findById(courseId,
+                function(err, course) {
                     if (!err) {
-                        deferred.resolve(users);
+                        deferred.resolve(course);
                     } else {
                         deferred.reject(err);
                     }
-                }
-            );
+                });
         return deferred.promise;
-
     }
 
     function createCourse(course) {
-        // use q to defer the response
         var deferred = q.defer();
         // insert new user with mongoose user model's create()
-        Course.create(course, function(err, doc) {
-            if (err) {
-                // reject promise if error
-                deferred.reject(err);
-            } else {
-                // resolve promise
-                deferred.resolve(doc);
-            }
-        });
-        // return a promise
+        // Course.create(course, function(err, doc) {
+//     if (err) {
+//         deferred.reject(err);
+//     } else {
+//         deferred.resolve(doc);
+//     }
+// });
+
+        Course.create({
+                    subject: course.subject,
+                    number: course.number,
+                    title: course.title,
+                },
+                function(err, form) {
+                    if (!err) {
+                        deferred.resolve(form);
+                    } else {
+                        deferred.reject(err);
+                    }
+                });
         return deferred.promise;
     }
 
@@ -75,7 +96,7 @@ module.exports = function(db) {
         var deferred = q.defer();
 
         // save course to database
-        course.save(function (err, doc) {
+        Course.save(function(err, doc) {
 
             if (err) {
                 // reject promise if error
@@ -93,9 +114,11 @@ module.exports = function(db) {
         console.log("model update");
         var deferred = q.defer();
         Course
-            .update(
-                {courseID: courseID},
-                {$set: course},
+            .update({
+                    courseID: courseID
+                }, {
+                    $set: course
+                },
                 function(err, stats) {
                     if (!err) {
                         deferred.resolve(stats);
@@ -111,9 +134,10 @@ module.exports = function(db) {
         console.log("delete clicked");
         var deferred = q.defer();
         Course
-            .remove(
-                {courseID: courseID},
-                function (err, stats) {
+            .remove({
+                    courseID: courseID
+                },
+                function(err, stats) {
                     if (!err) {
                         deferred.resolve(stats);
                     } else {
@@ -130,19 +154,22 @@ module.exports = function(db) {
     function searchCourseBySubject(subject) {
         console.log('search by subject');
     }
+
     function searchCourseByTitle(title) {
         console.log('search by title');
     }
 
 
-    function userLikesCourse (userId, course) {
+    function userLikesCourse(userId, course) {
 
         var deferred = q.defer();
 
         // find the course by imdb ID
-        Course.findOne({courseID: course.courseID},
+        Course.findOne({
+                courseID: course.courseID
+            },
 
-            function (err, doc) {
+            function(err, doc) {
                 // reject promise if error
                 if (err) {
                     deferred.reject(err);
@@ -150,9 +177,9 @@ module.exports = function(db) {
                 // if there's a course
                 if (doc) {
                     // add user to likes
-                    doc.likes.push (userId);
+                    doc.likes.push(userId);
                     // save changes
-                    doc.save(function(err, doc){
+                    doc.save(function(err, doc) {
                         if (err) {
                             deferred.reject(err);
                         } else {
@@ -169,7 +196,7 @@ module.exports = function(db) {
                         likes: []
                     });
                     // add user to likes
-                    course.likes.push (userId);
+                    course.likes.push(userId);
                     // save new instance
                     course.save(function(err, doc) {
                         if (err) {
@@ -179,7 +206,7 @@ module.exports = function(db) {
                         }
                     });
                 }
-        });
+            });
         return deferred.promise;
     }
 
@@ -193,7 +220,9 @@ module.exports = function(db) {
 
         var deferred = q.defer();
 
-        Course.findOne({courseID: courseID}, function (err, doc) {
+        Course.findOne({
+            courseID: courseID
+        }, function(err, doc) {
             if (err) {
                 deferred.reject(err);
             } else {

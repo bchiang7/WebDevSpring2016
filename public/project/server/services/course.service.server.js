@@ -50,6 +50,7 @@ module.exports = function(app, UserModel, CourseModel) {
             .then(
                 // fetch all the courses
                 function(course) {
+                    // console.log("here");
                     return CourseModel.findAllCourses();
                     // res.json(course);
                 },

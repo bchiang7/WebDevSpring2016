@@ -19,7 +19,7 @@
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <!-- <th>ID</th> -->
                         <th>
                             <a ng-click="orderByField='subject'; reverseSort = !reverseSort">Subject
                                 <span ng-show="orderByField == 'subject'">
@@ -67,23 +67,11 @@
                             </a>
                         </td>
                     </tr> -->
-                    <tr ng-repeat="course in model.courses|orderBy:orderByField:reverseSort">
-                        <td>
-                            <a href="#">{{course._id}}</a>
-                            <!-- <a href="#">CS</a> -->
-                        </td>
-                        <td>
-                            <a href="#">{{course.subject}}</a>
-                            <!-- <a href="#">CS</a> -->
-                        </td>
-                        <td>
-                            <a href="#">{{course.number}}</a>
-                            <!-- <a href="#">2800</a> -->
-                        </td>
-                        <td>
-                            <a href="#">{{course.title}}</a>
-                            <!-- <a href="#">Logic &amp; Comp</a> -->
-                        </td>
+                    <tr ng-repeat="course in courses|orderBy:orderByField:reverseSort">
+                        <!-- <td><a href="#">{{course._id}}</a></td> -->
+                        <td class="subject"><a href="#/details/{{course._id}}">{{course.subject}}</a></td>
+                        <td class="number"><a href="#/details/{{course._id}}">{{course.number}}</a></td>
+                        <td class="title"><a href="#/details/{{course._id}}">{{course.title}}</a></td>
                         <td class="table-nowrap">
                             <a ng-click="model.completed(course)">
                                 <i class="fa fa-graduation-cap"></i>

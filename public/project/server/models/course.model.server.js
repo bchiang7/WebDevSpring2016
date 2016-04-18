@@ -31,7 +31,7 @@ module.exports = function(db) {
 
 
     function findAllCourses() {
-        // console.log("model find all courses");
+        console.log("model find all courses");
         var deferred = q.defer();
         Course.find(
             function(err, courses) {

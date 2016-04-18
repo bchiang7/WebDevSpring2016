@@ -47,7 +47,7 @@
                     loggedin: checkLoggedin
                 }
             })
-            .when("/details", {
+            .when("/details/:courseID", {
                 templateUrl: "views/details/details.view.html",
                 controller: "DetailsController",
                 controllerAs: "model",

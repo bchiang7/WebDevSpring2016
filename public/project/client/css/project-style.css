@@ -435,27 +435,6 @@ a.forgot-password {
     vertical-align: bottom;
 }
 
-/****************** COURSES PAGE ****************/
-
-.courses a {
-    text-decoration: none;
-    cursor: pointer;
-}
-.courses .fa {
-    font-size: 20px;
-    margin: 0 3px;
-    vertical-align: middle;
-}
-
-.courses .addCourseButton {
-    margin-left: 50px;
-    margin-bottom: 12px;
-}
-
-.courses .addCourseButton .fa {
-    font-size: 16px;
-}
-
 /****************** DASHBOARD ****************/
 
 .main h1 {
@@ -469,4 +448,56 @@ p.dashboard-welcome {
 }
 .dashboard .exam-panel, .dashboard .grades-panel, .dashboard .advisors-panel {
     height: 300px;
+}
+
+/****************** COURSES PAGE ****************/
+
+.courses a {
+    text-decoration: none;
+    cursor: pointer;
+}
+.courses .fa {
+    font-size: 20px;
+    margin: 0 3px;
+    vertical-align: middle;
+}
+.courses .addCourseButton {
+    margin-left: 50px;
+    margin-bottom: 12px;
+}
+.courses .addCourseButton .fa {
+    font-size: 16px;
+}
+
+.courses table td.subject, .courses table td.number, .courses table td.title {
+    table-layout: fixed;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.courses table td.subject {
+    width: 100px;
+}
+.courses table td.number {
+    width: 100px;
+}
+.courses table td.title {
+    width: 600px;
+}
+
+
+/****************** SAVED PAGE ****************/
+
+.saved table td.subject, .courses table td.number, .courses table td.title {
+    table-layout: fixed;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.saved table td.subject {
+    width: 100px;
+}
+.saved table td.number {
+    width: 100px;
+}
+.saved table td.title {
+    width: 600px;
 }

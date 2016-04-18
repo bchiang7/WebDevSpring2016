@@ -147,7 +147,7 @@ module.exports = function(app, UserModel, CourseModel) {
     function findAllUsers(req, res) {
         // console.log(req.user);
         // if (isAdmin(req.user)) {
-        console.log('\nPROJECT findAllUsers --------------------------------------\n', req.user);
+        console.log('\nPROJECT server findAllUsers --------------------------------------\n', req.user);
         UserModel
             .findAllUsers()
             .then(

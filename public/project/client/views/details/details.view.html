@@ -1,3 +1,25 @@
 <div ng-controller="DetailsController" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1>Details for {{model.data.title}}</h1>
+    <h1>Details for {{course._id}}</h1>
+
+    <h4>Subject: {{}}</h4>
+    <h4>Course Number: {{}}</h4>
+    <h4>Title: {{}}</h4>
+    <h4>Description: {{}}</h4>
+    <h4>Credit Hours: {{}}</h4>
+    <h4>Lecture Hours: {{}}</h4>
+    <h4>Prerequisites: {{}}</h4>
+    <h4>Level: {{}}</h4>
+    <h4>Type: {{}}</h4>
+    <br>
+    <!-- <div ng-if="model.course.userLikes"> -->
+    <div>
+        <h4>Other users that have favorited this course:</h4>
+        <ul>
+            <li ng-repeat="user in model.course.userLikes">
+                <a href="#/profile/{{user.username}}">
+                {{user.username}}
+            </a>
+            </li>
+        </ul>
+    </div>
 </div>

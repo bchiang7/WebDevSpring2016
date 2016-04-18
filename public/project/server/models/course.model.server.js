@@ -43,10 +43,11 @@ module.exports = function(db) {
             }
         );
         return deferred.promise;
+        // return Course.find();
     }
 
     function findCourseById(courseId) {
-        console.log("model find course by ID:", courseId);
+        // console.log("model find course by ID:", courseId);
         var deferred = q.defer();
         Course.findById(courseId,
             function(err, course) {
@@ -61,31 +62,6 @@ module.exports = function(db) {
 
     function createCourse(course) {
         var deferred = q.defer();
-        // insert new user with mongoose user model's create()
-        // Course.create(course, function(err, doc) {
-        //     if (err) {
-        //         deferred.reject(err);
-        //     } else {
-        //         deferred.resolve(doc);
-        //     }
-        // });
-        // create instance of course
-        // var newCourse = new Course({
-        //     "subject": course.subject,
-        //     "number": course.number,
-        //     "title": course.title,
-        //     "description": course.description,
-        //     "creditHours": course.creditHours,
-        //     "lectureHours": course.lectureHours,
-        //     "prereqs": course.prereqs,
-        //     "level": course.level,
-        //     "type": course.type,
-        //     "likes": [''],
-        //     "userLikes": ['']
-        // });
-
-        // console.log(newCourse);
-
         Course.create(course,
             function(err, course) {
                 if (!err) {
@@ -97,13 +73,30 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function updateCourse(courseID, course) {
+    function updateCourse(courseId, newCourse) {
         console.log("model update");
+
         var deferred = q.defer();
-        Course.update({
-                    courseID: courseID
+
+        var newCourse = {
+            "subject": newCourse.subject,
+            "number": newCourse.number,
+            "title": newCourse.title,
+            "description": newCourse.description,
+            "creditHours": newCourse.creditHours,
+            "lectureHours": newCourse.lectureHours,
+            "prereqs": newCourse.prereqs,
+            "level": newCourse.level,
+            "type": newCourse.type,
+            "likes": [''],
+            "userLikes": ['']
+        }
+
+        Course.findByIdAndUpdate(courseId, {
+                    $set: newCourse
                 }, {
-                    $set: course
+                    new: true,
+                    upsert: true
                 },
                 function(err, stats) {
                     if (!err) {
@@ -113,15 +106,17 @@ module.exports = function(db) {
                     }
                 }
             );
+
         return deferred.promise;
     }
 
-    function deleteCourse(courseID) {
-        console.log("delete clicked");
+
+    function deleteCourse(courseId) {
+        console.log("model delete", courseId);
         var deferred = q.defer();
         Course
             .remove({
-                    courseID: courseID
+                    _id: courseId
                 },
                 function(err, stats) {
                     if (!err) {

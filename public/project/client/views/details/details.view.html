@@ -1,81 +1,137 @@
-<div ng-controller="DetailsController" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main details">
-    <h1>{{model.data.subject}} {{model.data.number}}: {{model.data.title}}</h1>
+<div ng-controller="DetailsController" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main details">
+            <h2>{{model.data.subject}} {{model.data.number}}: {{model.data.title}}</h2>
 
-    <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span>Edit Course</span></button>
+            <button ng-click="model.saveCourse(course)" class="btn btn-default"><i class="fa fa-star-o"></i><span>Save Course</span></button>
 
-    <button ng-click="model.deleteCourse()" ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-danger deleteCourseButton"><i class="fa fa-trash-o"></i><span>Delete Course</span></button>
+            <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span>Edit Course</span></button>
 
-    <h4><strong>Subject:</strong> {{model.data.subject}}</h4>
-    <h4><strong>Course Number:</strong> {{model.data.number}}</h4>
-    <h4><strong>Title:</strong> {{model.data.title}}</h4>
-    <h4><strong>Description:</strong> {{model.data.description}}</h4>
-    <h4><strong>Credit Hours:</strong> {{model.data.creditHours}}</h4>
-    <h4><strong>Lecture Hours:</strong> {{model.data.lectureHours}}</h4>
-    <h4><strong>Prerequisites:</strong> {{model.data.prereqs}}</h4>
-    <h4><strong>Level:</strong> {{model.data.level}}</h4>
-    <h4><strong>Type:</strong> {{model.data.type}}</h4>
-    <br>
-    <!-- <div ng-if="model.course.userLikes"> -->
-    <div>
-        <h4>Other users that have favorited this course:</h4>
-        <ul>
-            <li ng-repeat="user in model.course.userLikes">
-                <a href="#/profile/{{user.username}}">
+            <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-danger deleteCourseButton" data-toggle="modal" data-target="#deleteCourse"><i class="fa fa-trash-o"></i><span>Delete Course</span></button>
+
+            <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
+
+
+            <div class="row">
+                <div class="col-md-2 detail-label">Subject:</div>
+                <div class="col-md-10">{{model.data.subject}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 detail-label">Course Number:</div>
+                <div class="col-md-10">{{model.data.number}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 detail-label">Title:</div>
+                <div class="col-md-10">{{model.data.title}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 detail-label">Description:</div>
+                <div class="col-md-10">{{model.data.description}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 detail-label">Credit Hours:</div>
+                <div class="col-md-10">{{model.data.creditHours}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 detail-label">Lecture Hours:</div>
+                <div class="col-md-10">{{model.data.lectureHours}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 detail-label">Prerequisites:</div>
+                <div class="col-md-10">{{model.data.prereqs}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 detail-label">Level:</div>
+                <div class="col-md-10">{{model.data.level}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 detail-label">Type:</div>
+                <div class="col-md-10">{{model.data.type}}</div>
+            </div>
+
+            <br>
+            <!-- <div ng-if="model.course.userLikes"> -->
+            <div>
+                <p class="detail-label">Other users that have favorited this course:</p>
+                <ul>
+                    <li ng-repeat="user in model.course.userLikes">
+                        <a href="#/profile/{{user.username}}">
                 {{user.username}}
             </a>
-            </li>
-        </ul>
-    </div>
+                    </li>
+                </ul>
+            </div>
 
+            <!-- EDIT COURSE MODAL -->
+            <div class="modal fade" id="editCourse" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <p class="modal-title">Edit Course</p>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <label>Subject</label>
+                                <input ng-model="model.data.subject" class="form-control" type="text" placeholder="CS">
+                                <br>
+                                <label>Number</label>
+                                <input ng-model="model.data.number" class="form-control" type="text" placeholder="1100">
+                                <br>
+                                <label>Title</label>
+                                <input ng-model="model.data.title" class="form-control" type="text" placeholder="Computer Science and Its Applications">
+                                <br>
+                                <label>Description</label>
+                                <textarea ng-model="model.data.description" class="form-control" placeholder=""></textarea>
+                                <br>
+                                <label>Credit Hours</label>
+                                <input ng-model="model.data.creditHours" class="form-control" type="text" placeholder="4">
+                                <br>
+                                <label>Lecture Hours</label>
+                                <input ng-model="model.data.lectureHours" class="form-control" type="text" placeholder="4">
+                                <br>
+                                <label>Prerequisites</label>
+                                <input ng-model="model.data.prereqs" class="form-control" type="text" placeholder="">
+                                <br>
+                                <label>Level</label>
+                                <input ng-model="model.data.level" class="form-control" type="text" placeholder="Undergraduate">
+                                <br>
+                                <label>Type</label>
+                                <input ng-model="model.data.type" class="form-control" type="text" placeholder="Lecture">
+                                <br>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <button ng-click="model.updateCourse(course)" type="button" class="btn btn-success" data-dismiss="modal">Apply</button>
+                        </div>
+                    </div>
 
-
-    <!-- EDIT COURSE MODAL -->
-    <div class="modal fade" id="editCourse" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit Course: {{model.newCourse.title}}</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <label>Subject</label>
-                        <input ng-model="model.newCourse.subject" class="form-control" type="text" placeholder="CS">
-                        <br>
-                        <label>Number</label>
-                        <input ng-model="model.newCourse.number" class="form-control" type="text" placeholder="1100">
-                        <br>
-                        <label>Title</label>
-                        <input ng-model="model.newCourse.title" class="form-control" type="text" placeholder="Computer Science and Its Applications">
-                        <br>
-                        <label>Description</label>
-                        <textarea ng-model="model.newCourse.description" class="form-control" placeholder=""></textarea>
-                        <br>
-                        <label>Credit Hours</label>
-                        <input ng-model="model.newCourse.creditHours" class="form-control" type="text" placeholder="4">
-                        <br>
-                        <label>Lecture Hours</label>
-                        <input ng-model="model.newCourse.lectureHours" class="form-control" type="text" placeholder="4">
-                        <br>
-                        <label>Prerequisites</label>
-                        <input ng-model="model.newCourse.prereqs" class="form-control" type="text" placeholder="">
-                        <br>
-                        <label>Level</label>
-                        <input ng-model="model.newCourse.level" class="form-control" type="text" placeholder="Undergraduate">
-                        <br>
-                        <label>Type</label>
-                        <input ng-model="model.newCourse.type" class="form-control" type="text" placeholder="Lecture">
-                        <br>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button ng-click="model.updateCourse(model.newCourse)" type="button" class="btn btn-success" data-dismiss="modal">Apply</button>
                 </div>
             </div>
 
+            <!-- DELETE COURSE MODAL -->
+            <div class="modal fade" id="deleteCourse" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3>Are you sure you want to delete this course?</h3>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <h3>Are you sure you want to delete this course?</h3> -->
+                            <button ng-click="model.deleteCourse(course)" type="button" class="btn btn-success" data-dismiss="modal">Yes, delete it!</button>
+
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">No, go back!</button>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div ng-include="'views/header/help-modal.html'"></div>
         </div>
     </div>
-
-    <div ng-include="'views/header/help-modal.html'"></div>
 </div>

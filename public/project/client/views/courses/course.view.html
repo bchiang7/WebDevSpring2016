@@ -73,21 +73,21 @@
                         <td class="number"><a href="#/details/{{course._id}}">{{course.number}}</a></td>
                         <td class="title"><a href="#/details/{{course._id}}">{{course.title}}</a></td>
                         <td class="table-nowrap">
-                            <a ng-click="model.completed(course)">
+                            <!-- <a ng-click="model.completed(course)">
                                 <i class="fa fa-graduation-cap"></i>
                             </a>
                             <a ng-click="model.inProgress(course)">
                                 <i class="fa fa-book"></i>
-                            </a>
+                            </a> -->
                             <a ng-click="model.save(course)">
                                 <i class="fa fa-star-o"></i>
                             </a>
-                            <!-- <a ng-click="select(course)" ng-show="currentUser.roles.indexOf('admin') >= 0">
+                            <a ng-click="model.updateCourse(course)" ng-show="currentUser.roles.indexOf('admin') >= 0">
                                 <i class="fa fa-pencil-square-o"></i>
                             </a>
-                            <a ng-click="remove(course)" ng-show="currentUser.roles.indexOf('admin') >= 0">
+                            <a ng-click="model.deleteCourse(course)" ng-show="currentUser.roles.indexOf('admin') >= 0">
                                 <i class="fa fa-trash-o"></i>
-                            </a> -->
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -135,7 +135,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            <button ng-click="model.addCourse()" type="button" class="btn btn-success" data-dismiss="modal">Add</button>
+                            <button ng-click="model.addCourse(course)" type="button" class="btn btn-success" data-dismiss="modal">Add</button>
                         </div>
                     </div>
 

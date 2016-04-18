@@ -40,7 +40,7 @@ module.exports = function(db) {
 
 
     function findAllUsers() {
-        console.log("model findAllUsers");
+        // console.log("model findAllUsers");
         var deferred = q.defer();
         User
             .find(

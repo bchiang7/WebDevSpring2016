@@ -437,7 +437,7 @@ a.forgot-password {
 
 /****************** DASHBOARD ****************/
 
-.main h1 {
+.main h1, .main h2 {
     display: inline-block;
 }
 p.dashboard-welcome {
@@ -469,7 +469,6 @@ p.dashboard-welcome {
     font-size: 16px;
     margin-right: 7px;
 }
-
 .courses table td.subject, .courses table td.number, .courses table td.title {
     table-layout: fixed;
     overflow: hidden;
@@ -485,20 +484,28 @@ p.dashboard-welcome {
     width: 600px;
 }
 
-
 /****************** DETAILS PAGE ****************/
-.details .editCourseButton, .details .deleteCourseButton {
-    margin-left: 50px;
+.details {
+    padding: 20px 30px;
+    font-size: 18px;
+    font-weight: 300;
+}
+.details h2 {
+    margin-bottom: 50px;
+    margin-right: 30px;
+}
+.details .detail-label {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.details button {
+    margin-left: 10px;
     margin-bottom: 12px;
 }
-.details .deleteCourseButton {
-    margin-left: 10px;
-}
-.details .editCourseButton .fa, .details .deleteCourseButton .fa {
+button .fa {
     font-size: 16px;
     margin-right: 7px;
 }
-
 @media screen and (max-width: 540px) {
     .details .editCourseButton span, .details .deleteCourseButton span {
         display: none;
@@ -507,7 +514,24 @@ p.dashboard-welcome {
         margin-right: 0;
     }
 }
-
+#deleteCourse {
+    text-align: center;
+}
+#deleteCourse .modal-header, #deleteCourse .modal-footer {
+    border: none;
+}
+#deleteCourse .modal-footer {
+    padding: 10px;
+}
+#deleteCourse .btn {
+    margin: 0 20px;
+}
+@media screen and (min-width: 768px) {
+    #deleteCourse .modal-dialog {
+        width: 550px;
+        margin: 150px auto;
+    }
+}
 
 /****************** SAVED PAGE ****************/
 

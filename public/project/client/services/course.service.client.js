@@ -11,8 +11,8 @@
             findCourseById: findCourseById,
 
             createCourse: createCourse,
-            updateCourse: updateCourse,
-            deleteCourse: deleteCourse,
+            updateCourseById: updateCourseById,
+            deleteCourseById: deleteCourseById,
 
             // SEARCH
             searchCourseBySubject: searchCourseBySubject,
@@ -32,7 +32,7 @@
         }
 
         function findCourseById(courseId) {
-            console.log("client find course by ID", courseId);
+            // console.log("client find course by ID", courseId);
             return $http.get("/api/project/course/" + courseId);
         }
 
@@ -41,13 +41,13 @@
             return $http.post("/api/project/course", course);
         }
 
-        function updateCourse(course) {
+        function updateCourseById(courseId, course) {
             console.log("client update");
-            return $http.put("/api/project/course/", course);
+            return $http.put("/api/assignment/form/" + courseId, course);
         }
-        function deleteCourse(course) {
-            console.log("client delete");
-            return $http.delete("/api/project/course", course);
+        function deleteCourseById(courseId) {
+            console.log("client delete", courseId);
+            return $http.delete("/api/project/course/" + courseId);
         }
 
         function searchCourseBySubject(subject) {

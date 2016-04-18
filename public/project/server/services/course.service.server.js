@@ -3,14 +3,14 @@ module.exports = function(app, UserModel, CourseModel) {
     app.get("/api/project/course/:courseId", findCourseById);
 
     app.post("/api/project/course", createCourse);
-    app.put("/api/project/course/:courseID", updateCourse);
-    app.delete("/api/project/course/:courseID", deleteCourse);
+    app.put("/api/project/course/:courseId", updateCourseById);
+    app.delete("/api/project/course/:courseId", deleteCourseById);
 
     app.get("/api/project/search/:courseSubject", searchCourseBySubject);
     app.get("/api/project/search/:courseTitle", searchCourseByTitle);
 
-    app.post("/api/project/user/:userId/course/:courseID", userLikesCourse);
-    app.get("/api/project/course/:courseID/user", findUserLikes);
+    app.post("/api/project/user/:userId/course/:courseId", userLikesCourse);
+    app.get("/api/project/course/:courseId/user", findUserLikes);
 
 
     function findAllCourses(req, res) {
@@ -68,14 +68,15 @@ module.exports = function(app, UserModel, CourseModel) {
 
     }
 
-    function updateCourse(req, res) {
+    function updateCourseById(req, res) {
         console.log("server course update");
         // var username = req.params.username;
-        var course = req.body;
+        var newCourse = req.body;
+        var courseId = newCourse._id;
         CourseModel
-            .updateCourse(username, user)
+            .updateFormById(courseId, newCourse)
             .then(
-                function(stats) {
+                function(doc) {
                     res.send(200);
                 },
                 function(err) {
@@ -84,19 +85,45 @@ module.exports = function(app, UserModel, CourseModel) {
             );
     }
 
-    function deleteCourse(req, res) {
-        console.log("server delete");
-        // var username = req.params.username;
-        CourseModel
-            .deleteCourse(courseID)
-            .then(
-                function(stats) {
-                    res.send(200);
-                },
-                function(err) {
-                    res.status(400).send(err);
-                }
-            );
+    function deleteCourseById(req, res) {
+        // var courseId = req.params.courseId;
+        // console.log("server delete", courseId);
+        // CourseModel
+        //     .deleteCourse(courseId)
+        //     .then(
+        //         function(stats) {
+        //             res.send(200);
+        //         },
+        //         function(err) {
+        //             res.status(400).send(err);
+        //         }
+        //     );
+
+        var courseId = req.params.courseId;
+
+        // if (isAdmin(req.session.currentUser)) {
+            console.log("server delete ", courseId);
+            CourseModel
+                .deleteCourse(courseId)
+                .then(
+                    function(course) {
+                        return CourseModel.findAllCourses();
+                    },
+                    function(err) {
+                        res.status(400).send(err);
+                    }
+                );
+                // .then(
+                //     function(courses) {
+                //         res.json(courses);
+                //     },
+                //     function(err) {
+                //         res.status(400).send(err);
+                //     }
+                // );
+        // } else {
+        //     res.status(403);
+        // }
     }
 
 
@@ -146,13 +173,14 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function userLikesCourse(req, res) {
-        var courseOmdb = req.body;
+        console.log("server user likes course");
+        var course = req.body;
         var userId = req.params.userId;
         var courseID = req.params.courseID;
         var course;
 
         CourseModel
-            .userLikesCourse(userId, courseOmdb)
+            .userLikesCourse(userId, course)
             // add user to course likes
             .then(
                 function(course) {

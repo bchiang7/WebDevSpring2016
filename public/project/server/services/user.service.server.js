@@ -25,7 +25,6 @@ module.exports = function(app, UserModel, CourseModel) {
     // app.get("/api/project/profile/:userId", profile);
 
 
-
     function login(req, res) {
         var credentials = req.body;
         UserModel.findUserByCredentials(credentials)
@@ -61,22 +60,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
     function register(req, res) {
         console.log("server register");
-        // var user = req.body;
-        //
-        // UserModel.createUser(user)
-        //     // handle model promise
-        //     .then(
-        //         // login user if promise resolved
-        //         function(doc) {
-        //             req.session.currentUser = doc;
-        //             res.json(doc);
-        //         },
-        //         // send error if promise rejected
-        //         function(err) {
-        //             res.status(400).send(err);
-        //         }
-        //     );
-
+        
         var newUser = req.body;
         newUser.roles = ['student'];
         // newUser.roles = ['admin'];
@@ -135,19 +119,20 @@ module.exports = function(app, UserModel, CourseModel) {
         return false;
     }
 
-    // function authorized(req, res, next) {
-    //     if (!req.isAuthenticated()) {
-    //         res.send(401);
-    //     } else {
-    //         next();
-    //     }
-    // }
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    }
 
 
     function findAllUsers(req, res) {
         // console.log(req.user);
+        // console.log(req.session.currentUser);
         // if (isAdmin(req.user)) {
-        console.log('\nPROJECT server findAllUsers --------------------------------------\n', req.user);
+        if (isAdmin(req.session.currentUser)) {
         UserModel
             .findAllUsers()
             .then(
@@ -158,9 +143,9 @@ module.exports = function(app, UserModel, CourseModel) {
                     res.status(400).send(err);
                 }
             );
-        // } else {
-        //     res.status(403);
-        // }
+        } else {
+            res.status(403);
+        }
     }
 
     function findUserById(req, res) {
@@ -190,24 +175,7 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
 
-
-
-
-
-
     function createUser(req, res) {
-        // var user = req.body;
-        // UserModel
-        //     .createUser(user)
-        //     .then(
-        //         function(user) {
-        //             res.json(user);
-        //         },
-        //         function(err) {
-        //             res.status(400).send(err);
-        //         }
-        //     );
-
         console.log("server create");
 
         var newUser = req.body;
@@ -254,28 +222,16 @@ module.exports = function(app, UserModel, CourseModel) {
             )
     }
 
-    // function updateUser(req, res) {
-    //     console.log("server update");
-    //     var username = req.params.username;
-    //     var user = req.body;
-    //     UserModel
-    //         .updateUser(username, user)
-    //         .then(
-    //             function(stats) {
-    //                 res.send(200);
-    //             },
-    //             function(err) {
-    //                 res.status(400).send(err);
-    //             }
-    //         );
-    // }
-
     function updateUser(req, res) {
         console.log("server update");
         var newUser = req.body;
+
         // if (!isAdmin(req.user)) {
         //     delete newUser.roles;
         // }
+        if (!isAdmin(req.session.currentUser)) {
+            delete newUser.roles;
+        }
         if (typeof newUser.roles == "string") {
             newUser.roles = newUser.roles.split(",");
         }
@@ -289,33 +245,19 @@ module.exports = function(app, UserModel, CourseModel) {
                     res.status(400).send(err);
                 }
             )
-            // .then(
-            //     function(users) {
-            //         res.json(users);
-            //     },
-            //     function(err) {
-            //         res.status(400).send(err);
-            //     }
-            // );
+            .then(
+                function(users) {
+                    res.json(users);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
-
-    // function deleteUser(req, res) {
-    //     console.log("server delete");
-    //     var username = req.params.username;
-    //     UserModel
-    //         .deleteUser(username)
-    //         .then(
-    //             function(stats) {
-    //                 res.send(200);
-    //             },
-    //             function(err) {
-    //                 res.status(400).send(err);
-    //             }
-    //         );
-    // }
 
     function deleteUser(req, res) {
         // if (isAdmin(req.user)) {
+        if (isAdmin(req.session.currentUser)) {
             console.log("server delete ", req.params.id);
             UserModel
                 .deleteUser(req.params.id)
@@ -335,15 +277,10 @@ module.exports = function(app, UserModel, CourseModel) {
                         res.status(400).send(err);
                     }
                 );
-        // } else {
-        //     res.status(403);
-        // }
+        } else {
+            res.status(403);
+        }
     }
-
-
-
-
-
 
     // function profile(req, res) {
     //     var userId = req.params.userId;

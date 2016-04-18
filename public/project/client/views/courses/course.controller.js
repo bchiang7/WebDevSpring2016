@@ -12,9 +12,9 @@
         vm.message = null;
         vm.newCourse = null;
         vm.addCourse = addCourse;
+        vm.selectCourse = selectCourse;
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
-        vm.selectCourse = selectCourse;
 
         vm.currentUser = $rootScope.currentUser;
 
@@ -38,8 +38,8 @@
 
 
 
-        function addCourse() {
-            // console.log(course);
+        function addCourse(course) {
+            console.log(course);
             // var userId = vm.currentUser._id;
             var course = vm.newCourse; // starts out null
 
@@ -106,9 +106,9 @@
         }
 
         function deleteCourse(course) {
-            //console.log("course to delete: " + course._id);
+            console.log("course to delete: " + course._id);
             CourseService
-                .deleteCourseById(vm.currentUser._id, course._id)
+                .deleteCourseById(course._id)
                 .then(
                     function(response) {
                         //console.log(vm.courses);

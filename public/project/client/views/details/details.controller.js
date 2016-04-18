@@ -35,7 +35,7 @@
         init();
 
         function updateCourse(course) {
-            console.log("controller update", course);
+            console.log(course);
             CourseService
                 .updateCourseById(course._id, course)
                 .then(
@@ -62,6 +62,11 @@
                         //console.log(vm.courses);
                         vm.courses = response.data;
                         $scope.message = "Course '" + course.title + "' successfully deleted!";
+                        $location.url("/courses");
+                        
+                        $('#deleteCourse').modal('hide');
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
                     },
                     function(err) {
                         vm.error = err;

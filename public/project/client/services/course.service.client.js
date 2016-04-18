@@ -42,9 +42,10 @@
         }
 
         function updateCourseById(courseId, course) {
-            console.log("client update");
-            return $http.put("/api/assignment/form/" + courseId, course);
+            console.log(courseId);
+            return $http.put("/api/project/course/" + courseId, course);
         }
+
         function deleteCourseById(courseId) {
             console.log("client delete", courseId);
             return $http.delete("/api/project/course/" + courseId);

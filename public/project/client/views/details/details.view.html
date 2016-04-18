@@ -3,50 +3,52 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main details">
             <h2>{{model.data.subject}} {{model.data.number}}: {{model.data.title}}</h2>
 
-            <button ng-click="model.saveCourse(course)" class="btn btn-default"><i class="fa fa-star-o"></i><span>Save Course</span></button>
+            <div class="action-buttons">
+                <button ng-click="model.saveCourse(course)" class="btn btn-default"><i class="fa fa-star-o"></i><span>Save</span></button>
 
-            <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span>Edit Course</span></button>
+                <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span>Edit</span></button>
 
-            <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-danger deleteCourseButton" data-toggle="modal" data-target="#deleteCourse"><i class="fa fa-trash-o"></i><span>Delete Course</span></button>
+                <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-danger deleteCourseButton" data-toggle="modal" data-target="#deleteCourse"><i class="fa fa-trash-o"></i><span>Delete</span></button>
+            </div>
 
             <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
 
 
             <div class="row">
                 <div class="col-md-2 detail-label">Subject:</div>
-                <div class="col-md-10">{{model.data.subject}}</div>
+                <div class="col-md-10 detail-info">{{model.data.subject}}</div>
             </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Course Number:</div>
-                <div class="col-md-10">{{model.data.number}}</div>
+                <div class="col-md-10 detail-info">{{model.data.number}}</div>
             </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Title:</div>
-                <div class="col-md-10">{{model.data.title}}</div>
+                <div class="col-md-10 detail-info">{{model.data.title}}</div>
             </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Description:</div>
-                <div class="col-md-10">{{model.data.description}}</div>
+                <div class="col-md-10 detail-info">{{model.data.description}}</div>
             </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Credit Hours:</div>
-                <div class="col-md-10">{{model.data.creditHours}}</div>
+                <div class="col-md-10 detail-info">{{model.data.creditHours}}</div>
             </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Lecture Hours:</div>
-                <div class="col-md-10">{{model.data.lectureHours}}</div>
+                <div class="col-md-10 detail-info">{{model.data.lectureHours}}</div>
             </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Prerequisites:</div>
-                <div class="col-md-10">{{model.data.prereqs}}</div>
+                <div class="col-md-10 detail-info">{{model.data.prereqs}}</div>
             </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Level:</div>
-                <div class="col-md-10">{{model.data.level}}</div>
+                <div class="col-md-10 detail-info">{{model.data.level}}</div>
             </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Type:</div>
-                <div class="col-md-10">{{model.data.type}}</div>
+                <div class="col-md-10 detail-info">{{model.data.type}}</div>
             </div>
 
             <br>
@@ -103,7 +105,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            <button ng-click="model.updateCourse(course)" type="button" class="btn btn-success" data-dismiss="modal">Apply</button>
+                            <button ng-click="model.updateCourse(model.data)" type="button" class="btn btn-success" data-dismiss="modal">Apply</button>
                         </div>
                     </div>
 
@@ -120,7 +122,7 @@
                         </div>
                         <div class="modal-body">
                             <!-- <h3>Are you sure you want to delete this course?</h3> -->
-                            <button ng-click="model.deleteCourse(course)" type="button" class="btn btn-success" data-dismiss="modal">Yes, delete it!</button>
+                            <button ng-click="model.deleteCourse(model.data)" type="button" class="btn btn-success" data-dismiss="modal">Yes, delete it!</button>
 
                             <button type="button" class="btn btn-danger" data-dismiss="modal">No, go back!</button>
                         </div>

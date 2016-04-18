@@ -10,7 +10,7 @@ module.exports = function() {
         description: String,
         creditHours: Number,
         lectureHours: Number,
-        prereqs: [String],
+        prereqs: String,
         level: String,
         type: String,
         likes: [String], // ids of users that like this course

@@ -82,12 +82,12 @@
                             <a ng-click="model.save(course)">
                                 <i class="fa fa-star-o"></i>
                             </a>
-                            <a ng-click="model.updateCourse(course)" ng-show="currentUser.roles.indexOf('admin') >= 0">
+                            <!-- <a ng-show="currentUser.roles.indexOf('admin') >= 0" data-toggle="modal" data-target="#editCourse">
                                 <i class="fa fa-pencil-square-o"></i>
                             </a>
                             <a ng-click="model.deleteCourse(course)" ng-show="currentUser.roles.indexOf('admin') >= 0">
                                 <i class="fa fa-trash-o"></i>
-                            </a>
+                            </a> -->
                         </td>
                     </tr>
                 </tbody>
@@ -138,9 +138,12 @@
                             <button ng-click="model.addCourse(course)" type="button" class="btn btn-success" data-dismiss="modal">Add</button>
                         </div>
                     </div>
-
                 </div>
             </div>
+
+
+
+
 
         </div>
     </div>

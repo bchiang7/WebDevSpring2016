@@ -88,6 +88,7 @@
         }
 
         function updateCourse(course) {
+            console.log(course);
             CourseService
                 .updateCourseById(course._id, course)
                 .then(

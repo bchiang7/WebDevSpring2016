@@ -69,12 +69,11 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function updateCourseById(req, res) {
-        console.log("server course update");
-        // var username = req.params.username;
         var newCourse = req.body;
-        var courseId = newCourse._id;
+        var courseId = newCourse._id
+        // console.log(newCourse);
         CourseModel
-            .updateFormById(courseId, newCourse)
+            .updateCourseById(courseId, newCourse)
             .then(
                 function(doc) {
                     res.send(200);
@@ -86,44 +85,28 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function deleteCourseById(req, res) {
-        // var courseId = req.params.courseId;
-        // console.log("server delete", courseId);
-        // CourseModel
-        //     .deleteCourse(courseId)
-        //     .then(
-        //         function(stats) {
-        //             res.send(200);
-        //         },
-        //         function(err) {
-        //             res.status(400).send(err);
-        //         }
-        //     );
 
         var courseId = req.params.courseId;
 
-        // if (isAdmin(req.session.currentUser)) {
-            console.log("server delete ", courseId);
-            CourseModel
-                .deleteCourse(courseId)
-                .then(
-                    function(course) {
-                        return CourseModel.findAllCourses();
-                    },
-                    function(err) {
-                        res.status(400).send(err);
-                    }
-                );
-                // .then(
-                //     function(courses) {
-                //         res.json(courses);
-                //     },
-                //     function(err) {
-                //         res.status(400).send(err);
-                //     }
-                // );
-        // } else {
-        //     res.status(403);
-        // }
+        // console.log("server delete ", courseId);
+        CourseModel
+            .deleteCourseById(courseId)
+            .then(
+                function(course) {
+                    return CourseModel.findAllCourses();
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(courses) {
+                    res.json(courses);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
 

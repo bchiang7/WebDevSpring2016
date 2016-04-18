@@ -15,8 +15,8 @@ module.exports = function(db) {
         findCourseById: findCourseById,
 
         createCourse: createCourse,
-        updateCourse: updateCourse,
-        deleteCourse: deleteCourse,
+        updateCourseById: updateCourseById,
+        deleteCourseById: deleteCourseById,
 
         // SEARCH
         searchCourseBySubject: searchCourseBySubject,
@@ -31,7 +31,7 @@ module.exports = function(db) {
 
 
     function findAllCourses() {
-        console.log("model find all courses");
+        // console.log("model find all courses");
         var deferred = q.defer();
         Course.find(
             function(err, courses) {
@@ -73,8 +73,7 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function updateCourse(courseId, newCourse) {
-        console.log("model update");
+    function updateCourseById(courseId, newCourse) {
 
         var deferred = q.defer();
 
@@ -91,6 +90,8 @@ module.exports = function(db) {
             "likes": [''],
             "userLikes": ['']
         }
+
+        // console.log(newCourse);
 
         Course.findByIdAndUpdate(courseId, {
                     $set: newCourse
@@ -111,8 +112,8 @@ module.exports = function(db) {
     }
 
 
-    function deleteCourse(courseId) {
-        console.log("model delete", courseId);
+    function deleteCourseById(courseId) {
+        // console.log("model delete", courseId);
         var deferred = q.defer();
         Course
             .remove({

@@ -207,7 +207,7 @@ i.fa.fa-question-circle, i.fa.fa-cog {
 }
 .nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus {
     background: #615445;
-    border-left: 5px solid #615445;
+    border-left: 5px solid #8e2a2a;
     color: #fff;
 }
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
@@ -401,38 +401,43 @@ select.form-control {
 
 /****************** LOGIN PAGE ****************/
 
-a.forgot-password {
-    text-decoration: underline;
+.login .register-link {
     color: #555;
-    margin-left: 10px;
-}
-.register-link {
-    color: #555;
-    /*display: block;*/
-    margin-top: 40px;
+    /*margin-top: 40px;*/
+    margin-left: 30px;
     font-size: 16px;
-}
-.register-link a {
-    text-decoration: underline;
     display: inline-block;
 }
-.login-google {
+.login .register-link a {
+    text-decoration: underline;
+    display: inline-block;
+    color: #CC0000;
+    font-weight: 700;
+}
+@media screen and (max-width: 410px) {
+    .login .register-link {
+        display: block;
+        margin-top: 30px;
+        margin-left: 0;
+    }
+}
+.login .login-google {
     background: #dc4e41;
     color: #eee;
     margin-top: 10px;
 }
-.login-fb {
+.login .login-fb {
     background: #3b5998;
     color: #eee;
     margin-top: 10px;
 }
-.login-google:hover, .login-fb:hover {
+.login .login-google:hover, .login-fb:hover {
     color: #fff;
 }
-.login-google:focus, .login-fb:focus {
+.login .login-google:focus, .login-fb:focus {
     color: #ccc;
 }
-.login-google .fa, .login-fb .fa {
+.login .login-google .fa, .login-fb .fa {
     font-size: 20px;
     vertical-align: bottom;
 }
@@ -446,10 +451,13 @@ p.dashboard-welcome {
     margin-top: 5px;
 }
 .dashboard .schedule-panel, .dashboard .dates-panel {
-    height: 400px;
+    height: 300px;
 }
 .dashboard .exam-panel, .dashboard .grades-panel, .dashboard .advisors-panel {
     height: 300px;
+}
+.dashboard .panel .fa {
+    margin-right: 10px;
 }
 
 /****************** COURSES PAGE ****************/
@@ -530,7 +538,7 @@ p.dashboard-welcome {
         margin: 0;
         margin-bottom: 15px;
     }
-    .details .action-buttons button span, .details .action-buttons button span {
+    .details .action-buttons button span.button-span {
         display: none;
     }
     .details .action-buttons button .fa {

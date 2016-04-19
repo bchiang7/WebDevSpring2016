@@ -1,21 +1,12 @@
 <div ng-controller="CourseController" class="container-fluid">
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main courses">
-            <h1>Courses</h1>
+            <h1>All Courses</h1>
             <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default addCourseButton" data-toggle="modal" data-target="#createCourse"><i class="fa fa-plus"></i>Add New Course</button>
 
             <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
 
-            <!-- <div ng-show="currentUser" class="pull-right search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                    </span>
-                </div>
-            </div> -->
-
-            {{currentUser}}
+            <!-- {{currentUser}} -->
 
             <!-- <span>Ordered By: {{orderByField}}, Reverse Sort: {{reverseSort}}</span> -->
             <table class="table table-hover table-striped table-condensed table-bordered">

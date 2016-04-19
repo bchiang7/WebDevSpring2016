@@ -312,7 +312,7 @@ module.exports = function(app, UserModel, CourseModel) {
                     user.likesCourses = courses;
                     // user.likes = courses;
                     res.json(user);
-                }
+                },
                 // send error if promise rejected
                 function(err) {
                     res.status(400).send(err);

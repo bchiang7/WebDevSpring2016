@@ -87,7 +87,7 @@
 
         // FOR FAVORITED/PROFILE PAGE
         function findUserFavorites() {
-            console.log("client findUserFavorites");
+            // console.log("client findUserFavorites");
             return $http.get("/api/project/favorites/" + $rootScope.currentUser._id);
         }
 

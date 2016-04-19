@@ -2,7 +2,7 @@
     <div class="container-fluid header-container">
 
         <div class="navbar-header">
-            <a class="navbar-brand" href="#/login">
+            <a class="navbar-brand" href="#/dashboard">
                 <img id="northeastern-logo" src="img/northeastern-white.png" />
                 <img id="northeastern-seal" src="img/white-seal.png" />
             </a>
@@ -43,9 +43,9 @@
                 <li ng-class="{'active': $location.url()=='/favorited'}" ng-show="currentUser">
                     <a href="#/favorited"><i class="fa fa-star"></i>Favorited Courses</a>
                 </li>
-                <li ng-class="{'active': $location.url()=='/degree'}" ng-show="currentUser.roles.indexOf('student') >= 0">
+                <!-- <li ng-class="{'active': $location.url()=='/degree'}" ng-show="currentUser.roles.indexOf('student') >= 0">
                     <a href="#/degree"><i class="fa fa-graduation-cap"></i>Degree Tracking</a>
-                </li>
+                </li> -->
                 <li ng-class="{'active': $location.url()=='/profile'}" ng-show="currentUser">
                     <a href="#/profile"><i class="fa fa-user"></i>Profile</a>
                 </li>

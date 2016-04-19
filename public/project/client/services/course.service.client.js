@@ -61,9 +61,6 @@
         }
 
 
-
-
-
         function searchCourseBySubject(subject) {
             return $http.get("/api/project/course/courseSubject");
             // return $http.jsonp("http://www.omdbapi.com/?s="+title+"&callback=JSON_CALLBACK");

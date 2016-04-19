@@ -23,8 +23,6 @@
             //     .then(function(response) {
             //         vm.data = response.data;
             //     });
-
-            console.log("favorited init");
         }
         return init();
     }

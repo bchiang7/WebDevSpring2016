@@ -13,8 +13,9 @@ module.exports = function() {
         prereqs: String,
         level: String,
         type: String,
-        likes: [String], // ids of users that like this course
-        // list of users that like this course
+        // ids of users that like this course
+        likes: [String],
+        // list of users that like this course (use for details page)
         userLikes: [
             {username: String}
         ]

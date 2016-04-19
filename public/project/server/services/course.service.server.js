@@ -10,7 +10,7 @@ module.exports = function(app, UserModel, CourseModel) {
     app.get("/api/project/search/:courseTitle", searchCourseByTitle);
 
     app.post("/api/project/user/:userId/course/:courseId", favoriteCourse);
-    app.get("/api/project/course/:courseId/user", findUserLikes);
+    app.get("/api/project/course/:courseId/user", findUsersWhoLikeCourse);
 
 
     function findAllCourses(req, res) {
@@ -112,35 +112,36 @@ module.exports = function(app, UserModel, CourseModel) {
 
 
     function favoriteCourse(req, res) {
-        console.log("server fav");
-        var favCourse = req.body;
+        var course = req.body;
         var userId = req.params.userId;
         var courseId = req.params.courseId;
         var course;
 
-        CourseModel
-            .favoriteCourse(userId, favCourse)
-            // add user to course likes
+        console.log("server fav");
+
+        CourseModel.favoriteCourse(userId, course)
+            // add USER to COURSE likes
             .then(
-                function(course) {
-                    return CourseModel.favoriteCourse(userId, course);
+                function (course) {
+                    return UserModel.favoriteCourse(userId, course);
                 },
-                function(err) {
+                function (err) {
                     res.status(400).send(err);
                 }
             )
-            // add course to user likes
+            // add COURSE to USER likes
             .then(
-                function(user) {
+                function (user) {
                     res.json(user);
                 },
-                function(err) {
+                function (err) {
                     res.status(400).send(err);
                 }
             );
     }
+    
 
-    function findUserLikes(req, res) {
+    function findUsersWhoLikeCourse(req, res) {
         var courseID = req.params.courseID;
 
         var course = null;

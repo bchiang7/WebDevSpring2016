@@ -11,7 +11,11 @@
         vm.update = update;
         vm.remove = remove;
 
-        function init() {}
+        function init() {
+            UserService
+                .findUserById(vm.currentUser._id)
+                .then(handleSuccess, handleError);
+        }
         init();
 
         if (!vm.currentUser) {
@@ -53,13 +57,13 @@
                 );
         }
 
-        // function handleSuccess(response) {
-        //     $scope.users = response.data;
-        // }
-        //
-        // function handleError(error) {
-        //     $scope.error = error;
-        // }
+        function handleSuccess(response) {
+            $scope.users = response.data;
+        }
+
+        function handleError(error) {
+            $scope.error = error;
+        }
 
     }
 

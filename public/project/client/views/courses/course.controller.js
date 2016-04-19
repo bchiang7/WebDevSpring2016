@@ -17,7 +17,9 @@
         vm.deleteCourse = deleteCourse;
         vm.favoriteCourse = favoriteCourse;
 
-        vm.currentUser = $rootScope.currentUser;
+        vm.like = false;
+
+        var currentUser = $rootScope.currentUser;
 
         $scope.course = {};
 
@@ -40,8 +42,8 @@
 
 
         function addCourse(course) {
-            console.log(course);
-            // var userId = vm.currentUser._id;
+            // console.log(course);
+            // var userId = currentUser._id;
             var course = vm.newCourse; // starts out null
 
             var course = {
@@ -58,7 +60,7 @@
                 "userLikes": ['']
             };
 
-            console.log(course);
+            // console.log(course);
 
             CourseService
                 .createCourse(course)
@@ -97,7 +99,7 @@
                         if (response.data) {
                             vm.course = response.data;
                             $scope.message = "Course updated successfully!";
-                            //UserService.setCurrentUser(vm.currentUser);
+                            //UserService.setCurrentUser(currentUser);
                         }
                     },
                     function(err) {
@@ -125,16 +127,22 @@
         }
 
         function favoriteCourse(course) {
-            console.log(course);
-            if (currentUser) {
-                vm.course.likes = [];
-                vm.course.likes.push(currentUser._id);
 
-                MovieService.favoriteCourse(currentUser._id, course);
+            if (currentUser) {
+
+                console.log(course);
+
+                course.likes = [];
+                course.likes.push(currentUser);
+
+                CourseService.favoriteCourse(currentUser._id, course);
+
+                vm.like = true;
 
             } else {
                 $location.url("/login");
             }
+
         }
     }
 })();

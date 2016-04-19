@@ -4,9 +4,11 @@
             <h2>{{model.data.subject}} {{model.data.number}}: {{model.data.title}}</h2>
 
             <div class="action-buttons">
-                <button ng-click="model.favoriteCourse(course)" class="btn btn-default">
-                    <span ng-show="model.course.likes.indexOf(currentUser._id) > -1" class="fa fa-star"></span>
-                    <span ng-show="!model.course || !model.course.likes || model.course.likes.indexOf(currentUser._id) == -1" class="fa fa-star-o"></span>
+                <button ng-click="model.favoriteCourse(model.data)" class="btn btn-default">
+                    <!-- <span ng-show="model.course.likes.indexOf(currentUser._id) > -1" class="fa fa-star"></span> -->
+                    <span ng-show="model.like" class="fa fa-star"></span>
+                    <!-- <span ng-show="!model.course || !model.course.likes || model.course.likes.indexOf(currentUser._id) == -1" class="fa fa-star-o"></span> -->
+                    <span ng-show="!model.like" class="fa fa-star-o"></span>
                     <span>Save</span>
                 </button>
 

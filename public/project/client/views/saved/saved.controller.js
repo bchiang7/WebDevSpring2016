@@ -3,11 +3,21 @@
         .module("CourseApp")
         .controller("SavedController", SavedController);
 
-    function SavedController($scope, $location, CourseService) {
+    function SavedController(UserService, CourseService, $rootScope, $scope, $location, $routeParams) {
+        var vm = this;
+        vm.currentUser = $rootScope.currentUser;
 
-        // $scope.courses = CourseService.findAllCourses();
-
+        function init() {
+            CourseService
+                .findCoursesLikedByUser(vm.currentUser)
+                .then(
+                    function(response) {
+                        // vm.profile = response.data;
+                        console.log("saved controller response");
+                    }
+                );
+        }
+        return init();
     }
-
 
 })();

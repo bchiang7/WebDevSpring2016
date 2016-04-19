@@ -16,8 +16,8 @@
 
             // SAVED COURSES
             favoriteCourse: favoriteCourse,
-            findUserLikes: findUserLikes,
-            findAllCoursesLikedByUser: findAllCoursesLikedByUser,
+            findUsersWhoLikeCourse: findUsersWhoLikeCourse,
+            // findCoursesLikedByUser: findCoursesLikedByUser,
 
             // SEARCH
             searchCourseBySubject: searchCourseBySubject,
@@ -41,7 +41,7 @@
         }
 
         function updateCourseById(courseId, course) {
-            console.log(courseId);
+            // console.log(courseId);
             return $http.put("/api/project/course/" + courseId, course);
         }
 
@@ -52,17 +52,16 @@
 
 
         function favoriteCourse(userId, course) {
-            console.log(userId, course);
+            console.log("client fav");
             return $http.post("/api/project/user/" + userId + "/course/" + course._id, course);
         }
 
-        function findUserLikes(courseID) {
+        // FOR DETAILS PAGE
+        function findUsersWhoLikeCourse(courseID) {
             return $http.get("/api/project/course/" + courseID + "/user");
         }
 
-        function findAllCoursesLikedByUser(user) {
-            // return $http.get("/api/project/user/" + userId + "/course/" + course.courseID, course);
-        }
+
 
 
 

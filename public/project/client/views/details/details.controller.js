@@ -8,6 +8,8 @@
         var courseId = $routeParams.courseID;
         var currentUser = $rootScope.currentUser;
 
+        vm.like = false;
+
         // console.log(courseId);
 
         $scope.course = {};
@@ -20,7 +22,7 @@
 
         function init() {
             CourseService
-                .findUserLikes(courseId)
+                .findUsersWhoLikeCourse(courseId)
                 .then(
                     function(response) {
                         vm.course = response.data;
@@ -35,7 +37,7 @@
         init();
 
         function updateCourse(course) {
-            console.log(course);
+            // console.log(course);
             CourseService
                 .updateCourseById(course._id, course)
                 .then(
@@ -76,12 +78,14 @@
         }
 
         function favoriteCourse(course) {
-            console.log(course);
+            // console.log(course);
             if (currentUser) {
                 vm.course.likes = [];
-                vm.course.likes.push(currentUser._id);
+                vm.course.likes.push(currentUser);
 
-                MovieService.favoriteCourse(currentUser._id, course);
+                CourseService.favoriteCourse(currentUser._id, course);
+
+                vm.like = true;
 
             } else {
                 $location.url("/login");

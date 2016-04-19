@@ -15,9 +15,8 @@ module.exports = function() {
         roles: [String],
         // ids of courses this user likes
         likes: [String],
-        // courses this user likes
+        // list of courses this user likes (use to display user's saved courses)
         likesCourses: [CourseSchema],
-        // collection property sets
         // collection name to 'user'
     }, {collection: 'project.user'});
     return UserSchema;

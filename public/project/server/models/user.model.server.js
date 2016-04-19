@@ -9,19 +9,6 @@ module.exports = function(db) {
     var User = mongoose.model('User', UserSchema);
 
     var api = {
-        // findAllUsers: findAllUsers,
-        // findUserByUsername: findUserByUsername,
-        // findUserByCredentials: findUserByCredentials,
-        //
-        // createUser: createUser,
-        // updateUser: updateUser,
-        // deleteUser: deleteUser,
-        //
-        // findUserById: findUserById,
-        // findUsersByIds: findUsersByIds,
-        // userLikesCourse: userLikesCourse
-
-
         findAllUsers: findAllUsers,
         findUserById: findUserById,
         findUserByUsername: findUserByUsername,
@@ -34,7 +21,7 @@ module.exports = function(db) {
         updateUser: updateUser,
         deleteUser: deleteUser,
 
-        userLikesCourse: userLikesCourse
+        favoriteCourse: favoriteCourse
     };
     return api;
 
@@ -116,7 +103,7 @@ module.exports = function(db) {
 
 
     function createUser(user) {
-        console.log("model createUser");
+        // console.log("model createUser");
         // use q to defer the response
         var deferred = q.defer();
         // insert new user with mongoose user model's create()
@@ -153,7 +140,7 @@ module.exports = function(db) {
     // }
 
     function updateUser(userId, user) {
-        console.log("model update");
+        // console.log("model update");
         return User.update({
             _id: userId
         }, {
@@ -179,14 +166,15 @@ module.exports = function(db) {
     // }
 
     function deleteUser(userId) {
-        console.log("model delete ", userId);
+        // console.log("model delete ", userId);
         return User.remove({
             _id: userId
         });
     }
 
     // add course to user likes
-    function userLikesCourse(userId, course) {
+    function favoriteCourse(userId, course) {
+        // console.log("user model fav");
         var deferred = q.defer();
         // find the user
         User.findById(userId, function(err, doc) {
@@ -194,8 +182,8 @@ module.exports = function(db) {
             if (err) {
                 deferred.reject(err);
             } else {
-                // add course id to user likes
-                doc.likes.push(course.courseID);
+                // add course id to list of courses user has favorited
+                doc.likes.push(course._id);
                 // save user
                 doc.save(function(err, doc) {
                     if (err) {

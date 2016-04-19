@@ -24,6 +24,8 @@ module.exports = function(app, UserModel, CourseModel) {
     app.delete("/api/project/user/:id", deleteUser);
     // app.get("/api/project/profile/:userId", profile);
 
+    // app.get("/api/project/user/:user")
+
 
     function login(req, res) {
         var credentials = req.body;
@@ -60,7 +62,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
     function register(req, res) {
         console.log("server register");
-        
+
         var newUser = req.body;
         newUser.roles = ['student'];
         // newUser.roles = ['admin'];

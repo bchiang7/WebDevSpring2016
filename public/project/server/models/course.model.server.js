@@ -20,7 +20,7 @@ module.exports = function(db) {
 
         // SAVED COURSES
         favoriteCourse: favoriteCourse,
-        findAllCoursesLikedByUser: findAllCoursesLikedByUser,
+        findCoursesLikedByUser: findCoursesLikedByUser,
 
         // SEARCH
         searchCourseBySubject: searchCourseBySubject,
@@ -127,11 +127,10 @@ module.exports = function(db) {
 
     function favoriteCourse(userId, course) {
         var deferred = q.defer();
+        // console.log("course model fav");
 
         // find the course by imdb ID
-        Course.findOne({
-                courseID: course._id
-            },
+        Course.findOne({_id: course._id},
 
             function(err, doc) {
                 // reject promise if error
@@ -140,7 +139,7 @@ module.exports = function(db) {
                 }
                 // if there's a course
                 if (doc) {
-                    // add user to likes
+                    // add user to list of users who like course
                     doc.likes.push(userId);
                     // save changes
                     doc.save(function(err, doc) {
@@ -153,13 +152,23 @@ module.exports = function(db) {
                 } else {
                     // if there's no course, create a new instance
                     course = new Course({
-                        courseID: course.courseID,
-                        title: course.Title,
-                        poster: course.Poster,
+                        subject: course.subject,
+                        number: course.number,
+                        title: course.title,
+                        description: course.description,
+                        creditHours: course.creditHours,
+                        lectureHours: course.lectureHours,
+                        prereqs: course.prereqs,
+                        level: course.level,
+                        type: course.type,
                         likes: []
                     });
-                    // add user to likes
+
+                    // console.log("IN COURSE MODEL FAVORITE COURSE", course);
+
+                    // add user to list of users who like course
                     course.likes.push(userId);
+
                     // save new instance
                     course.save(function(err, doc) {
                         if (err) {
@@ -173,7 +182,7 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function findAllCoursesLikedByUser(user) {
+    function findCoursesLikedByUser(user) {
         console.log("find all courses liked by a certain user");
     }
 

@@ -24,7 +24,9 @@
 
             login: login,
             logout: logout,
-            register: register
+            register: register,
+
+            findCoursesLikedByUser: findCoursesLikedByUser
 
         };
         return api;
@@ -83,6 +85,10 @@
             return $http.post("/api/project/register", user);
         }
 
+        // FOR SAVED/PROFILE PAGE
+        function findCoursesLikedByUser(userId) {
+            // return $http.get("/api/project/user/" + userId);
+        }
 
     }
 })();

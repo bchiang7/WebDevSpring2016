@@ -57,17 +57,17 @@
         }
 
         function createUser(user) {
-            console.log("client create");
+            // console.log("client create");
             return $http.post("/api/project/user", user);
         }
 
         function updateUser(userId, user) {
-            console.log("client update");
+            // console.log("client update");
             return $http.put('/api/project/user/' + userId, user);
         }
 
         function deleteUser(userId) {
-            console.log("client delete");
+            // console.log("client delete");
             return $http.delete('/api/project/user/' + userId);
         }
 
@@ -81,13 +81,15 @@
         }
 
         function register(user) {
-            console.log("client register");
+            // console.log("client register");
             return $http.post("/api/project/register", user);
         }
 
         // FOR SAVED/PROFILE PAGE
-        function findCoursesLikedByUser(userId) {
+        function findCoursesLikedByUser(user) {
             // return $http.get("/api/project/user/" + userId);
+            // console.log("client find courses liked by user", user);
+            return $http.get("/api/project/user/saved/" + user._id);
         }
 
     }

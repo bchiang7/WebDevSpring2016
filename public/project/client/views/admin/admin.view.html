@@ -37,6 +37,7 @@
                         <th>Email</th>
                         <th>NU ID</th>
                         <th>Role(s)</th>
+                        <th>Likes</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -65,6 +66,9 @@
                             <input ng-model="user.roles" class="form-control" id="input-roles" placeholder="Role" />
                         </td>
                         <td>
+                            <input ng-model="user.likes" class="form-control" id="input-roles" placeholder="" />
+                        </td>
+                        <td>
                             <a ng-click="add(user)"><span class="glyphicon glyphicon-plus"></span></a>
                             <a ng-click="update(user)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
                         </td>
@@ -78,6 +82,7 @@
                         <td>{{user.email}}</td>
                         <td>{{user.nuid}}</td>
                         <td>{{user.roles}}</td>
+                        <td>{{user.likes}}</td>
                         <td>
                             <a ng-click="remove(user)"><span class="glyphicon glyphicon-remove"></span></a>
                             <a ng-click="select(user)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>

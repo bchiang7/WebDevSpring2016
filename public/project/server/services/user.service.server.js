@@ -22,7 +22,7 @@ module.exports = function(app, UserModel, CourseModel) {
     app.post("/api/project/user", createUser);
     app.put("/api/project/user/:id", updateUser);
     app.delete("/api/project/user/:id", deleteUser);
-    // app.get("/api/project/profile/:userId", profile);
+    app.get("/api/project/user/saved/:userId", findCoursesLikedByUser);
 
     // app.get("/api/project/user/:user")
 
@@ -284,37 +284,38 @@ module.exports = function(app, UserModel, CourseModel) {
         }
     }
 
-    // function profile(req, res) {
-    //     var userId = req.params.userId;
-    //     var user = null;
-    //
-    //     // use model to find user by id
-    //     UserModel.findUserById(userId)
-    //         .then(
-    //             // first retrieve the user by user id
-    //             function(doc) {
-    //                 user = doc;
-    //                 // fetch courses this user likes
-    //                 return CourseModel.findCoursesByCourseIDs(doc.likes);
-    //             },
-    //             // reject promise if error
-    //             function(err) {
-    //                 res.status(400).send(err);
-    //             }
-    //         )
-    //         .then(
-    //             // fetch courses this user likes
-    //             function(courses) {
-    //                 // list of courses this user likes
-    //                 // courses are not stored in database
-    //                 // only added for UI rendering
-    //                 user.likesCourses = courses;
-    //                 res.json(user);
-    //             },
-    //             // send error if promise rejected
-    //             function(err) {
-    //                 res.status(400).send(err);
-    //             }
-    //         );
-    // }
+    function findCoursesLikedByUser(req, res) {
+        console.log("in service findCoursesLikedByUser");
+        var userId = req.params.userId;
+        var user = null;
+
+        // use model to find user by id
+        UserModel.findUserById(userId)
+            .then(
+                // first retrieve the user by user id
+                function(doc) {
+                    user = doc;
+                    // fetch courses this user likes
+                    return CourseModel.findCoursesByCourseIDs(doc.likes);
+                },
+                // reject promise if error
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                // fetch courses this user likes
+                function(courses) {
+                    // list of courses this user likes
+                    // courses are not stored in database
+                    // only added for UI rendering
+                    user.likesCourses = courses;
+                    res.json(user);
+                },
+                // send error if promise rejected
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
 }

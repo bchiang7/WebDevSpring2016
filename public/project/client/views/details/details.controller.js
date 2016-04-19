@@ -80,12 +80,29 @@
         function favoriteCourse(course) {
             // console.log(course);
             if (currentUser) {
-                vm.course.likes = [];
-                vm.course.likes.push(currentUser);
+                // if currentUser's array of courses liked DOES NOT have this course,
+                // then add it to the currentUser's array of courses liked
+                // aka IF EMPTY STAR, THEN FAVORITE COURSE
+                if (currentUser.likes.indexOf(currentUser._id) == -1) {
 
-                CourseService.favoriteCourse(currentUser._id, course);
+                    vm.course.likes = [];
+                    vm.course.likes.push(currentUser);
 
-                vm.like = true;
+                    CourseService.favoriteCourse(currentUser._id, course);
+                    vm.like = true;
+                    console.log("details controller favorited");
+                }
+                // if currentUser's array of courses liked has this course,
+                // then add it to the currentUser's array of courses liked
+                // aka IF FILLED IN STAR, THEN UNFAVORITE COURSE
+                // else if (currentUser.likes.indexOf(currentUser._id) > -1) {
+                //
+                //     vm.course.likes.splice(currentUser);
+                //
+                //     console.log("unfavorited");
+                // }
+
+
 
             } else {
                 $location.url("/login");

@@ -15,7 +15,7 @@
                 </div>
             </div> -->
 
-            <!-- {{currentUser.likesCourses}} -->
+            {{currentUser}}
 
             <!-- <span>Ordered By: {{orderByField}}, Reverse Sort: {{reverseSort}}</span> -->
             <table class="table table-hover table-striped table-condensed table-bordered">
@@ -82,10 +82,19 @@
                                 <i class="fa fa-book"></i>
                             </a> -->
                             <a ng-click="model.favoriteCourse(course)">
-                                <!-- <span ng-show="model.course.likes.indexOf(currentUser._id) > -1" class="fa fa-star"></span> -->
-                                <span ng-show="model.like" class="fa fa-star"></span>
-                                <!-- <span ng-show="!model.course || !model.course.likes || model.course.likes.indexOf(currentUser._id) == -1" class="fa fa-star-o"></span> -->
-                                <span ng-show="!model.like" class="fa fa-star-o"></span>
+                                <span ng-show="course.likes.indexOf(currentUser._id) > -1"><i class="fa fa-star"></i></span>
+                                <span ng-show="course.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i></span>
+                                <!-- <span ng-show="!course.likes || course.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i></span> -->
+                                <!-- <span ng-show="model.like" class="fa fa-star"></span> -->
+                                <!-- <span ng-show="!model.like" class="fa fa-star-o"></span> -->
+                            </a>
+
+                            <a ng-click="model.favoriteCourse(course)">
+                                <span ng-show="course.likes.indexOf(currentUser._id) > -1"><i class="fa fa-star"></i></span>
+                                <span ng-show="course.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i></span>
+                                <!-- <span ng-show="!course.likes || course.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i></span> -->
+                                <!-- <span ng-show="model.like" class="fa fa-star"></span> -->
+                                <!-- <span ng-show="!model.like" class="fa fa-star-o"></span> -->
                             </a>
 
                             <!-- <a ng-show="currentUser.roles.indexOf('admin') >= 0" data-toggle="modal" data-target="#editCourse">

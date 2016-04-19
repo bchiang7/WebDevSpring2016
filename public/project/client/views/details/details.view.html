@@ -5,11 +5,11 @@
 
             <div class="action-buttons">
                 <button ng-click="model.favoriteCourse(model.data)" class="btn btn-default">
-                    <!-- <span ng-show="model.course.likes.indexOf(currentUser._id) > -1" class="fa fa-star"></span> -->
-                    <span ng-show="model.like" class="fa fa-star"></span>
-                    <!-- <span ng-show="!model.course || !model.course.likes || model.course.likes.indexOf(currentUser._id) == -1" class="fa fa-star-o"></span> -->
-                    <span ng-show="!model.like" class="fa fa-star-o"></span>
-                    <span>Save</span>
+                    <span ng-show="model.data.likes.indexOf(currentUser._id) > -1"><i class="fa fa-star"></i>Saved</span>
+                    <span ng-show="!model.data.likes || model.data.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i>Save</span>
+                    <!-- <span ng-show="model.like" class="fa fa-star"></span> -->
+                    <!-- <span ng-show="!model.like" class="fa fa-star-o"></span> -->
+                    <!-- <span>Save</span> -->
                 </button>
 
                 <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span>Edit</span></button>
@@ -19,7 +19,12 @@
 
             <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
 
+            {{currentUser}}
 
+            <div class="row">
+                <div class="col-md-2 detail-label">Course ID:</div>
+                <div class="col-md-10 detail-info">{{model.data._id}}</div>
+            </div>
             <div class="row">
                 <div class="col-md-2 detail-label">Subject:</div>
                 <div class="col-md-10 detail-info">{{model.data.subject}}</div>
@@ -57,12 +62,17 @@
                 <div class="col-md-10 detail-info">{{model.data.type}}</div>
             </div>
 
+            <div class="row">
+                <div class="col-md-2 detail-label">Users Who Like This Course:</div>
+                <div class="col-md-10 detail-info">{{model.data.likes}}</div>
+            </div>
+
             <br>
             <!-- <div ng-if="model.course.userLikes"> -->
             <div>
                 <p class="detail-label">Other users that have favorited this course:</p>
                 <ul>
-                    <li ng-repeat="user in model.course.userLikes">
+                    <li ng-repeat="user in model.data.userLikes">
                         <a href="#/profile/{{user.username}}">
                 {{user.username}}
             </a>

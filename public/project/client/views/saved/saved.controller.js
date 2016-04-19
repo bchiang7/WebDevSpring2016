@@ -5,15 +5,15 @@
 
     function SavedController(UserService, CourseService, $rootScope, $scope, $location, $routeParams) {
         var vm = this;
-        vm.currentUser = $rootScope.currentUser;
+        var currentUser = $rootScope.currentUser;
 
         function init() {
-            CourseService
-                .findCoursesLikedByUser(vm.currentUser)
+            UserService
+                .findCoursesLikedByUser(currentUser)
                 .then(
                     function(response) {
-                        // vm.profile = response.data;
-                        console.log("saved controller response");
+                        vm.data = response.data;
+                        console.log(vm.data);
                     }
                 );
         }

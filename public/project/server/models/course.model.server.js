@@ -130,7 +130,9 @@ module.exports = function(db) {
         // console.log("course model fav");
 
         // find the course by imdb ID
-        Course.findOne({_id: course._id},
+        Course.findOne({
+                _id: course._id
+            },
 
             function(err, doc) {
                 // reject promise if error
@@ -182,10 +184,49 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
+    ////////////////////////////////////////////////////
+
     function findCoursesLikedByUser(user) {
-        console.log("find all courses liked by a certain user");
+        var deferred = q.defer();
+        console.log("course model findCoursesLikedByUser");
+
+        // find all courses whose course IDs are in imdbIDs array
+        Course.find({
+            imdbID: {
+                $in: likes // ?????????
+            }
+        }, function(err, movies) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(movies);
+            }
+        })
+        return deferred.promise;
     }
 
+    function findMoviesByImdbIDs(imdbIDs) {
+
+        var deferred = q.defer();
+
+        // find all movies
+        // whose imdb IDs
+        // are in imdbIDs array
+        Movie.find({
+            imdbID: {
+                $in: imdbIDs
+            }
+        }, function(err, movies) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(movies);
+            }
+        })
+        return deferred.promise;
+    }
+
+    ////////////////////////////////////////////////////
 
     function searchCourseBySubject(subject) {
         console.log('search by subject');

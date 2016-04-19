@@ -33,8 +33,8 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody ng-if="model.user.likesCourses.length">
-                    <tr ng-repeat="course in model.user.likesCourses|orderBy:orderByField:reverseSort">
+                <tbody ng-if="model.currentUser.likes.length">
+                    <tr ng-repeat="course in model.currentUser.likes|orderBy:orderByField:reverseSort">
                         <td>
                             <a href="#">{{course.subject}}</a>
                         </td>

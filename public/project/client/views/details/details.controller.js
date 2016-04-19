@@ -18,6 +18,7 @@
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
         vm.favoriteCourse = favoriteCourse;
+        vm.unfavoriteCourse = unfavoriteCourse;
 
 
         function init() {
@@ -78,31 +79,35 @@
         }
 
         function favoriteCourse(course) {
-            // console.log(course);
+            console.log(course);
             if (currentUser) {
                 // if currentUser's array of courses liked DOES NOT have this course,
                 // then add it to the currentUser's array of courses liked
                 // aka IF EMPTY STAR, THEN FAVORITE COURSE
-                if (currentUser.likes.indexOf(currentUser._id) == -1) {
-
-                    vm.course.likes = [];
-                    vm.course.likes.push(currentUser);
+                if (currentUser.likes.indexOf(currentUser._id) < 0) {
+                    course.likes = [];
+                    course.likes.push(currentUser);
 
                     CourseService.favoriteCourse(currentUser._id, course);
                     vm.like = true;
                     console.log("details controller favorited");
                 }
+            } else {
+                $location.url("/login");
+            }
+        }
+
+        function unfavoriteCourse(course) {
+            if (currentUser) {
                 // if currentUser's array of courses liked has this course,
                 // then add it to the currentUser's array of courses liked
                 // aka IF FILLED IN STAR, THEN UNFAVORITE COURSE
-                // else if (currentUser.likes.indexOf(currentUser._id) > -1) {
-                //
-                //     vm.course.likes.splice(currentUser);
-                //
-                //     console.log("unfavorited");
-                // }
 
+                course.likes = [];
+                course.likes.splice(currentUser);
+                CourseService.unfavoriteCourse(currentUser._id, course);
 
+                console.log("unfavorite");
 
             } else {
                 $location.url("/login");

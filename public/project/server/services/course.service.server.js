@@ -10,6 +10,7 @@ module.exports = function(app, UserModel, CourseModel) {
     app.get("/api/project/search/:courseTitle", searchCourseByTitle);
 
     app.post("/api/project/user/:userId/course/:courseId", favoriteCourse);
+    app.post("/api/project/user/:userId/course/:courseId/unfavorite", unfavoriteCourse);
     app.get("/api/project/course/:courseId/user", findUsersWhoLikeCourse);
 
 
@@ -140,6 +141,35 @@ module.exports = function(app, UserModel, CourseModel) {
             );
     }
 
+    function unfavoriteCourse(req, res) {
+        var course = req.body;
+        var userId = req.params.userId;
+        var courseId = req.params.courseId;
+        var course;
+
+        console.log("server unfav");
+
+        CourseModel.unfavoriteCourse(userId, course)
+            // remove USER from array of users who like the COURSE
+            .then(
+                function(course) {
+                    return UserModel.unfavoriteCourse(userId, course);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            // remove COURSE from array of courses a user likes
+            .then(
+                function(user) {
+                    res.json(user);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
 
     function findUsersWhoLikeCourse(req, res) {
         var courseId = req.params.courseId;
@@ -150,7 +180,7 @@ module.exports = function(app, UserModel, CourseModel) {
                 function(doc) {
                     course = doc;
                     if (doc) {
-                        // console.log(course.likes);
+                        console.log("In doc");
                         return UserModel.findUsersByIds(course.likes);
                     } else {
                         res.json({});

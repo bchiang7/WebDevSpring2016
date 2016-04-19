@@ -15,6 +15,7 @@
 
             // FAVORITED COURSES
             favoriteCourse: favoriteCourse,
+            unfavoriteCourse: unfavoriteCourse,
             findUsersWhoLikeCourse: findUsersWhoLikeCourse,
             // findUserFavorites: findUserFavorites,
 
@@ -53,6 +54,11 @@
         function favoriteCourse(userId, course) {
             console.log("client fav");
             return $http.post("/api/project/user/" + userId + "/course/" + course._id, course);
+        }
+
+        function unfavoriteCourse(userId, course) {
+            console.log("client unfav");
+            return $http.post("/api/project/user/" + userId + "/course/" + course._id + "/unfavorite", course);
         }
 
         // FOR DETAILS PAGE

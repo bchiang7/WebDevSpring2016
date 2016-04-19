@@ -20,6 +20,7 @@ module.exports = function(db) {
 
         // FAVORITED COURSES
         favoriteCourse: favoriteCourse,
+        unfavoriteCourse: unfavoriteCourse,
         // findUserFavorites: findUserFavorites,
         findCoursesByCourseIDs: findCoursesByCourseIDs,
 
@@ -58,6 +59,28 @@ module.exports = function(db) {
                     deferred.reject(err);
                 }
             });
+        return deferred.promise;
+    }
+
+
+    function findCoursesByCourseIDs(courseIDs) {
+
+        console.log(courseIDs);
+
+        var deferred = q.defer();
+
+        // find all courses whose course IDs are in courseIDs array
+        Course.find({
+            _id: {
+                $in: courseIDs
+            }
+        }, function(err, courses) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(courses);
+            }
+        })
         return deferred.promise;
     }
 
@@ -132,7 +155,9 @@ module.exports = function(db) {
         // console.log("course model fav");
 
         // find the course by course ID
-        Course.findOne({_id: course._id},
+        Course.findOne({
+                _id: course._id
+            },
             function(err, doc) {
                 // reject promise if error
                 if (err) {
@@ -184,25 +209,65 @@ module.exports = function(db) {
     }
 
 
-    function findCoursesByCourseIDs(courseIDs) {
+    function unfavoriteCourse(userId, course) {
         var deferred = q.defer();
+        // console.log("course model fav");
 
-        console.log(courseIDs);
+        // find the course by course ID
+        Course.findOne({
+                _id: course._id
+            },
+            function(err, doc) {
+                // reject promise if error
+                if (err) {
+                    deferred.reject(err);
+                }
+                // if there's a course
+                if (doc) {
+                    // add user to list of users who like course
+                    doc.likes.splice(userId);
+                    // save changes
+                    doc.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                } else {
+                    // if there's no course, create a new instance
+                    course = new Course({
+                        subject: course.subject,
+                        number: course.number,
+                        title: course.title,
+                        description: course.description,
+                        creditHours: course.creditHours,
+                        lectureHours: course.lectureHours,
+                        prereqs: course.prereqs,
+                        level: course.level,
+                        type: course.type,
+                        likes: []
+                    });
 
-        // find all courses whose course IDs are in courseIDs array
-        Course.find({
-            _id: {$in: courseIDs}
-        }, function(err, courses) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(courses);
-            }
-        })
+                    // console.log("IN COURSE MODEL FAVORITE COURSE", course);
+
+                    // remove user to list of users who like course
+                    course.likes.splice(userId);
+
+                    // save new instance
+                    course.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                }
+            });
         return deferred.promise;
     }
 
-    ////////////////////////////////////////////////////
+
 
     function searchCourseBySubject(subject) {
         console.log('search by subject');

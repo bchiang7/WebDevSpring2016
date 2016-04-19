@@ -22,7 +22,8 @@ module.exports = function(db) {
         updateUser: updateUser,
         deleteUser: deleteUser,
 
-        favoriteCourse: favoriteCourse
+        favoriteCourse: favoriteCourse,
+        unfavoriteCourse: unfavoriteCourse
     };
     return api;
 
@@ -58,15 +59,17 @@ module.exports = function(db) {
         // return User.findById(userId);
     }
 
-    function findUsersByIds (userIds) {
+    function findUsersByIds(userIds) {
         var deferred = q.defer();
 
-        // console.log("model findUsersByIds", userIds);
+        console.log("model findUsersByIds", userIds);
 
         // find all users in array of user IDs
         User.find({
-            _id: {$in: userIds}
-        }, function (err, users) {
+            _id: {
+                $in: userIds
+            }
+        }, function(err, users) {
             if (err) {
                 deferred.reject(err);
             } else {
@@ -204,6 +207,32 @@ module.exports = function(db) {
             } else {
                 // add course id to list of courses user has favorited
                 doc.likes.push(course._id);
+                // save user
+                doc.save(function(err, doc) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        // resolve promise with user
+                        deferred.resolve(doc);
+                    }
+                });
+            }
+        });
+        return deferred;
+    }
+
+    // remove course from user likes
+    function unfavoriteCourse(userId, course) {
+        // console.log("user model fav");
+        var deferred = q.defer();
+        // find the user
+        User.findById(userId, function(err, doc) {
+            // reject promise if error
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // add course id to list of courses user has favorited
+                doc.likes.splice(course._id);
                 // save user
                 doc.save(function(err, doc) {
                     if (err) {

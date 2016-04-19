@@ -4,13 +4,13 @@
             <h2>{{model.data.subject}} {{model.data.number}}: {{model.data.title}}</h2>
 
             <div class="action-buttons">
-                <button ng-click="model.favoriteCourse(model.data)" class="btn btn-default">
-                    <span ng-show="model.data.likes.indexOf(currentUser._id) > -1"><i class="fa fa-star"></i><span class="button-span">Favorited</span></span>
-                    <span ng-show="!model.data.likes || model.data.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i><span class="button-span">Favorite</span></span>
-                    <!-- <span ng-show="model.like" class="fa fa-star"></span> -->
-                    <!-- <span ng-show="!model.like" class="fa fa-star-o"></span> -->
-                    <!-- <span>Save</span> -->
+                <button ng-show="model.data.likes.indexOf(currentUser._id) < 0" ng-click="model.favoriteCourse(model.data)" class="btn btn-default">
+                    <i class="fa fa-star-o"></i><span class="button-span">Favorite</span>
                 </button>
+                <button ng-click="model.unfavoriteCourse(model.data)" ng-show="model.data.likes.indexOf(currentUser._id) > -1" class="btn btn-default">
+                    <i class="fa fa-star"></i><span class="button-span">Unfavorite</span>
+                </button>
+
 
                 <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span class="button-span">Edit</span></button>
 

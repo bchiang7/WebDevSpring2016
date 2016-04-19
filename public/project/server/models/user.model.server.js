@@ -11,6 +11,7 @@ module.exports = function(db) {
     var api = {
         findAllUsers: findAllUsers,
         findUserById: findUserById,
+        findUsersByIds: findUsersByIds,
         findUserByUsername: findUserByUsername,
         findUserByCredentials: findUserByCredentials,
 
@@ -55,6 +56,25 @@ module.exports = function(db) {
         return deferred.promise;
 
         // return User.findById(userId);
+    }
+
+    function findUsersByIds (userIds) {
+        var deferred = q.defer();
+
+        // console.log("model findUsersByIds", userIds);
+
+        // find all users in array of user IDs
+        User.find({
+            _id: {$in: userIds}
+        }, function (err, users) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(users);
+            }
+        });
+
+        return deferred.promise;
     }
 
     function findUserByUsername(username) {

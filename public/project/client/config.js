@@ -56,9 +56,9 @@
                     loggedin: checkLoggedin
                 }
             })
-            .when("/saved", {
-                templateUrl: "views/saved/saved.view.html",
-                controller: "SavedController",
+            .when("/favorited", {
+                templateUrl: "views/favorited/favorited.view.html",
+                controller: "FavoritedController",
                 controllerAs: "model",
                 resolve: {
                     // getLoggedIn: getLoggedIn

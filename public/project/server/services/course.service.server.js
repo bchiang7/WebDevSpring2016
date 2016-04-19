@@ -120,37 +120,37 @@ module.exports = function(app, UserModel, CourseModel) {
         console.log("server fav");
 
         CourseModel.favoriteCourse(userId, course)
-            // add USER to COURSE likes
+            // add USER to array of users who like the COURSE
             .then(
-                function (course) {
+                function(course) {
                     return UserModel.favoriteCourse(userId, course);
                 },
-                function (err) {
+                function(err) {
                     res.status(400).send(err);
                 }
             )
-            // add COURSE to USER likes
+            // add COURSE to array of courses a user likes
             .then(
-                function (user) {
+                function(user) {
                     res.json(user);
                 },
-                function (err) {
+                function(err) {
                     res.status(400).send(err);
                 }
             );
     }
-    
+
 
     function findUsersWhoLikeCourse(req, res) {
-        var courseID = req.params.courseID;
-
+        var courseId = req.params.courseId;
+        // console.log(courseId);
         var course = null;
-        CourseModel
-            .findCourseById(courseID)
+        CourseModel.findCourseById(courseId)
             .then(
                 function(doc) {
                     course = doc;
                     if (doc) {
+                        // console.log(course.likes);
                         return UserModel.findUsersByIds(course.likes);
                     } else {
                         res.json({});

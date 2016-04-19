@@ -18,9 +18,10 @@ module.exports = function(db) {
         updateCourseById: updateCourseById,
         deleteCourseById: deleteCourseById,
 
-        // SAVED COURSES
+        // FAVORITED COURSES
         favoriteCourse: favoriteCourse,
-        findCoursesLikedByUser: findCoursesLikedByUser,
+        // findUserFavorites: findUserFavorites,
+        findCoursesByCourseIDs: findCoursesByCourseIDs,
 
         // SEARCH
         searchCourseBySubject: searchCourseBySubject,
@@ -46,10 +47,11 @@ module.exports = function(db) {
     }
 
     function findCourseById(courseId) {
-        // console.log("model find course by ID:", courseId);
         var deferred = q.defer();
         Course.findById(courseId,
             function(err, course) {
+
+                // console.log("model find course by ID:", course);
                 if (!err) {
                     deferred.resolve(course);
                 } else {
@@ -129,11 +131,8 @@ module.exports = function(db) {
         var deferred = q.defer();
         // console.log("course model fav");
 
-        // find the course by imdb ID
-        Course.findOne({
-                _id: course._id
-            },
-
+        // find the course by course ID
+        Course.findOne({_id: course._id},
             function(err, doc) {
                 // reject promise if error
                 if (err) {
@@ -184,43 +183,20 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    ////////////////////////////////////////////////////
 
-    function findCoursesLikedByUser(user) {
+    function findCoursesByCourseIDs(courseIDs) {
         var deferred = q.defer();
-        console.log("course model findCoursesLikedByUser");
 
-        // find all courses whose course IDs are in imdbIDs array
+        console.log(courseIDs);
+
+        // find all courses whose course IDs are in courseIDs array
         Course.find({
-            imdbID: {
-                $in: likes // ?????????
-            }
-        }, function(err, movies) {
+            _id: {$in: courseIDs}
+        }, function(err, courses) {
             if (err) {
                 deferred.reject(err);
             } else {
-                deferred.resolve(movies);
-            }
-        })
-        return deferred.promise;
-    }
-
-    function findMoviesByImdbIDs(imdbIDs) {
-
-        var deferred = q.defer();
-
-        // find all movies
-        // whose imdb IDs
-        // are in imdbIDs array
-        Movie.find({
-            imdbID: {
-                $in: imdbIDs
-            }
-        }, function(err, movies) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                deferred.resolve(movies);
+                deferred.resolve(courses);
             }
         })
         return deferred.promise;

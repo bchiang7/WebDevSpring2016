@@ -556,19 +556,19 @@ p.dashboard-welcome {
     }
 }
 
-/****************** SAVED PAGE ****************/
+/****************** FAVORITED PAGE ****************/
 
-.saved table td.subject, .courses table td.number, .courses table td.title {
+.favorited table td.subject, .courses table td.number, .courses table td.title {
     table-layout: fixed;
     overflow: hidden;
     word-wrap: break-word;
 }
-.saved table td.subject {
+.favorited table td.subject {
     width: 100px;
 }
-.saved table td.number {
+.favorited table td.number {
     width: 100px;
 }
-.saved table td.title {
+.favorited table td.title {
     width: 600px;
 }

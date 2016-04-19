@@ -26,7 +26,7 @@
             logout: logout,
             register: register,
 
-            findCoursesLikedByUser: findCoursesLikedByUser
+            findUserFavorites: findUserFavorites
 
         };
         return api;
@@ -85,11 +85,10 @@
             return $http.post("/api/project/register", user);
         }
 
-        // FOR SAVED/PROFILE PAGE
-        function findCoursesLikedByUser(user) {
-            // return $http.get("/api/project/user/" + userId);
-            // console.log("client find courses liked by user", user);
-            return $http.get("/api/project/user/saved/" + user._id);
+        // FOR FAVORITED/PROFILE PAGE
+        function findUserFavorites() {
+            console.log("client findUserFavorites");
+            return $http.get("/api/project/favorites/" + $rootScope.currentUser._id);
         }
 
     }

@@ -22,7 +22,9 @@ module.exports = function(app, UserModel, CourseModel) {
     app.post("/api/project/user", createUser);
     app.put("/api/project/user/:id", updateUser);
     app.delete("/api/project/user/:id", deleteUser);
-    app.get("/api/project/user/saved/:userId", findCoursesLikedByUser);
+
+    app.get("/api/project/favorites/:userId", findUserFavorites);
+
 
     // app.get("/api/project/user/:user")
 
@@ -92,22 +94,22 @@ module.exports = function(app, UserModel, CourseModel) {
                     res.status(400).send(err);
                 }
             );
-            // .then(
-            //     function(user) {
-            //         if (user) {
-            //             req.login(user, function(err) {
-            //                 if (err) {
-            //                     res.status(400).send(err);
-            //                 } else {
-            //                     res.json(user);
-            //                 }
-            //             });
-            //         }
-            //     },
-            //     function(err) {
-            //         res.status(400).send(err);
-            //     }
-            // );
+        // .then(
+        //     function(user) {
+        //         if (user) {
+        //             req.login(user, function(err) {
+        //                 if (err) {
+        //                     res.status(400).send(err);
+        //                 } else {
+        //                     res.json(user);
+        //                 }
+        //             });
+        //         }
+        //     },
+        //     function(err) {
+        //         res.status(400).send(err);
+        //     }
+        // );
 
     }
 
@@ -135,16 +137,16 @@ module.exports = function(app, UserModel, CourseModel) {
         // console.log(req.session.currentUser);
         // if (isAdmin(req.user)) {
         if (isAdmin(req.session.currentUser)) {
-        UserModel
-            .findAllUsers()
-            .then(
-                function(users) {
-                    res.json(users);
-                },
-                function() {
-                    res.status(400).send(err);
-                }
-            );
+            UserModel
+                .findAllUsers()
+                .then(
+                    function(users) {
+                        res.json(users);
+                    },
+                    function() {
+                        res.status(400).send(err);
+                    }
+                );
         } else {
             res.status(403);
         }
@@ -284,18 +286,17 @@ module.exports = function(app, UserModel, CourseModel) {
         }
     }
 
-    function findCoursesLikedByUser(req, res) {
-        console.log("in service findCoursesLikedByUser");
+    function findUserFavorites(req, res) {
         var userId = req.params.userId;
         var user = null;
 
-        // use model to find user by id
         UserModel.findUserById(userId)
             .then(
                 // first retrieve the user by user id
                 function(doc) {
                     user = doc;
                     // fetch courses this user likes
+                    // console.log(doc.likes);
                     return CourseModel.findCoursesByCourseIDs(doc.likes);
                 },
                 // reject promise if error
@@ -307,15 +308,16 @@ module.exports = function(app, UserModel, CourseModel) {
                 // fetch courses this user likes
                 function(courses) {
                     // list of courses this user likes
-                    // courses are not stored in database
-                    // only added for UI rendering
+                    // courses are not stored in database, only added for UI rendering
                     user.likesCourses = courses;
+                    // user.likes = courses;
                     res.json(user);
-                },
+                }
                 // send error if promise rejected
                 function(err) {
                     res.status(400).send(err);
                 }
             );
     }
+
 }

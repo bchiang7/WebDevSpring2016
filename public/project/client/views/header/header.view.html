@@ -40,8 +40,8 @@
                 <li ng-class="{'active': $location.url()=='/courses'}" ng-show="currentUser">
                     <a href="#/courses"><i class="fa fa-th-list"></i>Courses</a>
                 </li>
-                <li ng-class="{'active': $location.url()=='/saved'}" ng-show="currentUser">
-                    <a href="#/saved"><i class="fa fa-star"></i>Saved Courses</a>
+                <li ng-class="{'active': $location.url()=='/favorited'}" ng-show="currentUser">
+                    <a href="#/favorited"><i class="fa fa-star"></i>Favorited Courses</a>
                 </li>
                 <li ng-class="{'active': $location.url()=='/degree'}" ng-show="currentUser.roles.indexOf('student') >= 0">
                     <a href="#/degree"><i class="fa fa-graduation-cap"></i>Degree Tracking</a>

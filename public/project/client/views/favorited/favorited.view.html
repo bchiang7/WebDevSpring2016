@@ -1,8 +1,7 @@
-<div ng-controller="SavedController" class="container-fluid">
+<div ng-controller="FavoritedController" class="container-fluid">
     <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main saved">
-            <h1>Saved Courses</h1>
-            {{currentUser}}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main favorited">
+            <h1>Favorited Courses</h1> CurrentUser Likes: {{currentUser.likes}}
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
@@ -52,6 +51,16 @@
                     </tr>
                 </tbody>
             </table>
+
+            <div>
+                <h4>Favorited Courses</h4>
+                <ul>
+                    <li ng-repeat="course in currentUser.likes">
+                        <a href="#/details/{{course._id}}">{{course}}</a>
+                    </li>
+            </div>
+
+
         </div>
     </div>
     <div ng-include="'views/header/help-modal.html'"></div>

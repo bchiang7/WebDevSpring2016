@@ -16,6 +16,7 @@
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
         vm.favoriteCourse = favoriteCourse;
+        vm.unfavoriteCourse = unfavoriteCourse;
 
         vm.like = false;
 
@@ -133,9 +134,10 @@
                 // then add it to the currentUser's array of courses liked
                 // aka IF EMPTY STAR, THEN FAVORITE COURSE
                 if (currentUser.likes.indexOf(currentUser._id) == -1) {
-
-                    course.likes = [];
+                    course.likes = [];  // array of users who like this course
                     course.likes.push(currentUser);
+
+                    console.log(course.likes);
 
                     CourseService.favoriteCourse(currentUser._id, course);
                     vm.like = true;
@@ -150,6 +152,27 @@
 
                     console.log("unfavorited");
                 }
+            } else {
+                $location.url("/login");
+            }
+
+        }
+
+        function unfavoriteCourse(course) {
+            if (currentUser) {
+                // if currentUser's array of courses liked has this course,
+                // then add it to the currentUser's array of courses liked
+                // aka IF FILLED IN STAR, THEN UNFAVORITE COURSE
+
+                // course.likes = [];
+                // course.likes.splice(currentUser);
+                //
+                // CourseService.unfavoriteCourse(currentUser._id, course);
+
+                console.log("unfavorite");
+
+
+
             } else {
                 $location.url("/login");
             }

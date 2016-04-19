@@ -6,7 +6,6 @@
     function CourseService($rootScope, $http) {
 
         var api = {
-
             findAllCourses: findAllCourses,
             findCourseById: findCourseById,
 
@@ -14,10 +13,10 @@
             updateCourseById: updateCourseById,
             deleteCourseById: deleteCourseById,
 
-            // SAVED COURSES
+            // FAVORITED COURSES
             favoriteCourse: favoriteCourse,
             findUsersWhoLikeCourse: findUsersWhoLikeCourse,
-            // findCoursesLikedByUser: findCoursesLikedByUser,
+            // findUserFavorites: findUserFavorites,
 
             // SEARCH
             searchCourseBySubject: searchCourseBySubject,

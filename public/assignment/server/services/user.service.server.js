@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+// var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
@@ -23,7 +23,8 @@ module.exports = function(app, UserModel) {
     app.delete('/api/assignment/admin/user/:id', auth, deleteUser);
 
 
-    app.post('/api/assignment/login', passport.authenticate('local'), login);
+    // app.post('/api/assignment/login', passport.authenticate('local'), login);
+    app.post('/api/assignment/login', login);
     app.get('/api/assignment/loggedin', loggedin);
     app.post('/api/assignment/logout', logout);
     app.post('/api/assignment/register', register);
@@ -58,34 +59,34 @@ module.exports = function(app, UserModel) {
         callbackURL: process.env.FACEBOOK_CALLBACK_URL
     };
 
-    passport.use(new LocalStrategy(localStrategy));
+    // passport.use(new LocalStrategy(localStrategy));
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+    // passport.serializeUser(serializeUser);
+    // passport.deserializeUser(deserializeUser);
 
 
-    function localStrategy(username, password, done) {
-        UserModel
-            .findUserByCredentials({
-                username: username,
-                password: password
-            })
-            .then(
-                function(user) {
-                    if (!user) {
-                        return done(null, false);
-                    }
-                    return done(null, user);
-                },
-                function(err) {
-                    if (err) {
-                        return done(err);
-                    }
-                }
-            );
-    }
+    // function localStrategy(username, password, done) {
+    //     UserModel
+    //         .findUserByCredentials({
+    //             username: username,
+    //             password: password
+    //         })
+    //         .then(
+    //             function(user) {
+    //                 if (!user) {
+    //                     return done(null, false);
+    //                 }
+    //                 return done(null, user);
+    //             },
+    //             function(err) {
+    //                 if (err) {
+    //                     return done(err);
+    //                 }
+    //             }
+    //         );
+    // }
 
     function googleStrategy(token, refreshToken, profile, done) {
         UserModel

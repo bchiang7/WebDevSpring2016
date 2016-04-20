@@ -41,7 +41,7 @@
         }
 
         function updateCourseById(courseId, course) {
-            console.log(courseId);
+            // console.log(courseId);
             return $http.put("/api/project/course/" + courseId, course);
         }
 

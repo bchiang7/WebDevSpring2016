@@ -34,6 +34,7 @@
             })
             .when("/dashboard", {
                 templateUrl: "views/dashboard/dashboard.view.html",
+                controller: "DashboardController",
                 resolve: {
                     // getLoggedIn: getLoggedIn
                     loggedin: checkCurrentUser

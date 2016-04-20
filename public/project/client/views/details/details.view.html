@@ -23,7 +23,7 @@
                 <div class="col-md-2 detail-label">Course ID:</div>
                 <div class="col-md-10 detail-info">{{model.data._id}}</div>
             </div> -->
-            <div class="row">
+            <div class="row info-top">
                 <div class="col-md-2 detail-label">Subject:</div>
                 <div class="col-md-10 detail-info">{{model.data.subject}}</div>
             </div>
@@ -64,24 +64,13 @@
                 <div class="col-md-10 detail-info">{{model.data.likes}}</div>
             </div> -->
             <br>
-            <div ng-if="model.data.likes">
-                <p class="detail-label">model.data.likes</p>
-                <ul>
-                    <li ng-repeat="user in model.data.likes">
-                        <a href="#/profile/{{data.username}}">
-                            {{user}}
-                        </a>
-                    </li>
-                </ul>
-            </div>
 
 
-            <div ng-if="model.data.likes">
-                <p class="detail-label">model.course.userLikes</p>
+            <div ng-if="model.course.userLikes.length">
+                <p class="detail-label">Other users who like this course:</p>
                 <ul>
-                    <!-- {{model.course.userLikes}} -->
                     <li ng-repeat="user in model.course.userLikes">
-                        <a href="#/profile/{{user.username}}">
+                        <a href="">
                             {{user.username}}
                         </a>
                     </li>

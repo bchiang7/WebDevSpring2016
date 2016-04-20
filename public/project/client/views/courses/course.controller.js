@@ -92,7 +92,7 @@
         }
 
         function updateCourse(course) {
-            console.log(course);
+            // console.log(course);
             CourseService
                 .updateCourseById(course._id, course)
                 .then(
@@ -111,7 +111,7 @@
         }
 
         function deleteCourse(course) {
-            console.log("course to delete: " + course._id);
+            // console.log("course to delete: " + course._id);
             CourseService
                 .deleteCourseById(course._id)
                 .then(

@@ -9,9 +9,6 @@
         var currentUser = $rootScope.currentUser;
 
         vm.like = false;
-
-        // console.log(courseId);
-
         $scope.course = {};
         vm.message = null;
 
@@ -27,18 +24,21 @@
                 .then(
                     function(response) {
                         vm.course = response.data;
+                        //console.log(vm.course);
                     }
                 );
             CourseService
                 .findCourseById(courseId)
-                .then(function(response) {
-                    vm.data = response.data;
-                });
+                .then(
+                    function(response) {
+                        vm.data = response.data;
+                    }
+                );
         }
         init();
 
         function updateCourse(course) {
-            console.log(course);
+            // console.log(course);
             CourseService
                 .updateCourseById(course._id, course)
                 .then(

@@ -58,7 +58,7 @@ module.exports = function(db) {
     }
 
     function findCoursesByCourseIds(courseIds) {
-        console.log("findCoursesByCourseIDs");
+        // console.log("findCoursesByCourseIDs");
         var deferred = q.defer();
 
         // find all courses whose _id's are in passed courseIds array
@@ -104,7 +104,7 @@ module.exports = function(db) {
                 "likes": [''],
                 "userLikes": ['']
             }
-        console.log(newCourse);
+        // console.log(newCourse);
         Course.findByIdAndUpdate(courseId, {
                 $set: newCourse
             }, {

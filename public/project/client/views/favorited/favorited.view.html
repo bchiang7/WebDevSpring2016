@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody ng-if="currentUser.likes.length">
-                    <tr ng-repeat="course in model.user.likesCourses">
+                    <tr ng-repeat="course in model.user.likesCourses|orderBy:orderByField:reverseSort">
                         <!-- <td>
                             <a href="#/details/{{course}}">{{course}}</a>
                         </td> -->

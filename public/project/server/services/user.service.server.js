@@ -321,7 +321,6 @@ module.exports = function(app, UserModel, CourseModel) {
                 },
                 // reject promise if error
                 function(err) {
-                    // console.log("error 1: ", err);
                     res.status(400).send(err);
                 }
             )
@@ -332,15 +331,11 @@ module.exports = function(app, UserModel, CourseModel) {
                     // courses are not stored in database, only added for UI rendering
 
                     user.likesCourses = courses;
-
-                    console.log(courses);
-
+                    // console.log(courses);
                     res.json(user);
                 },
                 // send error if promise rejected
                 function(err) {
-                    console.log("error 2: ", err);
-
                     res.status(400).send(err);
                 }
             );

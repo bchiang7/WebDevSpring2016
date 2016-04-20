@@ -65,14 +65,12 @@ module.exports = function(db) {
 
         // find all users in array of user IDs
         User.find({
-            _id: {
-                $in: userIds
-            }
+            _id: {$in: userIds}
         }, function(err, users) {
-            if (err) {
-                deferred.reject(err);
-            } else {
+            if (!err) {
                 deferred.resolve(users);
+            } else {
+                deferred.reject(err);
             }
         });
 

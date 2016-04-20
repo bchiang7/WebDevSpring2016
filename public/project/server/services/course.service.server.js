@@ -72,7 +72,7 @@ module.exports = function(app, UserModel, CourseModel) {
     function updateCourseById(req, res) {
         var newCourse = req.body;
         var courseId = newCourse._id
-        // console.log(newCourse);
+            // console.log(newCourse);
         CourseModel.updateCourseById(courseId, newCourse)
             .then(
                 function(doc) {
@@ -169,14 +169,14 @@ module.exports = function(app, UserModel, CourseModel) {
 
     function findUsersWhoLikeCourse(req, res) {
         var courseId = req.params.courseId;
-        // console.log(courseId);
         var course = null;
+
         CourseModel.findCourseById(courseId)
             .then(
                 function(doc) {
                     course = doc;
+                    // fetch users that like this course
                     if (doc) {
-                        // console.log("In doc");
                         return UserModel.findUsersByIds(course.likes);
                     } else {
                         res.json({});
@@ -189,16 +189,15 @@ module.exports = function(app, UserModel, CourseModel) {
             .then(
                 function(users) {
                     course.userLikes = users;
-                    console.log(users);
+                    // console.log("USER LIKES: \n", users);
                     res.json(course);
                 },
                 function(err) {
-                    console.log(err);
+                    // console.log(err);
                     res.status(400).send(err);
                 }
             );
     }
-
 
 
 

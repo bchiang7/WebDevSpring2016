@@ -23,7 +23,7 @@
         }
 
         function update(user) {
-            console.log(user);
+            // console.log(user);
             UserService
                 .updateUser(user._id, user)
                 .then(
@@ -44,7 +44,6 @@
                 .deleteUser(user._id)
                 .then(
                     function(response) {
-                        console.log("inside response");
                         $scope.users = response.data;
 
                         UserService.setCurrentUser(null);

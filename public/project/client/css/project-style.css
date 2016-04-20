@@ -33,7 +33,7 @@ input {
 h1 {
     margin: 0px 0 20px;
 }
-.btn, .panel, .panel-heading, .panel-body, .list-group-item, .modal-content {
+.btn, .panel, .panel-heading, .panel-body, .list-group-item, .modal-content, .alert {
     border-radius: 0 !important;
 }
 
@@ -209,9 +209,12 @@ i.fa.fa-question-circle, i.fa.fa-cog {
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
-.nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus {
+.nav-sidebar > li > a:hover, .nav-sidebar > li > a:focus{
     background: #615445;
     border-left: 5px solid #8e2a2a;
+    color: #fff;
+}
+.nav-sidebar > li > a:hover .fa-star {
     color: #fff;
 }
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
@@ -224,7 +227,7 @@ i.fa.fa-question-circle, i.fa.fa-cog {
     background: #3f3b36;
     width: 213px;
 }
-.sidebar a {
+.sidebar a, .sidebar .fa-star {
     color: #aaa;
 }
 .sidebar .fa {
@@ -253,9 +256,6 @@ i.fa.fa-question-circle, i.fa.fa-cog {
     position: absolute;
     bottom: 3px;
     padding: 0 10px;
-}
-.sidebar .fa-star {
-    color: #aaa;
 }
 
 /****************** MOBILE NAV ********************/
@@ -492,6 +492,7 @@ p.dashboard-welcome {
 }
 .dashboard .panel .fa {
     margin-right: 10px;
+    color: #333;
 }
 
 /****************** COURSES PAGE ****************/

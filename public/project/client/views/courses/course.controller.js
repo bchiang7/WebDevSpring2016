@@ -15,8 +15,15 @@
         vm.selectCourse = selectCourse;
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
+
         vm.favoriteCourse = favoriteCourse;
         vm.unfavoriteCourse = unfavoriteCourse;
+
+        vm.completeCourse = completeCourse;
+        vm.uncompleteCourse = uncompleteCourse;
+
+        vm.progressCourse = progressCourse;
+        vm.unprogressCourse = unprogressCourse;
 
         vm.like = false;
 
@@ -74,6 +81,8 @@
                         vm.error = err;
                     }
                 );
+
+            // CourseService.findAllCourses();
         }
 
         function selectCourse(course) {
@@ -135,13 +144,13 @@
                 course.likes = []; // array of users who like this course
                 course.likes.push(currentUser);
                 CourseService.favoriteCourse(currentUser._id, course);
+                $scope.message = "'" + course.title + "' added to favorites!";
 
                 // console.log(currentUser.likes.indexOf(currentUser._id));
             } else {
                 $location.url("/login");
             }
         }
-
         function unfavoriteCourse(course) {
             if (currentUser) {
                 // if currentUser's array of courses liked has this course,
@@ -150,7 +159,55 @@
                 course.likes = [];
                 course.likes.splice(currentUser);
                 CourseService.unfavoriteCourse(currentUser._id, course);
+                $scope.message = "'" + course.title + "' removed from favorites";
+            } else {
+                $location.url("/login");
+            }
+        }
 
+
+        function completeCourse(course) {
+            if (currentUser) {
+                course.completed = []; // array of users who like this course
+                course.completed.push(currentUser);
+                CourseService.completeCourse(currentUser._id, course);
+                $scope.message = "'" + course.title + "' added to completed courses!";
+
+                // console.log(currentUser.completed.indexOf(currentUser._id));
+            } else {
+                $location.url("/login");
+            }
+        }
+        function uncompleteCourse(course) {
+            if (currentUser) {
+                course.completed = [];
+                course.completed.splice(currentUser);
+                CourseService.uncompleteCourse(currentUser._id, course);
+                $scope.message = "'" + course.title + "' removed from completed courses";
+            } else {
+                $location.url("/login");
+            }
+        }
+
+
+        function progressCourse(course) {
+            if (currentUser) {
+                course.inprogress = []; // array of users who like this course
+                course.inprogress.push(currentUser);
+                CourseService.progressCourse(currentUser._id, course);
+                $scope.message = "'" + course.title + "' added to in progress courses!";
+
+                // console.log(currentUser.inprogress.indexOf(currentUser._id));
+            } else {
+                $location.url("/login");
+            }
+        }
+        function unprogressCourse(course) {
+            if (currentUser) {
+                course.inprogress = [];
+                course.inprogress.splice(currentUser);
+                CourseService.unprogressCourse(currentUser._id, course);
+                $scope.message = "'" + course.title + "' removed from in progress courses";
             } else {
                 $location.url("/login");
             }

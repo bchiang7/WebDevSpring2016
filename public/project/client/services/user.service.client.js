@@ -26,7 +26,9 @@
             logout: logout,
             register: register,
 
-            findUserFavorites: findUserFavorites
+            findUserFavorites: findUserFavorites,
+            findUserCompleted: findUserCompleted,
+            findUserInProgress: findUserInProgress
 
         };
         return api;
@@ -85,10 +87,22 @@
             return $http.post("/api/project/register", user);
         }
 
-        // FOR FAVORITED/PROFILE PAGE
+        // FOR FAVORITED PAGE
         function findUserFavorites(userId) {
             // console.log("client findUserFavorites");
             return $http.get("/api/project/user/" + userId + "/favorites");
+        }
+
+        // FOR COMPLETED PAGE
+        function findUserCompleted(userId) {
+            // console.log("client findUserFavorites");
+            return $http.get("/api/project/user/" + userId + "/completed");
+        }
+
+        // FOR IN PROGRESS PAGE
+        function findUserInProgress(userId) {
+            // console.log("client findUserFavorites");
+            return $http.get("/api/project/user/" + userId + "/inprogress");
         }
 
     }

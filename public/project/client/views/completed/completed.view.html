@@ -1,0 +1,66 @@
+<div ng-controller="CompletedController" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main completed">
+            <h1>Completed Courses</h1>
+            <table class="table table-hover table-striped table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th>
+                            <a ng-click="orderByField='subject'; reverseSort = !reverseSort">Subject
+                                <span ng-show="orderByField == 'subject'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="orderByField='number'; reverseSort = !reverseSort">Number
+                                <span ng-show="orderByField == 'number'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="orderByField='title'; reverseSort = !reverseSort">Title
+                                <span ng-show="orderByField == 'title'">
+                                    <span ng-show="!reverseSort" class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    <span ng-show="reverseSort" class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody ng-if="currentUser.completed.length">
+                    <tr ng-repeat="course in model.user.completedCourses|orderBy:orderByField:reverseSort">
+                        <!-- <td>
+                            <a href="#/details/{{course}}">{{course}}</a>
+                        </td> -->
+                        <td>
+                            <a href="#/details/{{course._id}}">{{course.subject}}</a>
+                        </td>
+                        <td>
+                            <a href="#/details/{{course._id}}">{{course.number}}</a>
+                        </td>
+                        <td>
+                            <a href="#/details/{{course._id}}">{{course.title}}</a>
+                        </td>
+                        <td class="table-nowrap">
+                            <a ng-click="model.completeCourse(course)">
+                                <span ng-show="course.completed.indexOf(currentUser._id) == -1"><i class="fa fa-graduation-cap"></i></span>
+                            </a>
+                            <a ng-click="model.uncompleteCourse(course)">
+                                <span ng-show="course.completed.indexOf(currentUser._id) > -1"><i class="fa fa-graduation-cap clicked"></i></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <div ng-include="'views/header/help-modal.html'"></div>
+</div>

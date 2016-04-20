@@ -14,18 +14,17 @@
 
         vm.updateCourse = updateCourse;
         vm.deleteCourse = deleteCourse;
+
         vm.favoriteCourse = favoriteCourse;
         vm.unfavoriteCourse = unfavoriteCourse;
 
+        vm.completeCourse = completeCourse;
+        vm.uncompleteCourse = uncompleteCourse;
+
+        vm.progressCourse = progressCourse;
+        vm.unprogressCourse = unprogressCourse;
+
         function init() {
-            CourseService
-                .findUsersWhoLikeCourse(courseId)
-                .then(
-                    function(response) {
-                        vm.course = response.data;
-                        console.log(vm.course);
-                    }
-                );
             CourseService
                 .findCourseById(courseId)
                 .then(
@@ -33,6 +32,34 @@
                         vm.data = response.data;
                     }
                 );
+
+            CourseService
+                .findUsersWhoLikeCourse(courseId)
+                .then(
+                    function(response) {
+                        vm.course = response.data;
+                        // console.log(vm.course);
+                    }
+                );
+
+            CourseService
+                .findUsersWhoCompletedCourse(courseId)
+                .then(
+                    function(response) {
+                        vm.course = response.data;
+                        // console.log(vm.course);
+                    }
+                );
+
+            CourseService
+                .findUsersWhoInProgressCourse(courseId)
+                .then(
+                    function(response) {
+                        vm.course = response.data;
+                        // console.log(vm.course);
+                    }
+                );
+
         }
         init();
 
@@ -105,5 +132,54 @@
                 $location.url("/login");
             }
         }
+
+        function completeCourse(course) {
+            if (currentUser) {
+                course.completed = [];
+                course.completed.push(currentUser);
+                CourseService.completeCourse(currentUser._id, course);
+                // console.log(currentUser.completed.indexOf(currentUser._id));
+            } else {
+                $location.url("/login");
+            }
+        }
+
+        function uncompleteCourse(course) {
+            if (currentUser) {
+                course.completed = [];
+                course.completed.splice(currentUser);
+                CourseService.uncompleteCourse(currentUser._id, course);
+
+            } else {
+                $location.url("/login");
+            }
+        }
+
+
+        function progressCourse(course) {
+            if (currentUser) {
+                course.inprogress = [];
+                course.inprogress.push(currentUser);
+                CourseService.progressCourse(currentUser._id, course);
+                // console.log(currentUser.inprogress.indexOf(currentUser._id));
+            } else {
+                $location.url("/login");
+            }
+        }
+
+        function unprogressCourse(course) {
+            if (currentUser) {
+                course.inprogress = [];
+                course.inprogress.splice(currentUser);
+                CourseService.unprogressCourse(currentUser._id, course);
+
+            } else {
+                $location.url("/login");
+            }
+        }
+
+
+
+
     }
 })();

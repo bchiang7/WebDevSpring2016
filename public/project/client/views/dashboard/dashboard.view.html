@@ -39,10 +39,7 @@
                 <div class="panel-heading"><i class="fa fa-graduation-cap"></i>Completed</div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <!-- <a href="#" class="list-group-item">Course</a>
-                        <a href="#" class="list-group-item">Course</a>
-                        <a href="#" class="list-group-item">Course</a>
-                        <a href="#" class="list-group-item">Course</a> -->
+                        <a ng-repeat="course in model.user.completedCourses" href="#/details/{{course._id}}" class="list-group-item"><strong>{{course.subject}}{{course.number}}:</strong>&nbsp;&nbsp;{{course.title}}</a>
                     </div>
                 </div>
             </div>
@@ -52,10 +49,7 @@
                 <div class="panel-heading"><i class="fa fa-book"></i>In Progress</div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <!-- <a href="#" class="list-group-item">Course</a>
-                        <a href="#" class="list-group-item">Course</a>
-                        <a href="#" class="list-group-item">Course</a>
-                        <a href="#" class="list-group-item">Course</a> -->
+                        <a ng-repeat="course in model.user.inprogressCourses" href="#/details/{{course._id}}" class="list-group-item"><strong>{{course.subject}}{{course.number}}:</strong>&nbsp;&nbsp;{{course.title}}</a>
                     </div>
                 </div>
             </div>

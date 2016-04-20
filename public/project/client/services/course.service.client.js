@@ -17,11 +17,17 @@
             favoriteCourse: favoriteCourse,
             unfavoriteCourse: unfavoriteCourse,
             findUsersWhoLikeCourse: findUsersWhoLikeCourse,
-            // findUserFavorites: findUserFavorites,
 
-            // SEARCH
-            searchCourseBySubject: searchCourseBySubject,
-            searchCourseByTitle: searchCourseByTitle
+            // COMPLETED COURSES
+            completeCourse: completeCourse,
+            uncompleteCourse: uncompleteCourse,
+            findUsersWhoCompletedCourse: findUsersWhoCompletedCourse,
+
+            // IN PROGRESS COURSES
+            progressCourse: progressCourse,
+            unprogressCourse: unprogressCourse,
+            findUsersWhoInProgressCourse: findUsersWhoInProgressCourse
+
         };
         return api;
 
@@ -53,29 +59,44 @@
 
         function favoriteCourse(userId, course) {
             // console.log("client fav");
-            return $http.post("/api/project/user/" + userId + "/course/" + course._id, course);
+            return $http.post("/api/project/user/" + userId + "/course/" + course._id + "/favorite", course);
         }
-
         function unfavoriteCourse(userId, course) {
             // console.log("client unfav");
             return $http.post("/api/project/user/" + userId + "/course/" + course._id + "/unfavorite", course);
         }
-
-        // FOR DETAILS PAGE
         function findUsersWhoLikeCourse(courseID) {
-            return $http.get("/api/project/course/" + courseID + "/user");
+            return $http.get("/api/project/course/" + courseID + "/userlikes");
         }
 
 
-        function searchCourseBySubject(subject) {
-            return $http.get("/api/project/course/courseSubject");
-            // return $http.jsonp("http://www.omdbapi.com/?s="+title+"&callback=JSON_CALLBACK");
+        function completeCourse(userId, course) {
+            // console.log("client complete");
+            return $http.post("/api/project/user/" + userId + "/course/" + course._id + "/complete", course);
+        }
+        function uncompleteCourse(userId, course) {
+            // console.log("client uncomplete");
+            return $http.post("/api/project/user/" + userId + "/course/" + course._id + "/uncomplete", course);
+        }
+        function findUsersWhoCompletedCourse(courseID) {
+            return $http.get("/api/project/course/" + courseID + "/usercompleted");
         }
 
-        function searchCourseByTitle(title) {
-            return $http.get("/api/project/course/courseTitle");
-            // return $http.jsonp("http://www.omdbapi.com/?s="+title+"&callback=JSON_CALLBACK");
+
+        function progressCourse(userId, course) {
+            // console.log("client complete");
+            return $http.post("/api/project/user/" + userId + "/course/" + course._id + "/progress", course);
         }
+        function unprogressCourse(userId, course) {
+            // console.log("client uncomplete");
+            return $http.post("/api/project/user/" + userId + "/course/" + course._id + "/unprogress", course);
+        }
+        function findUsersWhoInProgressCourse(courseID) {
+            return $http.get("/api/project/course/" + courseID + "/userinprogress");
+        }
+
+
+
 
     }
 })();

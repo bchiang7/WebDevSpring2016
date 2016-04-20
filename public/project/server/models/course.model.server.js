@@ -10,6 +10,7 @@ module.exports = function(db) {
     var api = {
         findAllCourses: findAllCourses,
         findCourseById: findCourseById,
+        findCoursesByCourseIds: findCoursesByCourseIds,
 
         createCourse: createCourse,
         updateCourseById: updateCourseById,
@@ -18,11 +19,14 @@ module.exports = function(db) {
         // FAVORITED COURSES
         favoriteCourse: favoriteCourse,
         unfavoriteCourse: unfavoriteCourse,
-        findCoursesByCourseIds: findCoursesByCourseIds,
 
-        // SEARCH
-        searchCourseBySubject: searchCourseBySubject,
-        searchCourseByTitle: searchCourseByTitle
+        // COMPLETED COURSES
+        completeCourse: completeCourse,
+        uncompleteCourse: uncompleteCourse,
+
+        // IN PROGRESS COURSES
+        progressCourse: progressCourse,
+        unprogressCourse: unprogressCourse
     };
     return api;
 
@@ -177,7 +181,9 @@ module.exports = function(db) {
                         prereqs: course.prereqs,
                         level: course.level,
                         type: course.type,
-                        likes: []
+                        likes: [],
+                        completed: [],
+                        inprogress: []
                     });
 
                     // add user to list of users who like course
@@ -240,13 +246,214 @@ module.exports = function(db) {
 
 
 
-    function searchCourseBySubject(subject) {
-        console.log('search by subject');
+
+    function completeCourse(userId, course) {
+        var deferred = q.defer();
+
+        // find the course by course ID
+        Course.findOne({
+                _id: course._id
+            },
+            function(err, doc) {
+                // reject promise if error
+                if (err) {
+                    deferred.reject(err);
+                }
+                // if there's a course
+                if (doc) {
+                    // add user to list of users who completed course
+                    doc.completed.push(userId);
+                    // save changes
+                    doc.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                } else {
+                    // if there's no course, create a new instance
+                    course = new Course({
+                        subject: course.subject,
+                        number: course.number,
+                        title: course.title,
+                        description: course.description,
+                        creditHours: course.creditHours,
+                        lectureHours: course.lectureHours,
+                        prereqs: course.prereqs,
+                        level: course.level,
+                        type: course.type,
+                        likes: [],
+                        completed: [],
+                        inprogress: []
+                    });
+
+                    // add user to list of users who completed course
+                    course.completed.push(userId);
+
+                    // save new instance
+                    course.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                }
+            });
+        return deferred.promise;
     }
 
-    function searchCourseByTitle(title) {
-        console.log('search by title');
+
+    function uncompleteCourse(userId, course) {
+        var deferred = q.defer();
+
+        // find the course by course ID
+        Course.findOne({
+                _id: course._id
+            },
+            function(err, doc) {
+                // reject promise if error
+                if (err) {
+                    deferred.reject(err);
+                }
+                // if there's a course
+                if (doc) {
+                    // add user to list of users who like course
+                    doc.completed.splice(userId);
+                    // save changes
+                    doc.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                } else {
+                    // remove user to list of users who like course
+                    course.completed.splice(userId);
+
+                    // save new instance
+                    course.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                }
+            });
+        return deferred.promise;
     }
+
+
+
+
+
+
+
+
+
+    function progressCourse(userId, course) {
+        var deferred = q.defer();
+
+        // find the course by course ID
+        Course.findOne({
+                _id: course._id
+            },
+            function(err, doc) {
+                // reject promise if error
+                if (err) {
+                    deferred.reject(err);
+                }
+                // if there's a course
+                if (doc) {
+                    // add user to list of users who completed course
+                    doc.inprogress.push(userId);
+                    // save changes
+                    doc.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                } else {
+                    // if there's no course, create a new instance
+                    course = new Course({
+                        subject: course.subject,
+                        number: course.number,
+                        title: course.title,
+                        description: course.description,
+                        creditHours: course.creditHours,
+                        lectureHours: course.lectureHours,
+                        prereqs: course.prereqs,
+                        level: course.level,
+                        type: course.type,
+                        likes: [],
+                        completed: [],
+                        inprogress: []
+                    });
+
+                    // add user to list of users who completed course
+                    course.inprogress.push(userId);
+
+                    // save new instance
+                    course.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                }
+            });
+        return deferred.promise;
+    }
+
+
+    function unprogressCourse(userId, course) {
+        var deferred = q.defer();
+
+        // find the course by course ID
+        Course.findOne({
+                _id: course._id
+            },
+            function(err, doc) {
+                // reject promise if error
+                if (err) {
+                    deferred.reject(err);
+                }
+                // if there's a course
+                if (doc) {
+                    // add user to list of users who like course
+                    doc.inprogress.splice(userId);
+                    // save changes
+                    doc.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                } else {
+                    // remove user to list of users who like course
+                    course.inprogress.splice(userId);
+
+                    // save new instance
+                    course.save(function(err, doc) {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                }
+            });
+        return deferred.promise;
+    }
+
+
 
 
 }

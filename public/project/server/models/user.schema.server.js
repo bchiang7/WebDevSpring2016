@@ -17,6 +17,14 @@ module.exports = function() {
         likes: [String],
         // list of courses this user likes (use to display user's favorited courses)
         likesCourses: [CourseSchema],
+        // ids of courses this user completed
+        completed: [String],
+        // list of courses this user completed (use to display user's completed courses)
+        completedCourses: [CourseSchema],
+        // ids of courses this user is taking
+        inprogress: [String],
+        // list of courses this user is taking (use to display user's in progress courses)
+        inprogressCourses: [CourseSchema],
         // collection name to 'user'
     }, {collection: 'project.user'});
     return UserSchema;

@@ -21,8 +21,17 @@ module.exports = function(db) {
         updateUser: updateUser,
         deleteUser: deleteUser,
 
+        // FAVORITED COURSES
         favoriteCourse: favoriteCourse,
-        unfavoriteCourse: unfavoriteCourse
+        unfavoriteCourse: unfavoriteCourse,
+
+        // COMPLETED COURSES
+        completeCourse: completeCourse,
+        uncompleteCourse: uncompleteCourse,
+
+        // IN PROGRESS COURSES
+        progressCourse: progressCourse,
+        unprogressCourse: unprogressCourse
     };
     return api;
 
@@ -205,5 +214,113 @@ module.exports = function(db) {
         return deferred;
     }
 
+
+    // add course to user completed courses
+    function completeCourse(userId, course) {
+        // console.log("user model fav");
+        var deferred = q.defer();
+        // find the user
+        User.findById(userId, function(err, doc) {
+            // reject promise if error
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // add course id to list of courses user has completed
+                doc.completed.push(course._id);
+                // save user
+                doc.save(function(err, doc) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        // resolve promise with user
+                        deferred.resolve(doc);
+                    }
+                });
+            }
+        });
+        return deferred;
+    }
+
+    // remove course from user completed courses
+    function uncompleteCourse(userId, course) {
+        // console.log("user model fav");
+        var deferred = q.defer();
+        // find the user
+        User.findById(userId, function(err, doc) {
+            // reject promise if error
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // add course id to list of courses user has favorited
+                doc.completed.splice(course._id);
+                // save user
+                doc.save(function(err, doc) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        // resolve promise with user
+                        deferred.resolve(doc);
+                    }
+                });
+            }
+        });
+        return deferred;
+    }
+
+
+
+
+
+    // add course to user inprogress
+    function progressCourse(userId, course) {
+        // console.log("user model fav");
+        var deferred = q.defer();
+        // find the user
+        User.findById(userId, function(err, doc) {
+            // reject promise if error
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // add course id to list of courses user has completed
+                doc.inprogress.push(course._id);
+                // save user
+                doc.save(function(err, doc) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        // resolve promise with user
+                        deferred.resolve(doc);
+                    }
+                });
+            }
+        });
+        return deferred;
+    }
+
+    // remove course from user inprogress
+    function unprogressCourse(userId, course) {
+        // console.log("user model fav");
+        var deferred = q.defer();
+        // find the user
+        User.findById(userId, function(err, doc) {
+            // reject promise if error
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // add course id to list of courses user has favorited
+                doc.inprogress.splice(course._id);
+                // save user
+                doc.save(function(err, doc) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        // resolve promise with user
+                        deferred.resolve(doc);
+                    }
+                });
+            }
+        });
+        return deferred;
+    }
 
 }

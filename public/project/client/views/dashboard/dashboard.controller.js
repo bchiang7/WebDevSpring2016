@@ -19,6 +19,24 @@
                         // console.log(vm.user);
                     }
                 );
+
+            UserService
+                .findUserCompleted(userId)
+                .then(
+                    function(response) {
+                        vm.user = response.data;
+                        // console.log(vm.user);
+                    }
+                );
+
+            UserService
+                .findUserInProgress(userId)
+                .then(
+                    function(response) {
+                        vm.user = response.data;
+                        // console.log(vm.user);
+                    }
+                );
         }
         return init();
 

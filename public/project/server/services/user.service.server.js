@@ -25,6 +25,8 @@ module.exports = function(app, UserModel, CourseModel) {
     app.delete("/api/project/user/:id", auth, deleteUser);
 
     app.get("/api/project/user/:userId/favorites", findUserFavorites);
+    app.get("/api/project/user/:userId/completed", findUserCompleted);
+    app.get("/api/project/user/:userId/inprogress", findUserInProgress);
 
 
     // passport.use(new LocalStrategy(localStrategy));
@@ -118,8 +120,8 @@ module.exports = function(app, UserModel, CourseModel) {
 
     function register(req, res) {
         var newUser = req.body;
-        newUser.roles = ['student'];
-        // newUser.roles = ['admin'];
+        // newUser.roles = ['student'];
+        newUser.roles = ['admin'];
 
         UserModel.findUserByUsername(newUser.username)
             .then(
@@ -329,8 +331,75 @@ module.exports = function(app, UserModel, CourseModel) {
                 function(courses) {
                     // list of courses this user likes
                     // courses are not stored in database, only added for UI rendering
-
                     user.likesCourses = courses;
+                    // console.log(courses);
+                    res.json(user);
+                },
+                // send error if promise rejected
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findUserCompleted(req, res) {
+        var userId = req.params.userId;
+        var user = null;
+
+        UserModel.findUserById(userId)
+            .then(
+                // first retrieve the user by user id
+                function(doc) {
+                    user = doc;
+                    // fetch courses this user completed
+                    // console.log("findUserFavorites doc.likes: ", doc.likes);
+                    return CourseModel.findCoursesByCourseIds(doc.completed);
+                },
+                // reject promise if error
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                // fetch courses this user completed
+                function(courses) {
+                    // list of courses this user completed
+                    // courses are not stored in database, only added for UI rendering
+                    user.completedCourses = courses;
+                    // console.log(courses);
+                    res.json(user);
+                },
+                // send error if promise rejected
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findUserInProgress(req, res) {
+        var userId = req.params.userId;
+        var user = null;
+
+        UserModel.findUserById(userId)
+            .then(
+                // first retrieve the user by user id
+                function(doc) {
+                    user = doc;
+                    // fetch courses this user inprogress
+                    // console.log("findUserFavorites doc.likes: ", doc.likes);
+                    return CourseModel.findCoursesByCourseIds(doc.inprogress);
+                },
+                // reject promise if error
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                // fetch courses this user inprogress
+                function(courses) {
+                    // list of courses this user inprogress
+                    // courses are not stored in database, only added for UI rendering
+                    user.inprogressCourses = courses;
                     // console.log(courses);
                     res.json(user);
                 },

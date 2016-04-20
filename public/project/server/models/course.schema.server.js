@@ -2,6 +2,8 @@ module.exports = function() {
 
     var mongoose = require("mongoose");
 
+    // var UserSchema = require("./user.schema.server.js")(mongoose);
+
     // use mongoose to declare a course schema
     var CourseSchema = mongoose.Schema({
         subject: {type: String, default: "SUBJECT"},
@@ -17,8 +19,21 @@ module.exports = function() {
         likes: [String],
         // list of users that like this course (use for details page)
         userLikes: [
-            {username: String}
-        ]
+            {username: String, firstName: String, lastName: String}
+        ],
+        // ids of users that like this course
+        completed: [String],
+        // list of users that like this course (use for details page)
+        userCompleted: [
+            {username: String, firstName: String, lastName: String}
+        ],
+        // ids of users that like this course
+        inprogress: [String],
+        // list of users that like this course (use for details page)
+        userInProgress: [
+            {username: String, firstName: String, lastName: String}
+        ],
+
         // store course documents in this collection
     }, {collection: 'project.course'});
 

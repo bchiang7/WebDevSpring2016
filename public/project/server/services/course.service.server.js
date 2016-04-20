@@ -11,6 +11,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
     app.post("/api/project/user/:userId/course/:courseId", favoriteCourse);
     app.post("/api/project/user/:userId/course/:courseId/unfavorite", unfavoriteCourse);
+
     app.get("/api/project/course/:courseId/user", findUsersWhoLikeCourse);
 
 
@@ -44,26 +45,6 @@ module.exports = function(app, UserModel, CourseModel) {
 
     function createCourse(req, res) {
         var newCourse = req.body;
-
-        // subject: String,
-        // number: Number,
-        // title: String,
-        // description: String,
-        // creditHours: Number,
-        // lectureHours: Number,
-        // prereqs: String,
-        // level: String,
-        // type: String,
-        // // ids of users that like this course
-        // likes: [String],
-        // // list of users that like this course (use for details page)
-        // userLikes: [
-        //     {username: String}
-        // ]
-
-        if (newCourse.creditHours == undefined) {
-            newCourse.creditHours == null;
-        }
 
         CourseModel.createCourse(newCourse)
             .then(
@@ -208,9 +189,11 @@ module.exports = function(app, UserModel, CourseModel) {
             .then(
                 function(users) {
                     course.userLikes = users;
+                    console.log(users);
                     res.json(course);
                 },
                 function(err) {
+                    console.log(err);
                     res.status(400).send(err);
                 }
             );

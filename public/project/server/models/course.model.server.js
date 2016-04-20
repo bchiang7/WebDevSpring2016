@@ -18,8 +18,7 @@ module.exports = function(db) {
         // FAVORITED COURSES
         favoriteCourse: favoriteCourse,
         unfavoriteCourse: unfavoriteCourse,
-        // findUserFavorites: findUserFavorites,
-        findCoursesByCourseIDs: findCoursesByCourseIDs,
+        findCoursesByCourseIds: findCoursesByCourseIds,
 
         // SEARCH
         searchCourseBySubject: searchCourseBySubject,
@@ -58,18 +57,18 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    function findCoursesByCourseIDs(courseIDs) {
-        console.log(courseIDs);
+    function findCoursesByCourseIds(courseIds) {
+        console.log("findCoursesByCourseIDs");
         var deferred = q.defer();
 
-        // find all courses whose _id's are in courseIDs array
+        // find all courses whose _id's are in passed courseIds array
         Course.find({
             _id: {
-                $in: courseIDs
+                $in: courseIds
             }
         }, function(err, courses) {
             if (!err) {
-                deferred.resolve(course);
+                deferred.resolve(courses);
             } else {
                 deferred.reject(err);
             }

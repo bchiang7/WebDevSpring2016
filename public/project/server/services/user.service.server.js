@@ -24,7 +24,7 @@ module.exports = function(app, UserModel, CourseModel) {
     app.put("/api/project/user/:id", auth, updateUser);
     app.delete("/api/project/user/:id", auth, deleteUser);
 
-    app.get("/api/project/favorites/:userId", findUserFavorites);
+    app.get("/api/project/user/:userId/favorites", findUserFavorites);
 
 
     // passport.use(new LocalStrategy(localStrategy));
@@ -286,7 +286,7 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function deleteUser(req, res) {
-        console.log("server delete ", req.params.id);
+        // console.log("server delete ", req.params.id);
         UserModel.deleteUser(req.params.id)
             .then(
                 function(user) {
@@ -316,11 +316,12 @@ module.exports = function(app, UserModel, CourseModel) {
                 function(doc) {
                     user = doc;
                     // fetch courses this user likes
-                    console.log(doc.likes);
-                    return CourseModel.findCoursesByCourseIDs(doc.likes);
+                    // console.log("findUserFavorites doc.likes: ", doc.likes);
+                    return CourseModel.findCoursesByCourseIds(doc.likes);
                 },
                 // reject promise if error
                 function(err) {
+                    // console.log("error 1: ", err);
                     res.status(400).send(err);
                 }
             )
@@ -329,12 +330,17 @@ module.exports = function(app, UserModel, CourseModel) {
                 function(courses) {
                     // list of courses this user likes
                     // courses are not stored in database, only added for UI rendering
+
                     user.likesCourses = courses;
-                    // user.likes = courses;
+
+                    console.log(courses);
+
                     res.json(user);
                 },
                 // send error if promise rejected
                 function(err) {
+                    console.log("error 2: ", err);
+
                     res.status(400).send(err);
                 }
             );

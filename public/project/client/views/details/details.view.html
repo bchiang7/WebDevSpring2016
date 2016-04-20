@@ -65,11 +65,24 @@
             </div> -->
             <br>
             <div ng-if="model.data.likes">
-                <p class="detail-label">Users that have favorited this course:</p>
+                <p class="detail-label">model.data.likes</p>
                 <ul>
                     <li ng-repeat="user in model.data.likes">
                         <a href="#/profile/{{data.username}}">
                             {{user}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div ng-if="model.data.likes">
+                <p class="detail-label">model.course.userLikes</p>
+                <ul>
+                    <!-- {{model.course.userLikes}} -->
+                    <li ng-repeat="user in model.course.userLikes">
+                        <a href="#/profile/{{user.username}}">
+                            {{user.username}}
                         </a>
                     </li>
                 </ul>

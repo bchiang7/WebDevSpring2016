@@ -86,9 +86,9 @@
         }
 
         // FOR FAVORITED/PROFILE PAGE
-        function findUserFavorites() {
+        function findUserFavorites(userId) {
             // console.log("client findUserFavorites");
-            return $http.get("/api/project/favorites/" + $rootScope.currentUser._id);
+            return $http.get("/api/project/user/" + userId + "/favorites");
         }
 
     }

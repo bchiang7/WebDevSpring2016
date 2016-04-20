@@ -5,7 +5,7 @@
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <!-- <th>ID</th> -->
                         <th>
                             <a ng-click="orderByField='subject'; reverseSort = !reverseSort">Subject
                                 <span ng-show="orderByField == 'subject'">
@@ -34,10 +34,10 @@
                     </tr>
                 </thead>
                 <tbody ng-if="currentUser.likes.length">
-                    <tr ng-repeat="course in currentUser.likes|orderBy:orderByField:reverseSort">
-                        <td>
+                    <tr ng-repeat="course in model.user.likesCourses">
+                        <!-- <td>
                             <a href="#/details/{{course}}">{{course}}</a>
-                        </td>
+                        </td> -->
                         <td>
                             <a href="#/details/{{course._id}}">{{course.subject}}</a>
                         </td>
@@ -48,6 +48,9 @@
                             <a href="#/details/{{course._id}}">{{course.title}}</a>
                         </td>
                         <td class="table-nowrap">
+                            <a ng-click="model.favoriteCourse(course)">
+                                <span ng-show="course.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i></span>
+                            </a>
                             <a ng-click="model.unfavoriteCourse(course)">
                                 <span ng-show="course.likes.indexOf(currentUser._id) > -1"><i class="fa fa-star"></i></span>
                             </a>
@@ -56,13 +59,22 @@
                 </tbody>
             </table>
 
-            <div>
-                <h4>Favorited Courses</h4>
+            <!-- <div>
+                <h4>course in currentUser.likes</h4>
                 <ul>
                     <li ng-repeat="course in currentUser.likes">
                         <a href="#/details/{{course}}">{{course}}</a>
                     </li>
+                </ul>
             </div>
+            <div>
+                <h4>course in model.user.likesCourses</h4>
+                <ul>
+                    <li ng-repeat="course in model.user.likesCourses">
+                        <a href="#/details/{{course}}">{{course.title}}</a>
+                    </li>
+                </ul>
+            </div> -->
 
 
         </div>

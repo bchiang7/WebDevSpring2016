@@ -517,6 +517,14 @@ p.dashboard-welcome {
     width: 600px;
 }
 
+/****************** FAVORITED PAGE ****************/
+
+.favorited .fa {
+    font-size: 20px;
+    margin: 0 3px;
+    vertical-align: middle;
+}
+
 /****************** DETAILS PAGE ****************/
 .details {
     padding: 20px 30px;

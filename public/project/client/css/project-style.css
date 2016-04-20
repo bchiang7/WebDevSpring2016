@@ -444,6 +444,27 @@ select.form-control {
     vertical-align: bottom;
 }
 
+/****************** PROFILE PAGE ****************/
+
+#deleteUser {
+    text-align: center;
+}
+#deleteUser .modal-header, #deleteUser .modal-footer {
+    border: none;
+}
+#deleteUser .modal-footer {
+    padding: 10px;
+}
+#deleteUser .btn {
+    margin: 0 20px;
+}
+@media screen and (min-width: 768px) {
+    #deleteUser .modal-dialog {
+        width: 550px;
+        margin: 150px auto;
+    }
+}
+
 /****************** DASHBOARD ****************/
 
 .main h1, .main h2 {

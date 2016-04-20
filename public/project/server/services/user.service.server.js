@@ -302,9 +302,9 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function deleteUser(req, res) {
-        if (isAdmin(req.user)) {
+        // if (isAdmin(req.user)) {
         // if (isAdmin(req.session.currentUser)) {
-            // console.log("server delete ", req.params.id);
+            console.log("server delete ", req.params.id);
             UserModel
                 .deleteUser(req.params.id)
                 .then(
@@ -323,9 +323,9 @@ module.exports = function(app, UserModel, CourseModel) {
                         res.status(400).send(err);
                     }
                 );
-        } else {
-            res.status(403);
-        }
+        // } else {
+        //     res.status(403);
+        // }
     }
 
     function findUserFavorites(req, res) {

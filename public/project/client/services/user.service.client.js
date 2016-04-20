@@ -67,7 +67,7 @@
         }
 
         function deleteUser(userId) {
-            // console.log("client delete");
+            console.log("client delete");
             return $http.delete('/api/project/user/' + userId);
         }
 

@@ -39,22 +39,34 @@
         }
 
         function remove(user) {
-            console.log(user);
+            // console.log(user);
             UserService
                 .deleteUser(user._id)
                 .then(
                     function(response) {
+                        console.log("inside response");
                         $scope.users = response.data;
-                        $scope.message = "User deleted!";
+
+                        UserService.setCurrentUser(null);
                         $location.url("/login");
-                        req.session.destroy();
-                        res.send(200);
+                        // req.session.destroy();
+                        // res.send(200);
+
+                        $('#deleteUser').modal('hide');
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
                     },
                     function(err) {
                         $scope.error = err;
                         $scope.message = "Uh oh, something went wrong.";
                     }
                 );
+            // UserService
+            //     .logout()
+            //     .then(function() {
+            //         UserService.setCurrentUser(null);
+            //         $location.url("/login");
+            //     });
         }
 
         function handleSuccess(response) {

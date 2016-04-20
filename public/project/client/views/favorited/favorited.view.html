@@ -35,13 +35,13 @@
                 <tbody ng-if="model.currentUser.likes.length">
                     <tr ng-repeat="course in model.currentUser.likes|orderBy:orderByField:reverseSort">
                         <td>
-                            <a href="#">{{course.subject}}</a>
+                            <a href="#/details/{{course}}">{{course.subject}}</a>
                         </td>
                         <td>
-                            <a href="#">{{course.number}}</a>
+                            <a href="#/details/{{course}}">{{course.number}}</a>
                         </td>
                         <td>
-                            <a href="#">{{course.title}}</a>
+                            <a href="#/details/{{course}}">{{course.title}}</a>
                         </td>
                         <td class="table-nowrap">
                             <a ng-click="favorite(course)">
@@ -56,7 +56,7 @@
                 <h4>Favorited Courses</h4>
                 <ul>
                     <li ng-repeat="course in currentUser.likes">
-                        <a href="#/details/{{course._id}}">{{course}}</a>
+                        <a href="#/details/{{course}}">{{course}}</a>
                     </li>
             </div>
 

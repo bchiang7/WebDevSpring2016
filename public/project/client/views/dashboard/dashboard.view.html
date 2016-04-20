@@ -26,9 +26,7 @@
                 <div class="panel-heading"><i class="fa fa-star"></i>Favorited Courses</div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <!-- <a href="#" class="list-group-item">Course</a>
-                        <a href="#" class="list-group-item">Course</a>
-                        <a href="#" class="list-group-item">Course</a>-->
+                        <a href="#/details/{{course}}" class="list-group-item" ng-repeat="course in currentUser.likes">{{course}}</a>
                     </div>
                 </div>
             </div>

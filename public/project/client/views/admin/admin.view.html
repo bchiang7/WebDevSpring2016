@@ -69,8 +69,8 @@
                             <input ng-model="user.likes" class="form-control" id="input-roles" placeholder="" />
                         </td> -->
                         <td>
-                            <a ng-click="add(user)"><span class="glyphicon glyphicon-plus"></span></a>
-                            <a ng-click="update(user)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+                            <a ng-click="add(user)"><i class="fa fa-user-plus"></i></a>
+                            <a ng-click="update(user)"><i class="fa fa-check-square-o"></i></a>
                         </td>
                     </tr>
                     <tr ng-repeat="user in users|orderBy:orderByField:reverseSort">
@@ -84,8 +84,8 @@
                         <td>{{user.roles}}</td>
                         <!-- <td>{{user.likes}}</td> -->
                         <td>
-                            <a ng-click="remove(user)"><span class="glyphicon glyphicon-remove"></span></a>
-                            <a ng-click="select(user)"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+                            <a ng-click="remove(user)"><i class="fa fa-user-times"></i></a>
+                            <a ng-click="select(user)"><i class="fa fa-pencil-square-o"></i></a>
                         </td>
                     </tr>
                 </tbody>

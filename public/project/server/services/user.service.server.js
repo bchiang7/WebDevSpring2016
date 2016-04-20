@@ -341,4 +341,4 @@ module.exports = function(app, UserModel, CourseModel) {
             );
     }
 
-}
+};

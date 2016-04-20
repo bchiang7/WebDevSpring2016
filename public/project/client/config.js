@@ -66,6 +66,24 @@
                     loggedin: checkLoggedin
                 }
             })
+            .when("/completed", {
+                templateUrl: "views/completed/completed.view.html",
+                controller: "CompletedController",
+                controllerAs: "model",
+                resolve: {
+                    // getLoggedIn: getLoggedIn
+                    loggedin: checkLoggedin
+                }
+            })
+            .when("/progress", {
+                templateUrl: "views/progress/progress.view.html",
+                controller: "ProgressController",
+                controllerAs: "model",
+                resolve: {
+                    // getLoggedIn: getLoggedIn
+                    loggedin: checkLoggedin
+                }
+            })
             .when("/degree", {
                 templateUrl: "views/degree/degree.view.html",
                 controller: "DegreeController",

@@ -17,14 +17,13 @@
         vm.favoriteCourse = favoriteCourse;
         vm.unfavoriteCourse = unfavoriteCourse;
 
-
         function init() {
             CourseService
                 .findUsersWhoLikeCourse(courseId)
                 .then(
                     function(response) {
                         vm.course = response.data;
-                        //console.log(vm.course);
+                        console.log(vm.course);
                     }
                 );
             CourseService

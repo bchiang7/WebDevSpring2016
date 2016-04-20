@@ -66,18 +66,28 @@
                         <td class="number"><a href="#/details/{{course._id}}">{{course.number}}</a></td>
                         <td class="title"><a href="#/details/{{course._id}}">{{course.title}}</a></td>
                         <td class="table-nowrap">
-                            <!-- <a ng-click="model.completed(course)">
-                                <i class="fa fa-graduation-cap"></i>
-                            </a>
-                            <a ng-click="model.inProgress(course)">
-                                <i class="fa fa-book"></i>
-                            </a> -->
+
                             <a ng-click="model.favoriteCourse(course)">
                                 <span ng-show="course.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i></span>
                             </a>
                             <a ng-click="model.unfavoriteCourse(course)">
                                 <span ng-show="course.likes.indexOf(currentUser._id) > -1"><i class="fa fa-star"></i></span>
                             </a>
+
+                            <!-- <a ng-click="model.completeCourse(course)">
+                                <span ng-show="course.completed.indexOf(currentUser._id) == -1"><i class="fa fa-graduation-cap"></i></span>
+                            </a>
+                            <a ng-click="model.uncompleteCourse(course)">
+                                <span ng-show="course.completed.indexOf(currentUser._id) > -1"><i class="fa fa-graduation-cap clicked"></i></span>
+                            </a>
+
+                            <a ng-click="model.progressCourse(course)">
+                                <span ng-show="course.inprogress.indexOf(currentUser._id) == -1"><i class="fa fa-book"></i></span>
+                            </a>
+                            <a ng-click="model.unprogressCourse(course)">
+                                <span ng-show="course.inprogress.indexOf(currentUser._id) > -1"><i class="fa fa-book clicked"></i></span>
+                            </a> -->
+
                         </td>
                     </tr>
                 </tbody>

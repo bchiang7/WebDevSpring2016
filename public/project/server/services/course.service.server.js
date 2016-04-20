@@ -189,7 +189,7 @@ module.exports = function(app, UserModel, CourseModel) {
             .then(
                 function(users) {
                     course.userLikes = users;
-                    // console.log("USER LIKES: \n", users);
+                    console.log(course);
                     res.json(course);
                 },
                 function(err) {

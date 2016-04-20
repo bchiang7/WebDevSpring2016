@@ -65,10 +65,10 @@
             </div> -->
             <br>
 
-
             <div ng-if="model.course.userLikes.length">
-                <p class="detail-label">Other users who like this course:</p>
-                <ul>
+                <!--<p class="detail-label">Other users who like this course:</p>-->
+                <a id="userLikes-link" class="userLikes-link" ng-if="model.course.userLikes.length"><i class="fa fa-star"></i>{{model.course.userLikes.length}} Users Favorited This Course</a>
+                <ul class="userLikes">
                     <li ng-repeat="user in model.course.userLikes">
                         <a href="">
                             {{user.username}}

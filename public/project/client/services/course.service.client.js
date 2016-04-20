@@ -36,7 +36,7 @@
         }
 
         function createCourse(course) {
-            console.log("client create");
+            // console.log("client create");
             return $http.post("/api/project/course", course);
         }
 
@@ -46,18 +46,18 @@
         }
 
         function deleteCourseById(courseId) {
-            console.log("client delete", courseId);
+            // console.log("client delete", courseId);
             return $http.delete("/api/project/course/" + courseId);
         }
 
 
         function favoriteCourse(userId, course) {
-            console.log("client fav");
+            // console.log("client fav");
             return $http.post("/api/project/user/" + userId + "/course/" + course._id, course);
         }
 
         function unfavoriteCourse(userId, course) {
-            console.log("client unfav");
+            // console.log("client unfav");
             return $http.post("/api/project/user/" + userId + "/course/" + course._id + "/unfavorite", course);
         }
 

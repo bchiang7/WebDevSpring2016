@@ -99,7 +99,6 @@ module.exports = function(db) {
 
 
     function findUserByCredentials(credentials) {
-
         var deferred = q.defer();
 
         // find one retrieves one document
@@ -123,8 +122,6 @@ module.exports = function(db) {
     }
 
 
-
-
     function createUser(user) {
         // console.log("model createUser");
         // use q to defer the response
@@ -143,25 +140,6 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-    // function updateUser(username, user) {
-    //     var deferred = q.defer();
-    //     User
-    //         .update({
-    //                 username: username
-    //             }, {
-    //                 $set: user
-    //             },
-    //             function(err, stats) {
-    //                 if (!err) {
-    //                     deferred.resolve(stats);
-    //                 } else {
-    //                     deferred.reject(err);
-    //                 }
-    //             }
-    //         );
-    //     return deferred.promise;
-    // }
-
     function updateUser(userId, user) {
         // console.log("model update");
         return User.update({
@@ -170,23 +148,6 @@ module.exports = function(db) {
             $set: user
         });
     }
-
-    // function deleteUser(username) {
-    //     var deferred = q.defer();
-    //     User
-    //         .remove({
-    //                 username: username
-    //             },
-    //             function(err, stats) {
-    //                 if (!err) {
-    //                     deferred.resolve(stats);
-    //                 } else {
-    //                     deferred.reject(err);
-    //                 }
-    //             }
-    //         );
-    //     return deferred.promise;
-    // }
 
     function deleteUser(userId) {
         // console.log("model delete ", userId);

@@ -134,18 +134,17 @@ module.exports = function(db) {
     function deleteCourseById(courseId) {
         // console.log("model delete", courseId);
         var deferred = q.defer();
-        Course
-            .remove({
-                    _id: courseId
-                },
-                function(err, stats) {
-                    if (!err) {
-                        deferred.resolve(stats);
-                    } else {
-                        deferred.reject(err);
-                    }
+        Course.remove({
+                _id: courseId
+            },
+            function(err, stats) {
+                if (!err) {
+                    deferred.resolve(stats);
+                } else {
+                    deferred.reject(err);
                 }
-            );
+            }
+        );
         return deferred.promise;
     }
 
@@ -189,8 +188,6 @@ module.exports = function(db) {
                         type: course.type,
                         likes: []
                     });
-
-                    // console.log("IN COURSE MODEL FAVORITE COURSE", course);
 
                     // add user to list of users who like course
                     course.likes.push(userId);

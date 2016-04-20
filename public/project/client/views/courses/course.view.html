@@ -73,7 +73,7 @@
                                 <i class="fa fa-book"></i>
                             </a> -->
                             <a ng-click="model.favoriteCourse(course)">
-                                <span ng-show="course.likes.indexOf(currentUser._id) < 0"><i class="fa fa-star-o"></i></span>
+                                <span ng-show="course.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i></span>
                             </a>
                             <a ng-click="model.unfavoriteCourse(course)">
                                 <span ng-show="course.likes.indexOf(currentUser._id) > -1"><i class="fa fa-star"></i></span>

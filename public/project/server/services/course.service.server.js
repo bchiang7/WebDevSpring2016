@@ -16,8 +16,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
     function findAllCourses(req, res) {
         // console.log("server find all courses");
-        CourseModel
-            .findAllCourses()
+        CourseModel.findAllCourses()
             .then(
                 function(courses) {
                     res.json(courses);
@@ -31,8 +30,7 @@ module.exports = function(app, UserModel, CourseModel) {
     function findCourseById(req, res) {
         var courseId = req.params.courseId;
         // console.log("server find course by ID:", courseId);
-        CourseModel
-            .findCourseById(courseId)
+        CourseModel.findCourseById(courseId)
             .then(
                 function(course) {
                     res.json(course);
@@ -73,8 +71,7 @@ module.exports = function(app, UserModel, CourseModel) {
         var newCourse = req.body;
         var courseId = newCourse._id
             // console.log(newCourse);
-        CourseModel
-            .updateCourseById(courseId, newCourse)
+        CourseModel.updateCourseById(courseId, newCourse)
             .then(
                 function(doc) {
                     res.send(200);
@@ -90,8 +87,7 @@ module.exports = function(app, UserModel, CourseModel) {
         var courseId = req.params.courseId;
 
         // console.log("server delete ", courseId);
-        CourseModel
-            .deleteCourseById(courseId)
+        CourseModel.deleteCourseById(courseId)
             .then(
                 function(course) {
                     return CourseModel.findAllCourses();

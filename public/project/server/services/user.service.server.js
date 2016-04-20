@@ -63,7 +63,7 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function register(req, res) {
-        console.log("server register");
+        // console.log("server register");
 
         var newUser = req.body;
         newUser.roles = ['student'];
@@ -180,7 +180,7 @@ module.exports = function(app, UserModel, CourseModel) {
 
 
     function createUser(req, res) {
-        console.log("server create");
+        // console.log("server create");
 
         var newUser = req.body;
         if (newUser.roles && newUser.roles.length > 1) {
@@ -227,7 +227,7 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function updateUser(req, res) {
-        console.log("server update");
+        // console.log("server update");
         var newUser = req.body;
 
         // if (!isAdmin(req.user)) {
@@ -262,7 +262,7 @@ module.exports = function(app, UserModel, CourseModel) {
     function deleteUser(req, res) {
         // if (isAdmin(req.user)) {
         if (isAdmin(req.session.currentUser)) {
-            console.log("server delete ", req.params.id);
+            // console.log("server delete ", req.params.id);
             UserModel
                 .deleteUser(req.params.id)
                 .then(

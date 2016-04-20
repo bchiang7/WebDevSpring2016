@@ -33,32 +33,32 @@
                     }
                 );
 
-            CourseService
-                .findUsersWhoLikeCourse(courseId)
-                .then(
-                    function(response) {
-                        vm.course = response.data;
-                        // console.log(vm.course);
-                    }
-                );
-
-            CourseService
-                .findUsersWhoCompletedCourse(courseId)
-                .then(
-                    function(response) {
-                        vm.course = response.data;
-                        // console.log(vm.course);
-                    }
-                );
-
-            CourseService
-                .findUsersWhoInProgressCourse(courseId)
-                .then(
-                    function(response) {
-                        vm.course = response.data;
-                        // console.log(vm.course);
-                    }
-                );
+            // CourseService
+            //     .findUsersWhoLikeCourse(courseId)
+            //     .then(
+            //         function(response) {
+            //             vm.course = response.data;
+            //             console.log(vm.course);
+            //         }
+            //     );
+            //
+            // CourseService
+            //     .findUsersWhoCompletedCourse(courseId)
+            //     .then(
+            //         function(response) {
+            //             vm.course = response.data;
+            //             // console.log(vm.course);
+            //         }
+            //     );
+            //
+            // CourseService
+            //     .findUsersWhoInProgressCourse(courseId)
+            //     .then(
+            //         function(response) {
+            //             vm.course = response.data;
+            //             // console.log(vm.course);
+            //         }
+            //     );
 
         }
         init();

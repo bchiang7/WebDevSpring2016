@@ -15,7 +15,7 @@
                 .findUserFavorites(userId)
                 .then(
                     function(response) {
-                        vm.user = response.data;
+                        vm.user1 = response.data;
                         // console.log(vm.user);
                     }
                 );
@@ -24,7 +24,7 @@
                 .findUserCompleted(userId)
                 .then(
                     function(response) {
-                        vm.user = response.data;
+                        vm.user2 = response.data;
                         // console.log(vm.user);
                     }
                 );
@@ -33,7 +33,7 @@
                 .findUserInProgress(userId)
                 .then(
                     function(response) {
-                        vm.user = response.data;
+                        vm.user3 = response.data;
                         // console.log(vm.user);
                     }
                 );

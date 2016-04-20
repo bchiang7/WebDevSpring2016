@@ -214,9 +214,6 @@ i.fa.fa-question-circle, i.fa.fa-cog {
     border-left: 5px solid #8e2a2a;
     color: #fff;
 }
-.nav-sidebar > li > a:hover .fa-star {
-    color: #fff;
-}
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
     color: #fff;
     background-color: #615445;
@@ -227,7 +224,7 @@ i.fa.fa-question-circle, i.fa.fa-cog {
     background: #3f3b36;
     width: 213px;
 }
-.sidebar a, .sidebar .fa-star {
+.sidebar a {
     color: #aaa;
 }
 .sidebar .fa {
@@ -380,7 +377,7 @@ select.form-control {
 .marginTop20 {
     margin-top: 20px;
 }
-.fa-star {
+.main .fa-star {
     color: #CC0000;
 }
 
@@ -530,6 +527,24 @@ p.dashboard-welcome {
 }
 
 /****************** FAVORITED, COMPLETED, IN PROGRESS PAGE ****************/
+
+
+.favorited table td.subject, .favorited table td.number, .favorited table td.title,
+.completed table td.subject, .completed table td.number, .completed table td.title,
+.inProgress table td.subject, .inProgress table td.number, .inProgress table td.title {
+    table-layout: fixed;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.favorited table td.subject, .completed table td.subject, .inProgress table td.subject {
+    width: 100px;
+}
+.favorited table td.number, .completed table td.number, .inProgress table td.number {
+    width: 100px;
+}
+.favorited table td.title, .completed table td.title, .inProgress table td.title {
+    width: 600px;
+}
 
 .favorited .fa {
     font-size: 18px;

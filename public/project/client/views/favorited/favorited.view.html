@@ -38,15 +38,10 @@
                         <!-- <td>
                             <a href="#/details/{{course}}">{{course}}</a>
                         </td> -->
-                        <td>
-                            <a href="#/details/{{course._id}}">{{course.subject}}</a>
-                        </td>
-                        <td>
-                            <a href="#/details/{{course._id}}">{{course.number}}</a>
-                        </td>
-                        <td>
-                            <a href="#/details/{{course._id}}">{{course.title}}</a>
-                        </td>
+                        <td class="subject"><a href="#/details/{{course._id}}">{{course.subject}}</a></td>
+                        <td class="number"><a href="#/details/{{course._id}}">{{course.number}}</a></td>
+                        <td class="title"><a href="#/details/{{course._id}}">{{course.title}}</a></td>
+
                         <td class="table-nowrap">
                             <a ng-click="model.favoriteCourse(course)">
                                 <span ng-show="course.likes.indexOf(currentUser._id) == -1"><i class="fa fa-star-o"></i></span>

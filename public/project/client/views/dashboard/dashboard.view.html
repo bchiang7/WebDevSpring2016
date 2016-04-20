@@ -26,7 +26,7 @@
                 <div class="panel-heading"><i class="fa fa-star"></i>Favorited Courses</div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <a ng-repeat="course in model.user.likesCourses" href="#/details/{{course._id}}" class="list-group-item"><strong>{{course.subject}}{{course.number}}:</strong>&nbsp;&nbsp;{{course.title}}</a>
+                        <a ng-repeat="course in model.user1.likesCourses" href="#/details/{{course._id}}" class="list-group-item"><strong>{{course.subject}}{{course.number}}:</strong>&nbsp;&nbsp;{{course.title}}</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <div class="panel-heading"><i class="fa fa-graduation-cap"></i>Completed</div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <a ng-repeat="course in model.user.completedCourses" href="#/details/{{course._id}}" class="list-group-item"><strong>{{course.subject}}{{course.number}}:</strong>&nbsp;&nbsp;{{course.title}}</a>
+                        <a ng-repeat="course in model.user2.completedCourses" href="#/details/{{course._id}}" class="list-group-item"><strong>{{course.subject}}{{course.number}}:</strong>&nbsp;&nbsp;{{course.title}}</a>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="panel-heading"><i class="fa fa-book"></i>In Progress</div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <a ng-repeat="course in model.user.inprogressCourses" href="#/details/{{course._id}}" class="list-group-item"><strong>{{course.subject}}{{course.number}}:</strong>&nbsp;&nbsp;{{course.title}}</a>
+                        <a ng-repeat="course in model.user3.inprogressCourses" href="#/details/{{course._id}}" class="list-group-item"><strong>{{course.subject}}{{course.number}}:</strong>&nbsp;&nbsp;{{course.title}}</a>
                     </div>
                 </div>
             </div>

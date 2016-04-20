@@ -1,4 +1,3 @@
-var mock = require("./user.mock.json");
 var q = require("q");
 
 // pass db and mongoose reference to model
@@ -62,7 +61,7 @@ module.exports = function(db) {
     function findUsersByIds(userIds) {
         var deferred = q.defer();
 
-        console.log("model findUsersByIds", userIds);
+        // console.log("model findUsersByIds", userIds);
 
         // find all users in array of user IDs
         User.find({

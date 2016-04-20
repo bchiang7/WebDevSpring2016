@@ -17,12 +17,6 @@
                         vm.user = response.data;
                     }
                 );
-
-            // UserService
-            //     .findUserById(userId)
-            //     .then(function(response) {
-            //         vm.data = response.data;
-            //     });
         }
         return init();
     }

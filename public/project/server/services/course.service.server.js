@@ -43,8 +43,29 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function createCourse(req, res) {
-        var course = req.body;
-        CourseModel.createCourse(course)
+        var newCourse = req.body;
+
+        // subject: String,
+        // number: Number,
+        // title: String,
+        // description: String,
+        // creditHours: Number,
+        // lectureHours: Number,
+        // prereqs: String,
+        // level: String,
+        // type: String,
+        // // ids of users that like this course
+        // likes: [String],
+        // // list of users that like this course (use for details page)
+        // userLikes: [
+        //     {username: String}
+        // ]
+
+        if (newCourse.creditHours == undefined) {
+            newCourse.creditHours == null;
+        }
+
+        CourseModel.createCourse(newCourse)
             .then(
                 // fetch all the courses
                 function(course) {
@@ -70,7 +91,7 @@ module.exports = function(app, UserModel, CourseModel) {
     function updateCourseById(req, res) {
         var newCourse = req.body;
         var courseId = newCourse._id
-            // console.log(newCourse);
+        // console.log(newCourse);
         CourseModel.updateCourseById(courseId, newCourse)
             .then(
                 function(doc) {
@@ -83,9 +104,7 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function deleteCourseById(req, res) {
-
         var courseId = req.params.courseId;
-
         // console.log("server delete ", courseId);
         CourseModel.deleteCourseById(courseId)
             .then(
@@ -114,7 +133,7 @@ module.exports = function(app, UserModel, CourseModel) {
         var courseId = req.params.courseId;
         var course;
 
-        console.log("server fav");
+        // console.log("server fav");
 
         CourseModel.favoriteCourse(userId, course)
             // add USER to array of users who like the COURSE
@@ -143,7 +162,7 @@ module.exports = function(app, UserModel, CourseModel) {
         var courseId = req.params.courseId;
         var course;
 
-        console.log("server unfav");
+        // console.log("server unfav");
 
         CourseModel.unfavoriteCourse(userId, course)
             // remove USER from array of users who like the COURSE
@@ -176,7 +195,7 @@ module.exports = function(app, UserModel, CourseModel) {
                 function(doc) {
                     course = doc;
                     if (doc) {
-                        console.log("In doc");
+                        // console.log("In doc");
                         return UserModel.findUsersByIds(course.likes);
                     } else {
                         res.json({});

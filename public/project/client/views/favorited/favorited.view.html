@@ -1,10 +1,11 @@
 <div ng-controller="FavoritedController" class="container-fluid">
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main favorited">
-            <h1>Favorited Courses</h1> {{currentUser.likes}}
+            <h1>Favorited Courses</h1>
             <table class="table table-hover table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>
                             <a ng-click="orderByField='subject'; reverseSort = !reverseSort">Subject
                                 <span ng-show="orderByField == 'subject'">
@@ -32,20 +33,23 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody ng-if="model.currentUser.likes.length">
-                    <tr ng-repeat="course in model.currentUser.likes|orderBy:orderByField:reverseSort">
+                <tbody ng-if="currentUser.likes.length">
+                    <tr ng-repeat="course in currentUser.likes|orderBy:orderByField:reverseSort">
                         <td>
-                            <a href="#/details/{{course}}">{{course.subject}}</a>
+                            <a href="#/details/{{course}}">{{course}}</a>
                         </td>
                         <td>
-                            <a href="#/details/{{course}}">{{course.number}}</a>
+                            <a href="#/details/{{course._id}}">{{course.subject}}</a>
                         </td>
                         <td>
-                            <a href="#/details/{{course}}">{{course.title}}</a>
+                            <a href="#/details/{{course._id}}">{{course.number}}</a>
+                        </td>
+                        <td>
+                            <a href="#/details/{{course._id}}">{{course.title}}</a>
                         </td>
                         <td class="table-nowrap">
-                            <a ng-click="favorite(course)">
-                                <i class="fa fa-star"></i>
+                            <a ng-click="model.unfavoriteCourse(course)">
+                                <span ng-show="course.likes.indexOf(currentUser._id) > -1"><i class="fa fa-star"></i></span>
                             </a>
                         </td>
                     </tr>

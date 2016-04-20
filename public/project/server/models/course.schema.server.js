@@ -4,15 +4,15 @@ module.exports = function() {
 
     // use mongoose to declare a course schema
     var CourseSchema = mongoose.Schema({
-        subject: String,
-        number: Number,
-        title: String,
-        description: String,
-        creditHours: Number,
-        lectureHours: Number,
-        prereqs: String,
-        level: String,
-        type: String,
+        subject: {type: String, default: "SUBJECT"},
+        number: {type: Number, default: 0000},
+        title: {type: String, default: "New Course"},
+        description: {type: String, default: "Course description"},
+        creditHours: {type: Number, default: 4},
+        lectureHours: {type: Number, default: 4},
+        prereqs: {type: String, default: "Undergraduate"},
+        level: {type: String, default: "Undergraduate"},
+        type: {type: String, default: "Lecture"},
         // ids of users that like this course
         likes: [String],
         // list of users that like this course (use for details page)

@@ -1,8 +1,6 @@
 var mongoose = require("mongoose");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-// var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-// var FacebookStrategy = require('passport-facebook').Strategy;
 
 module.exports = function(app, UserModel, CourseModel) {
 
@@ -36,8 +34,7 @@ module.exports = function(app, UserModel, CourseModel) {
     passport.deserializeUser(deserializeUser);
 
     function projectLocalStrategy(username, password, done) {
-        UserModel
-            .findUserByCredentials({
+        UserModel.findUserByCredentials({
                 username: username,
                 password: password
             })
@@ -61,8 +58,7 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function deserializeUser(user, done) {
-        UserModel
-            .findUserById(user._id)
+        UserModel.findUserById(user._id)
             .then(
                 function(user) {
                     done(null, user);
@@ -75,8 +71,6 @@ module.exports = function(app, UserModel, CourseModel) {
 
 
     function isAdmin(user) {
-        // console.log(user);
-        // if (user.roles.indexOf("admin") > 0) {
         if (user.roles.indexOf('admin') != -1) {
             return true;
         }
@@ -105,7 +99,6 @@ module.exports = function(app, UserModel, CourseModel) {
         //             res.status(400).send(err);
         //         }
         //     )
-
         var user = req.user;
         res.json(user);
     }
@@ -119,7 +112,6 @@ module.exports = function(app, UserModel, CourseModel) {
     function logout(req, res) {
         // req.session.destroy();
         // res.send(200);
-
         req.logOut();
         res.send(200);
     }
@@ -129,8 +121,7 @@ module.exports = function(app, UserModel, CourseModel) {
         newUser.roles = ['student'];
         // newUser.roles = ['admin'];
 
-        UserModel
-            .findUserByUsername(newUser.username)
+        UserModel.findUserByUsername(newUser.username)
             .then(
                 function(user) {
                     if (user) {
@@ -143,17 +134,6 @@ module.exports = function(app, UserModel, CourseModel) {
                     res.status(400).send(err);
                 }
             )
-            // .then(
-            //     // login user if promise resolved
-            //     function(doc) {
-            //         req.session.currentUser = doc;
-            //         res.json(doc);
-            //     },
-            //     // send error if promise rejected
-            //     function(err) {
-            //         res.status(400).send(err);
-            //     }
-            // );
             .then(
                 function(user) {
                     if (user) {
@@ -170,17 +150,25 @@ module.exports = function(app, UserModel, CourseModel) {
                     res.status(400).send(err);
                 }
             );
+        // .then(
+        //     // login user if promise resolved
+        //     function(doc) {
+        //         req.session.currentUser = doc;
+        //         res.json(doc);
+        //     },
+        //     // send error if promise rejected
+        //     function(err) {
+        //         res.status(400).send(err);
+        //     }
+        // );
 
     }
 
 
     function findAllUsers(req, res) {
-        // console.log(req.user);
-        // console.log(req.session.currentUser);
-        if (isAdmin(req.user)) {
         // if (isAdmin(req.session.currentUser)) {
-            UserModel
-                .findAllUsers()
+        if (isAdmin(req.user)) {
+            UserModel.findAllUsers()
                 .then(
                     function(users) {
                         res.json(users);
@@ -195,8 +183,7 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function findUserById(req, res) {
-        UserModel
-            .findUserById(req.params._id)
+        UserModel.findUserById(req.params._id)
             .then(
                 function(user) {
                     res.json(user);
@@ -208,8 +195,7 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function findUserByUsername(req, res) {
-        UserModel
-            .findUserByUsername(req.params.username)
+        UserModel.findUserByUsername(req.params.username)
             .then(
                 function(user) {
                     res.json(user);
@@ -232,8 +218,7 @@ module.exports = function(app, UserModel, CourseModel) {
         }
 
         // first check if a user already exists with the username
-        UserModel
-            .findUserByUsername(newUser.username)
+        UserModel.findUserByUsername(newUser.username)
             .then(
                 function(user) {
                     // if the user does not already exist
@@ -281,8 +266,7 @@ module.exports = function(app, UserModel, CourseModel) {
         if (typeof newUser.roles == "string") {
             newUser.roles = newUser.roles.split(",");
         }
-        UserModel
-            .updateUser(req.params.id, newUser)
+        UserModel.updateUser(req.params.id, newUser)
             .then(
                 function(user) {
                     return UserModel.findAllUsers();
@@ -302,30 +286,24 @@ module.exports = function(app, UserModel, CourseModel) {
     }
 
     function deleteUser(req, res) {
-        // if (isAdmin(req.user)) {
-        // if (isAdmin(req.session.currentUser)) {
-            console.log("server delete ", req.params.id);
-            UserModel
-                .deleteUser(req.params.id)
-                .then(
-                    function(user) {
-                        return UserModel.findAllUsers();
-                    },
-                    function(err) {
-                        res.status(400).send(err);
-                    }
-                )
-                .then(
-                    function(users) {
-                        res.json(users);
-                    },
-                    function(err) {
-                        res.status(400).send(err);
-                    }
-                );
-        // } else {
-        //     res.status(403);
-        // }
+        console.log("server delete ", req.params.id);
+        UserModel.deleteUser(req.params.id)
+            .then(
+                function(user) {
+                    return UserModel.findAllUsers();
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function(users) {
+                    res.json(users);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findUserFavorites(req, res) {
@@ -338,7 +316,7 @@ module.exports = function(app, UserModel, CourseModel) {
                 function(doc) {
                     user = doc;
                     // fetch courses this user likes
-                    // console.log(doc.likes);
+                    console.log(doc.likes);
                     return CourseModel.findCoursesByCourseIDs(doc.likes);
                 },
                 // reject promise if error

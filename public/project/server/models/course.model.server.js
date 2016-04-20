@@ -1,6 +1,3 @@
-var mock = require("./course.mock.json");
-
-// load q promise library
 var q = require("q");
 
 // pass db and mongoose reference to model
@@ -51,7 +48,6 @@ module.exports = function(db) {
         var deferred = q.defer();
         Course.findById(courseId,
             function(err, course) {
-
                 // console.log("model find course by ID:", course);
                 if (!err) {
                     deferred.resolve(course);
@@ -62,25 +58,22 @@ module.exports = function(db) {
         return deferred.promise;
     }
 
-
     function findCoursesByCourseIDs(courseIDs) {
-
         console.log(courseIDs);
-
         var deferred = q.defer();
 
-        // find all courses whose course IDs are in courseIDs array
+        // find all courses whose _id's are in courseIDs array
         Course.find({
             _id: {
                 $in: courseIDs
             }
         }, function(err, courses) {
-            if (err) {
-                deferred.reject(err);
+            if (!err) {
+                deferred.resolve(course);
             } else {
-                deferred.resolve(courses);
+                deferred.reject(err);
             }
-        })
+        });
         return deferred.promise;
     }
 
@@ -112,7 +105,7 @@ module.exports = function(db) {
                 "likes": [''],
                 "userLikes": ['']
             }
-            // console.log(newCourse);
+        console.log(newCourse);
         Course.findByIdAndUpdate(courseId, {
                 $set: newCourse
             }, {
@@ -151,7 +144,6 @@ module.exports = function(db) {
 
     function favoriteCourse(userId, course) {
         var deferred = q.defer();
-        // console.log("course model fav");
 
         // find the course by course ID
         Course.findOne({
@@ -208,7 +200,6 @@ module.exports = function(db) {
 
     function unfavoriteCourse(userId, course) {
         var deferred = q.defer();
-        // console.log("course model fav");
 
         // find the course by course ID
         Course.findOne({
@@ -232,22 +223,6 @@ module.exports = function(db) {
                         }
                     });
                 } else {
-                    // if there's no course, create a new instance
-                    course = new Course({
-                        subject: course.subject,
-                        number: course.number,
-                        title: course.title,
-                        description: course.description,
-                        creditHours: course.creditHours,
-                        lectureHours: course.lectureHours,
-                        prereqs: course.prereqs,
-                        level: course.level,
-                        type: course.type,
-                        likes: []
-                    });
-
-                    // console.log("IN COURSE MODEL FAVORITE COURSE", course);
-
                     // remove user to list of users who like course
                     course.likes.splice(userId);
 

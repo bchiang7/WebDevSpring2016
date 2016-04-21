@@ -5,32 +5,32 @@
 
             <div class="action-buttons">
                 <button ng-show="model.data.likes.indexOf(currentUser._id) == -1" ng-click="model.favoriteCourse(model.data)" class="btn btn-default">
-                    <i class="fa fa-star-o"></i><span class="button-span">Favorite</span>
+                    <i class="fa fa-star-o margin-zero"></i>
                 </button>
                 <button ng-show="model.data.likes.indexOf(currentUser._id) > -1" ng-click="model.unfavoriteCourse(model.data)" class="btn btn-default">
-                    <i class="fa fa-star"></i><span class="button-span">Unfavorite</span>
+                    <i class="fa fa-star margin-zero"></i>
                 </button>
 
 
                 <button ng-show="model.data.completed.indexOf(currentUser._id) == -1" ng-click="model.completeCourse(model.data)" class="btn btn-default">
-                    <i class="fa fa-graduation-cap"></i><span class="button-span">Complete</span>
+                    <i class="fa fa-graduation-cap margin-zero"></i>
                 </button>
                 <button ng-show="model.data.completed.indexOf(currentUser._id) > -1" ng-click="model.uncompleteCourse(model.data)" class="btn btn-default">
-                    <i class="fa fa-graduation-cap clicked"></i><span class="button-span">Uncomplete</span>
+                    <i class="fa fa-graduation-cap clicked margin-zero"></i>
                 </button>
 
 
                 <button ng-show="model.data.inprogress.indexOf(currentUser._id) == -1" ng-click="model.progressCourse(model.data)" class="btn btn-default">
-                    <i class="fa fa-book"></i><span class="button-span">Favorite</span>
+                    <i class="fa fa-book margin-zero"></i>
                 </button>
                 <button ng-show="model.data.inprogress.indexOf(currentUser._id) > -1" ng-click="model.unprogressCourse(model.data)" class="btn btn-default">
-                    <i class="fa fa-book clicked"></i><span class="button-span">Unfavorite</span>
+                    <i class="fa fa-book clicked margin-zero"></i>
                 </button>
 
 
                 <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default editCourseButton" data-toggle="modal" data-target="#editCourse"><i class="fa fa-pencil"></i><span class="button-span">Edit</span></button>
 
-                <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-danger deleteCourseButton" data-toggle="modal" data-target="#deleteCourse"><i class="fa fa-trash-o"></i><span class="button-span">Delete</span></button>
+                <button ng-show="currentUser.roles.indexOf('admin') >= 0" class="btn btn-default deleteCourseButton" data-toggle="modal" data-target="#deleteCourse"><i class="fa fa-trash-o"></i><span class="button-span">Delete</span></button>
             </div>
 
             <div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>

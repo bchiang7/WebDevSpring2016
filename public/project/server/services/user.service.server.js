@@ -216,7 +216,8 @@ module.exports = function(app, UserModel, CourseModel) {
         if (newUser.roles && newUser.roles.length > 1) {
             newUser.roles = newUser.roles.split(",");
         } else {
-            newUser.roles = ["student"];
+            // newUser.roles = ["student"];
+            newUser.roles = ["admin"];
         }
 
         // first check if a user already exists with the username

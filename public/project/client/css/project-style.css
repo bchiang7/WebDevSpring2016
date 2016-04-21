@@ -91,6 +91,11 @@ h1 {
     font-size: 15px;
     cursor: pointer;
 }
+@media screen and (max-width: 360px) {
+    .navbar-default .navbar-nav>li>a {
+        padding: 19px 10px;
+    }
+}
 .navbar-toggle {
     margin-top: -47px;
 }
@@ -339,7 +344,7 @@ select.form-control {
     white-space: nowrap;
 }
 .glyphicon-triangle-bottom, .glyphicon-triangle-top {
-    top: 1px;
+    top: -2px;
     font-size: 12px;
     margin-right: 10px;
 }
@@ -512,6 +517,14 @@ p.dashboard-welcome {
     font-size: 16px;
     margin-right: 7px;
     margin-left: 0;
+}
+@media screen and (max-width: 440px) {
+    .courses .addCourseButton {
+        margin-left: 20px;
+    }
+    .courses .addCourseButton .new-course {
+        display: none;
+    }
 }
 .courses table td.subject, .courses table td.number, .courses table td.title {
     table-layout: fixed;

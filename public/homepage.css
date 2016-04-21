@@ -5,15 +5,9 @@ html, body {
     font-size: 100%;
     font-family: "Lato", sans-serif;
     /*font-family: 'Open Sans', sans-serif;*/
-    box-sizing: border-box;
-    margin: 0;
+    /*box-sizing: border-box;*/
+    margin: 10px;
     padding: 0;
-}
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-@-ms-viewport {
-    width: device-width;
 }
 a {
     color: white;
@@ -67,11 +61,7 @@ body {
     font-weight: 300;
     color: white;
     background-color: rgba(33, 33, 33, 0.9);
-    line-height: 1.45;
-}
-.pad, .hero-content-heading, .hero-content-blurb {
-    padding-right: .75rem;
-    padding-left: .75rem;
+    line-height: 1.5;
 }
 .bg-hero {
     position: fixed;
@@ -134,25 +124,30 @@ body {
 }
 .hero {
     width: 100%;
-    max-width: 36em;
-    margin: 0 auto;
-    display: table;
-    height: 100vh;
+    max-width: 600px;
+    margin: 70px auto 0;
+    display: block;
+    height: auto;
     color: white;
     text-align: center;
 }
 .hero-content {
-    display: table-cell;
-    vertical-align: middle;
-    height: calc(100% - 32em);
-    margin: 1.5rem auto;
+    margin-top: 70px;
+}
+@media screen and (max-width: 480px) {
+    .hero {
+        margin: 0 auto;
+    }
+    .hero-content {
+        margin-top: 30px;
+    }
 }
 .hero-content-heading {
     font-weight: 300;
-    font-size: 2.5em;
+    font-size: 40px;
     text-transform: uppercase;
-    margin-top: 1.5rem;
-    letter-spacing: 0.1em;
+    margin-top: 0px;
+    letter-spacing: 2px;
 }
 
 img.headshot {
@@ -162,8 +157,8 @@ img.headshot {
 }
 
 .hero-content-blurb {
-    font-size: 1.1em;
-    margin: 33px auto 0;
+    font-size: 18px;
+    margin: 35px auto 0;
 }
 
 /* Icons */
